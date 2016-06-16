@@ -18,9 +18,10 @@ import android.view.MenuItem;
 
 import umbucaja.moringa.fragments.AcudesFragment;
 import umbucaja.moringa.fragments.ChuvasFragment;
+import umbucaja.moringa.fragments.SobreFragment;
 
 public class MoringaActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener, SobreFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,8 @@ public class MoringaActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_compartilhar) {
+            Snackbar.make(findViewById(R.id.content_moringa), "Share Everywhere", Snackbar.LENGTH_LONG).show();
             return true;
         }
 
@@ -99,7 +101,12 @@ public class MoringaActivity extends AppCompatActivity
         } else if (id == R.id.nav_chuvas) {
             fragmentClass = ChuvasFragment.class;
             setTitle(item.getTitle());
-        } else if (id == R.id.nav_sair) {
+        } else if (id == R.id.nav_sobre) {
+            fragmentClass = SobreFragment.class;
+            setTitle(item.getTitle());
+            closeOptionsMenu();
+        }
+        else if (id == R.id.nav_sair) {
             finish();
         }
 

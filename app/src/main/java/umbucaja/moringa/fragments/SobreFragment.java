@@ -7,22 +7,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 
 import umbucaja.moringa.R;
-
-import static android.R.layout.simple_dropdown_item_1line;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AcudesFragment.OnFragmentInteractionListener} interface
+ * {@link SobreFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AcudesFragment#newInstance} factory method to
+ * Use the {@link SobreFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AcudesFragment extends Fragment {
+public class SobreFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,7 +30,7 @@ public class AcudesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public AcudesFragment() {
+    public SobreFragment() {
         // Required empty public constructor
     }
 
@@ -44,11 +40,11 @@ public class AcudesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AcudesFragment.
+     * @return A new instance of fragment SobreFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AcudesFragment newInstance(String param1, String param2) {
-        AcudesFragment fragment = new AcudesFragment();
+    public static SobreFragment newInstance(String param1, String param2) {
+        SobreFragment fragment = new SobreFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,20 +61,11 @@ public class AcudesFragment extends Fragment {
         }
     }
 
-    private static final String[] ACUDES = new String[] {
-            "Boqueirão", "Coremas", "Vaca Brava"
-    };
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line,ACUDES);
-        AutoCompleteTextView textView = (AutoCompleteTextView) container.findViewById(R.id.acudes_list);
-        textView.setAdapter(adapter);
-
-        return inflater.inflate(R.layout.fragment_acudes, container, false);
+        return inflater.inflate(R.layout.fragment_sobre, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

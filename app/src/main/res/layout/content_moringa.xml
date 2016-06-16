@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="umbucaja.moringa.MoringaActivity"
-    tools:showIn="@layout/app_bar_moringa">
+    tools:showIn="@layout/app_bar_moringa"
+    android:id="@+id/content_moringa">
 
     <FrameLayout
         android:id="@+id/fragmentView"
