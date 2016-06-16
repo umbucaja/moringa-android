@@ -46,6 +46,11 @@ public class MoringaActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Fragment fragment = AcudesFragment.newInstance("","");
+        setTitle("Açudes");
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragmentView, fragment).commit();
     }
 
     @Override
@@ -89,8 +94,11 @@ public class MoringaActivity extends AppCompatActivity
 
         if (id == R.id.nav_acudes) {
             fragmentClass = AcudesFragment.class;
+            setTitle(item.getTitle());
+
         } else if (id == R.id.nav_chuvas) {
             fragmentClass = ChuvasFragment.class;
+            setTitle(item.getTitle());
         } else if (id == R.id.nav_sair) {
             finish();
         }
