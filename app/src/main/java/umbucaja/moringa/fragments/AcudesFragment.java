@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class AcudesFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private String[] ACUDES = new String[] {"Boqueirão", "Coremas", "Vaca Brava"};
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -65,20 +67,20 @@ public class AcudesFragment extends Fragment {
         }
     }
 
-    private static final String[] ACUDES = new String[] {
-            "Boqueirão", "Coremas", "Vaca Brava"
-    };
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_acudes, container, false);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line,ACUDES);
-        AutoCompleteTextView textView = (AutoCompleteTextView) container.findViewById(R.id.acudes_list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line, ACUDES);
+        Log.d("ACUDE_DEBUG", adapter.toString());
+        AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.acudes_list);
+        Log.d("ACUDE_DEBUG", textView.toString());
         textView.setAdapter(adapter);
+        textView.setThreshold(1);
 
-        return inflater.inflate(R.layout.fragment_acudes, container, false);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
