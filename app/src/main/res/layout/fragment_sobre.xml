@@ -83,7 +83,8 @@
                 android:src="@drawable/ic_linkedin"
                 android:layout_below="@+id/textView1"
                 android:layout_alignStart="@+id/textView1"
-                android:id="@+id/ib_facebook1"
+                android:id="@+id/ib_linkedin_jordao"
+                android:onClick="linkedin()"
                 />
             <ImageButton
                 android:layout_width="37dp"
