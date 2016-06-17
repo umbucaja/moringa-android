@@ -1,13 +1,13 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="umbucaja.moringa.fragments.ChuvasFragment">
+    tools:context="umbucaja.moringa.fragments.ChuvasFragment"
+    android:padding="@dimen/fragment_root_padding">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.AppCompatAutoCompleteTextView
+        android:id="@+id/fragment_chuvas_autocomplete_cidades"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="CHUVAS AQUI" />
+        android:layout_height="wrap_content" />
 
-</FrameLayout>
+</RelativeLayout>
