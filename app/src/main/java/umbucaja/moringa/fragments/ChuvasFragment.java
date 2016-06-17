@@ -4,11 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import umbucaja.moringa.R;
+import umbucaja.moringa.adapter.CityArrayAdapter;
+import umbucaja.moringa.entity.City;
+import umbucaja.moringa.service.CityService;
+import umbucaja.moringa.service.mock.CityServiceMock;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,16 +24,18 @@ import umbucaja.moringa.R;
  * create an instance of this fragment.
  */
 public class ChuvasFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_SELECTED_CITY = "default_city";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String selectedCity;
+    private City[] cities = {};
 
     private OnFragmentInteractionListener mListener;
+
+    /*
+    Fragment Views
+     */
+    private AppCompatAutoCompleteTextView autocompleteCidades;
 
     public ChuvasFragment() {
         // Required empty public constructor
@@ -38,16 +45,13 @@ public class ChuvasFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param selectedCity The default city to load rain measurements.
      * @return A new instance of fragment ChuvasFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ChuvasFragment newInstance(String param1, String param2) {
+    public static ChuvasFragment newInstance(String selectedCity, City[] cities) {
         ChuvasFragment fragment = new ChuvasFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_SELECTED_CITY, selectedCity);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,17 +59,39 @@ public class ChuvasFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CityService cityService = CityServiceMock.getInstance();
+        cities = cityService.listCities().toArray(cities);
+
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            selectedCity = getArguments().getString(ARG_SELECTED_CITY);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chuvas, container, false);
+
+        View view;
+        if (savedInstanceState != null) {
+            // Use savedInstanceState
+            view = super.onCreateView(inflater, container, savedInstanceState);
+        }
+        else {
+            // Inflate the layout for this fragment
+            view = inflater.inflate(R.layout.fragment_chuvas, container, false);
+        }
+
+        if (view != null) {
+            // Get layout views
+            autocompleteCidades = (AppCompatAutoCompleteTextView) view.findViewById(R.id.fragment_chuvas_autocomplete_cidades);
+
+            // load autocomplete content
+            autocompleteCidades.setAdapter(new CityArrayAdapter(getContext(), cities));
+            autocompleteCidades.setText(selectedCity);
+        }
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
