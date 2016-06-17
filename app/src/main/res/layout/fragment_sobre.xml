@@ -1,68 +1,225 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="umbucaja.moringa.fragments.SobreFragment">
+    tools:context="umbucaja.moringa.fragments.SobreFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear_aviso"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Informações"
+            android:textSize="20sp"
+            android:textColor="@android:color/background_dark"
+            android:id="@+id/tv_info"/>
+
+        <com.bluejamesbond.text.DocumentView
+            android:layout_below="@+id/tv_info"
+            android:id="@+id/textview_aviso"
+            xmlns:ext="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ext:documentView_insetPadding="10dp"
+            ext:documentView_insetPaddingBottom="10dp"
+            ext:documentView_insetPaddingLeft="10dp"
+            ext:documentView_insetPaddingRight="10dp"
+            ext:documentView_insetPaddingTop="10dp"
+            ext:documentView_text="    O aplicativo Moringa foi desenvolvido com o intúito de alertar a população Paraibana sobre o problema da escassez de água.\n    É importante frizar que no desenvolvimento deste aplicativo, nós não levamos em consideração o 'volume morto' do reservatório assim como a porcentagem de evaporação das águas."
+            ext:documentView_textAlignment="justified"
+            ext:documentView_textFormat="plain"
+            ext:documentView_textSize="16sp"/>
+
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Moringa Developed by: bla bla bla"
-        android:id="@+id/textView" />
+        android:textSize="20sp"
+        android:text="Desenvolvedores"
+        android:textColor="@android:color/background_dark"
+        android:id="@+id/tv_dev"/>
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="left|top"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:src="@android:mipmap/sym_def_app_icon"
-        android:id="@+id/imageView2" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="left|top"
-        android:src="@android:mipmap/sym_def_app_icon"
-        android:id="@+id/imageView"
-        android:layout_alignTop="@+id/imageView2"
-        android:layout_toEndOf="@+id/imageView2" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="33">
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="left|top"
-        android:src="@android:mipmap/sym_def_app_icon"
-        android:id="@+id/imageView3"
-        android:layout_below="@+id/textView"
-        android:layout_toEndOf="@+id/imageView" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/jordao"
+                app:civ_border_color="#FFFFFF"
+                app:civ_border_width="1dp"
+                android:id="@+id/view"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="left|top"
-        android:src="@android:mipmap/sym_def_app_icon"
-        android:id="@+id/imageView4"
-        android:layout_below="@+id/imageView2"
-        android:layout_alignParentStart="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jordão Serafim"
+                android:id="@+id/textView1"
+                android:layout_below="@+id/view"
+                android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="left|top"
-        android:src="@android:mipmap/sym_def_app_icon"
-        android:id="@+id/imageView5"
-        android:layout_alignTop="@+id/imageView4"
-        android:layout_toStartOf="@+id/imageView3" />
+            <ImageButton
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:src="@drawable/ic_linkedin"
+                android:layout_below="@+id/textView1"
+                android:layout_alignStart="@+id/textView1"
+                android:id="@+id/ib_facebook1"
+                />
+            <ImageButton
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:src="@drawable/ic_github"
+                android:layout_below="@+id/textView1"
+                android:layout_alignEnd="@+id/textView1"
+                />
+        </RelativeLayout>
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="left|top"
-        android:src="@android:mipmap/sym_def_app_icon"
-        android:id="@+id/imageView6"
-        android:layout_below="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView" />
 
-</RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="33">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@mipmap/ic_launcher"
+                app:civ_border_color="#FFFFFF"
+                app:civ_border_width="1dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nome"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="33">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@mipmap/ic_launcher"
+                app:civ_border_color="#FFFFFF"
+                app:civ_border_width="1dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nome"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="33">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@mipmap/ic_launcher"
+                app:civ_border_color="#FFFFFF"
+                app:civ_border_width="1dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nome"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="33">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@mipmap/ic_launcher"
+                app:civ_border_color="#FFFFFF"
+                app:civ_border_width="1dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nome"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="33">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@mipmap/ic_launcher"
+                app:civ_border_color="#FFFFFF"
+                app:civ_border_width="1dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nome"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

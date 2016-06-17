@@ -3,10 +3,15 @@ package umbucaja.moringa.fragments;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -16,6 +21,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import umbucaja.moringa.R;
 
@@ -85,7 +94,11 @@ public class AcudesFragment extends Fragment {
         // check permissions to use GPS
 
         tvLocation = (TextView) rootView.findViewById(R.id.tv_acudes_location);
-        getTvLocation();
+        if(isConnected(getContext())) {
+            getLocation();
+        }else{
+            Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, ACUDES);
         Log.d(DEBUG_TAG, adapter.toString());
@@ -97,16 +110,33 @@ public class AcudesFragment extends Fragment {
         return rootView;
     }
 
-    public String getTvLocation() {
+    public String getLocation() {
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_LOCATION);
         }else {
             Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             Log.d(DEBUG_TAG, loc.toString());
-            tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ")");
+            Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+            try {
+                List<Address> locations = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
+                if(locations.size() > 0){
+                    String cityName = locations.get(0).getLocality();
+                    tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ") | " + cityName);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
         }
         return null;
+    }
+
+    public boolean isConnected(Context context){
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
     @Override
@@ -115,7 +145,16 @@ public class AcudesFragment extends Fragment {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 Log.d(DEBUG_TAG, loc.toString());
-                tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ")");
+                Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                try {
+                    List<Address> locations = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
+                    if(locations.size() > 0){
+                        String cityName = locations.get(0).getLocality();
+                        tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ") | " + cityName);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else{
                 Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
             }
@@ -162,4 +201,5 @@ public class AcudesFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }
