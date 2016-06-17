@@ -1,19 +1,23 @@
 package umbucaja.moringa.fragments;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 
 import umbucaja.moringa.R;
-
-import static android.R.layout.simple_dropdown_item_1line;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,7 +32,12 @@ public class AcudesFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private String[] ACUDES = new String[] {"Boqueirão", "Coremas", "Vaca Brava"};
+
+    private final int REQUEST_LOCATION = 1;
+    private final String DEBUG_TAG = "ACUDES_DEBUG";
+    private TextView tvLocation;
+    private LocationManager locationManager;
+    private String[] ACUDES = new String[]{"Boqueirão", "Coremas", "Vaca Brava"};
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -73,14 +82,46 @@ public class AcudesFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_acudes, container, false);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line, ACUDES);
-        Log.d("ACUDE_DEBUG", adapter.toString());
+        // check permissions to use GPS
+
+        tvLocation = (TextView) rootView.findViewById(R.id.tv_acudes_location);
+        getTvLocation();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, ACUDES);
+        Log.d(DEBUG_TAG, adapter.toString());
         AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.acudes_list);
-        Log.d("ACUDE_DEBUG", textView.toString());
+        Log.d(DEBUG_TAG, textView.toString());
         textView.setAdapter(adapter);
-        textView.setThreshold(1);
+        //textView.setThreshold(1);
 
         return rootView;
+    }
+
+    public String getTvLocation() {
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_LOCATION);
+        }else {
+            Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Log.d(DEBUG_TAG, loc.toString());
+            tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ")");
+        }
+        return null;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if(requestCode == REQUEST_LOCATION){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                Log.d(DEBUG_TAG, loc.toString());
+                tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ")");
+            } else{
+                Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
+            }
+        }else{
+            Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
