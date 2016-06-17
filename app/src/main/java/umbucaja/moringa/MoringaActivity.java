@@ -1,5 +1,6 @@
 package umbucaja.moringa;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,11 +20,13 @@ import android.view.MenuItem;
 
 import umbucaja.moringa.fragments.AcudesFragment;
 import umbucaja.moringa.fragments.ChuvasFragment;
+import umbucaja.moringa.fragments.DesenvolvedoresFragment;
 import umbucaja.moringa.fragments.SobreFragment;
 
 public class MoringaActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener, SobreFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener, SobreFragment.OnFragmentInteractionListener, DesenvolvedoresFragment.OnFragmentInteractionListener {
 
+    private SobreFragment sobreFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +34,6 @@ public class MoringaActivity extends AppCompatActivity
         setContentView(R.layout.activity_moringa);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -103,6 +97,10 @@ public class MoringaActivity extends AppCompatActivity
         } else if (id == R.id.nav_chuvas) {
             fragmentClass = ChuvasFragment.class;
             setTitle(item.getTitle());
+        } else if (id == R.id.nav_desenvolvedores) {
+            fragmentClass = DesenvolvedoresFragment.class;
+            setTitle(item.getTitle());
+            closeOptionsMenu();
         } else if (id == R.id.nav_sobre) {
             fragmentClass = SobreFragment.class;
             setTitle(item.getTitle());
@@ -132,8 +130,11 @@ public class MoringaActivity extends AppCompatActivity
 
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//    }
+    public void openNavigation(View view){
+        String URL = view.getTag().toString();
+        Log.d("URL", URL);
+        Uri uri = Uri.parse(URL);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
 }
