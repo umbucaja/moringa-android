@@ -1,9 +1,15 @@
 package umbucaja.moringa.service.mock;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 
 import umbucaja.moringa.entity.City;
+import umbucaja.moringa.entity.MeasurementStation;
+import umbucaja.moringa.entity.RainFallMeasurement;
 import umbucaja.moringa.service.CityService;
 
 /**
@@ -11,9 +17,11 @@ import umbucaja.moringa.service.CityService;
  */
 public class CityServiceMock implements CityService {
 
+    private static Collection<City> cities;
     private static CityServiceMock cityServiceMock;
 
     private CityServiceMock() {
+        cities = mockCities();
     }
 
     public static CityServiceMock getInstance() {
@@ -25,12 +33,27 @@ public class CityServiceMock implements CityService {
 
     @Override
     public Collection<City> listCities() {
+        return cities;
+    }
+
+    /*
+    Mock Data
+     */
+
+    private Collection<City> mockCities() {
         Collection<City> cities =  new HashSet<>();
-        cities.add(new City(1,"João Pessoa","PB"));
-        cities.add(new City(2,"Campina Grande","PB"));
-        cities.add(new City(3,"Santa Rita","PB"));
-        cities.add(new City(4,"Cajazeiras","PB"));
-        cities.add(new City(5,"Catolé do Rocha","PB"));
+
+        City joaoPessoa =       new City(1,"João Pessoa","PB");
+        City campinaGrande =    new City(2,"Campina Grande","PB");
+        City santaRita =        new City(3,"Santa Rita","PB");
+        City cajazeiras =       new City(4,"Cajazeiras","PB");
+        City catoleDoRocha =    new City(5,"Catolé do Rocha","PB");
+
+        cities.add(joaoPessoa);
+        cities.add(campinaGrande);
+        cities.add(santaRita);
+        cities.add(cajazeiras);
+        cities.add(catoleDoRocha);
         return cities;
     }
 }

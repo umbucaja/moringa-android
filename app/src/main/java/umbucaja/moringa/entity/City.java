@@ -1,5 +1,6 @@
 package umbucaja.moringa.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -12,8 +13,8 @@ public class City {
     private String name;
     private long population;
     private String state;
-    private Collection<MeasurementStation> measurementStations;
-    private Collection<WaterSource> reservoirs;
+    private final Collection<MeasurementStation> measurementStations = new ArrayList<>();
+    private final Collection<WaterSource> reservoirs = new ArrayList<>();
 
     public City(long id, String name, String state) {
         this.id = id;
@@ -45,16 +46,8 @@ public class City {
         return measurementStations;
     }
 
-    public void setMeasurementStations(Collection<MeasurementStation> measurementStations) {
-        this.measurementStations = measurementStations;
-    }
-
     public Collection<WaterSource> getReservoirs() {
         return reservoirs;
-    }
-
-    public void setReservoirs(Collection<WaterSource> reservoirs) {
-        this.reservoirs = reservoirs;
     }
 
     @Override
