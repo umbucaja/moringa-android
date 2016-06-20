@@ -47,7 +47,6 @@ public class AcudesFragment extends Fragment {
     private final String DEBUG_TAG = "ACUDES_DEBUG";
     private TextView tvLocation;
     private LocationManager locationManager;
-    private FragmentActivity activity;
     private View rootView;
     //private String[] ACUDES = new String[]{"Boqueirão", "Coremas", "Vaca Brava"};
     //private ArrayAdapter<String> adapter;
@@ -129,7 +128,7 @@ public class AcudesFragment extends Fragment {
 
 
                     //Populate autocomplete textview
-                    Server.getInstance(getContext()).populateTextViewWithCities(activity, rootView);
+                    Server.getInstance(getContext()).populateTextViewWithCities(rootView);
 
                 }
             } catch (IOException e) {
@@ -161,7 +160,7 @@ public class AcudesFragment extends Fragment {
                         tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ") | " + cityName);
 
                         //Populate autocomplete textview
-                        Server.getInstance(getContext()).populateTextViewWithCities(activity, rootView);
+                        Server.getInstance(getContext()).populateTextViewWithCities(rootView);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

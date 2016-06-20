@@ -1,7 +1,6 @@
 package umbucaja.moringa.service;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -12,7 +11,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import umbucaja.moringa.R;
@@ -44,23 +42,26 @@ public class Server {
         this.context = context;
     }
 
-    public void populateTextViewWithCities(final FragmentActivity activity, final View rootView){
+    public void populateTextViewWithCities(final View rootView){
         new Connector(context, new Connector.Response() {
             @Override
             public void handleResponse(JSONArray output) {
-                List<String> cities = new ArrayList<String>();
+                List<City> cities = new ArrayList<City>();
                 for(int i=0; i < output.length(); i++){
                     try {
                         City city = gson.fromJson(output.getJSONObject(i).toString(), City.class);
-                        cities.add(city.getName());
+                        cities.add(city);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
-                System.out.println(cities.toArray());
+                String[] nomes = new String[cities.size()];
+                for(int i = 0; i < cities.size(); i++){
+                    nomes[i] = cities.get(i).getName();
+                }
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_dropdown_item_1line, (String[])cities.toArray());
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, nomes);
                 AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.acudes_list);
                 textView.setAdapter(adapter);
 
