@@ -1,6 +1,5 @@
 package umbucaja.moringa.entity;
 
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -8,11 +7,11 @@ import java.util.Date;
  */
 public class RainFallMeasurement {
     private long id;
-    private Calendar date;
+    private Date date;
     private float value;
     private String unit;
 
-    public RainFallMeasurement(long id, Calendar date, float value, String unit) {
+    public RainFallMeasurement(long id, Date date, float value, String unit) {
         this.id = id;
         this.date = date;
         this.value = value;
@@ -23,7 +22,7 @@ public class RainFallMeasurement {
         return id;
     }
 
-    public Calendar getDate() {
+    public Date getDate() {
         return date;
     }
 

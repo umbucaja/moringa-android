@@ -112,18 +112,16 @@ public class RainFallMeasurementServiceMock implements RainFallMeasurementServic
             for (int i = 1; i <= qtty; i++) {
                 if (measurements.isEmpty()) {
                     // Add measurement for today
-                    Calendar date = Calendar.getInstance();
-                    date.setTime(new Date());
+                    Date date = new Date();
                     RainFallMeasurement measurement = new RainFallMeasurement(++measurementsMocked, date, (float) Math.random()*50.0f, "mm");
                     measurements.add(measurement);
                 }
                 else {
                     // Add measurement for the day before the last measurement
                     RainFallMeasurement lastMeasurement = measurements.get(measurements.size() -1);
-                    Calendar lastDate = lastMeasurement.getDate();
-                    Calendar date = Calendar.getInstance();
+                    Date lastDate = lastMeasurement.getDate();
                     long dayMilis = 1000*3600*24;
-                    date.setTimeInMillis(lastDate.getTimeInMillis() + dayMilis);
+                    Date date = new Date(lastDate.getTime() + dayMilis);
                     RainFallMeasurement measurement = new RainFallMeasurement(++measurementsMocked, date, (float) Math.random()*50.0f, "mm");
                     measurements.add(measurement);
                 }
