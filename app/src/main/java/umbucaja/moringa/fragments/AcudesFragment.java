@@ -94,11 +94,6 @@ public class AcudesFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_acudes, container, false);
 
-        //adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, ACUDES);
-        //AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.acudes_list);
-        //textView.setAdapter(adapter);
-
-
         // check permissions to use GPS
         tvLocation = (TextView) rootView.findViewById(R.id.tv_acudes_location);
         if(isConnected(getContext())) {
@@ -126,9 +121,8 @@ public class AcudesFragment extends Fragment {
                     String cityName = locations.get(0).getLocality();
                     tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ") | " + cityName);
 
-
                     //Populate autocomplete textview
-                    Server.getInstance(getContext()).populateTextViewWithCities(rootView);
+                    Server.getInstance(getContext()).populateTextViewWithCities(rootView, cityName);
 
                 }
             } catch (IOException e) {
@@ -160,7 +154,9 @@ public class AcudesFragment extends Fragment {
                         tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ") | " + cityName);
 
                         //Populate autocomplete textview
-                        Server.getInstance(getContext()).populateTextViewWithCities(rootView);
+                        Server.getInstance(getContext()).populateTextViewWithCities(rootView, cityName);
+
+                        //set current city as default
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

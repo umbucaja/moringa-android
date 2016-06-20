@@ -42,7 +42,7 @@ public class Server {
         this.context = context;
     }
 
-    public void populateTextViewWithCities(final View rootView){
+    public void populateTextViewWithCities(final View rootView, final String defaultCity){
         new Connector(context, new Connector.Response() {
             @Override
             public void handleResponse(JSONArray output) {
@@ -63,6 +63,7 @@ public class Server {
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, nomes);
                 AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.acudes_list);
+                textView.setText(defaultCity);
                 textView.setAdapter(adapter);
 
             }
