@@ -242,7 +242,7 @@
                 android:src="@drawable/ic_linkedin"
                 android:id="@+id/ib_linkedin_romeryto"
                 android:onClick="openNavigation"
-                android:tag="romeryto"
+                android:tag="https://www.linkedin.com/in/romeryto"
                 android:layout_below="@+id/textView5"
                 android:layout_alignLeft="@+id/view5"
                 android:layout_alignStart="@+id/view5" />

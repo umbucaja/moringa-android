@@ -93,7 +93,6 @@ public class MoringaActivity extends AppCompatActivity
         if (id == R.id.nav_acudes) {
             fragmentClass = AcudesFragment.class;
             setTitle(item.getTitle());
-
         } else if (id == R.id.nav_chuvas) {
             fragmentClass = ChuvasFragment.class;
             setTitle(item.getTitle());
@@ -105,8 +104,7 @@ public class MoringaActivity extends AppCompatActivity
             fragmentClass = SobreFragment.class;
             setTitle(item.getTitle());
             closeOptionsMenu();
-        }
-        else if (id == R.id.nav_sair) {
+        } else if (id == R.id.nav_sair) {
             finish();
         }
 
