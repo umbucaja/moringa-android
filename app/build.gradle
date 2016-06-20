@@ -27,4 +27,5 @@ dependencies {
     compile 'com.android.support:design:24.0.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.github.bluejamesbond:textjustify-android:2.1.6'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
 }
