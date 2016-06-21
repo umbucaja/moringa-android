@@ -3,6 +3,7 @@ package umbucaja.moringa;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import umbucaja.moringa.fragments.AcudesFragment;
 import umbucaja.moringa.fragments.ChuvasFragment;
@@ -31,6 +35,18 @@ public class MoringaActivity extends AppCompatActivity
         setContentView(R.layout.activity_moringa);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+        CollapsingToolbarLayout collapsingToolbar =
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+
+
+        final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
+        Glide.with(this).load(R.drawable.water_1).centerCrop().into(imageView);
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
