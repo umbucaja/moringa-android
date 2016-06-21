@@ -21,7 +21,7 @@ import umbucaja.moringa.entity.City;
  */
 public class Server {
 
-    private final String URL = "http://192.168.1.105:8080/";
+    private final String URL = "http://192.168.1.100:8080/";
     private Context context;
     private Gson gson;
 
