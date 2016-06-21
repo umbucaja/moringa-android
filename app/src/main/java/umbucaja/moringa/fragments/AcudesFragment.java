@@ -13,13 +13,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Locale;
 
 import umbucaja.moringa.R;
+import umbucaja.moringa.service.Server;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,7 +47,9 @@ public class AcudesFragment extends Fragment {
     private final String DEBUG_TAG = "ACUDES_DEBUG";
     private TextView tvLocation;
     private LocationManager locationManager;
-    private String[] ACUDES = new String[]{"Boqueirão", "Coremas", "Vaca Brava"};
+    private View rootView;
+    //private String[] ACUDES = new String[]{"Boqueirão", "Coremas", "Vaca Brava"};
+    //private ArrayAdapter<String> adapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -89,10 +92,9 @@ public class AcudesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_acudes, container, false);
+        rootView = inflater.inflate(R.layout.fragment_acudes, container, false);
 
         // check permissions to use GPS
-
         tvLocation = (TextView) rootView.findViewById(R.id.tv_acudes_location);
         if(isConnected(getContext())) {
             getLocation();
@@ -100,11 +102,6 @@ public class AcudesFragment extends Fragment {
             Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, ACUDES);
-        Log.d(DEBUG_TAG, adapter.toString());
-        AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.acudes_list);
-        Log.d(DEBUG_TAG, textView.toString());
-        textView.setAdapter(adapter);
         //textView.setThreshold(1);
 
         return rootView;
@@ -123,6 +120,10 @@ public class AcudesFragment extends Fragment {
                 if(locations.size() > 0){
                     String cityName = locations.get(0).getLocality();
                     tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ") | " + cityName);
+
+                    //Populate autocomplete textview
+                    Server.getInstance(getContext()).populateTextViewWithCities(rootView, cityName);
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -151,6 +152,11 @@ public class AcudesFragment extends Fragment {
                     if(locations.size() > 0){
                         String cityName = locations.get(0).getLocality();
                         tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ") | " + cityName);
+
+                        //Populate autocomplete textview
+                        Server.getInstance(getContext()).populateTextViewWithCities(rootView, cityName);
+
+                        //set current city as default
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
