@@ -40,7 +40,10 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
     @Override
     public void onBindViewHolder(WaterSourceViewHolder holder, int position) {
         WaterSource waterSource = waterSources.get(position);
-        holder.tvName.setText(waterSource.getName());
+        holder.tvName.setText(waterSource.getType()+" "+waterSource.getName());
+        holder.tvPercentage.setText(waterSource.getPercentage());
+        holder.tvDate.setText(waterSource.getDateLastVolume());
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

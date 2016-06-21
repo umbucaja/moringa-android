@@ -105,8 +105,8 @@ public class AcudesFragment extends Fragment {
         // check permissions to use GPS
         tvLocation = (TextView) rootView.findViewById(R.id.tv_acudes_location);
         waterSourcesList = new ArrayList<>();
-        WaterSource w1 = new WaterSource(1, "Farinha", 200, "m³", "Açude");
-        WaterSource w2 = new WaterSource(2, "Jatoba", 300, "m³", "Açude");
+        WaterSource w1 = new WaterSource(1, "Farinha", 200, "m³", "Açude", "40%", "323315", "20/06/2016");
+        WaterSource w2 = new WaterSource(2, "Jatobá", 300, "m³", "Açude",  "20%", "323315", "01/06/2016");
         waterSourcesList.add(w1);
         waterSourcesList.add(w2);
         WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(this.getContext(),waterSourcesList);
