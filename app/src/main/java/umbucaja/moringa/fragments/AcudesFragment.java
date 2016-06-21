@@ -15,10 +15,16 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -27,7 +33,9 @@ import java.util.List;
 import java.util.Locale;
 
 import umbucaja.moringa.R;
+import umbucaja.moringa.adapter.SearchViewAdapter;
 import umbucaja.moringa.service.Server;
+import umbucaja.moringa.util.GlobalData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,8 +56,10 @@ public class AcudesFragment extends Fragment {
     private TextView tvLocation;
     private LocationManager locationManager;
     private View rootView;
-    //private String[] ACUDES = new String[]{"Boqueirão", "Coremas", "Vaca Brava"};
-    //private ArrayAdapter<String> adapter;
+    private SearchViewAdapter searchView;
+
+
+    private String[] CIDADES = new String[]{"Campina Grande", "Remigio", "João Pessoa"};
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -86,6 +96,39 @@ public class AcudesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchViewAdapter) MenuItemCompat.getActionView(searchItem);
+        searchView.setQueryHint("Buscar Cidade...");
+        searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                searchView.setText(parent.getItemAtPosition(position).toString());
+
+            }
+        });
+
+        getLocation();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("BUSCAR POR", query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("TEXTO", newText);
+                //TODO: pode mudar os adapters aqui
+                return false;
+            }
+        });
     }
 
     @Override
@@ -96,9 +139,9 @@ public class AcudesFragment extends Fragment {
 
         // check permissions to use GPS
         tvLocation = (TextView) rootView.findViewById(R.id.tv_acudes_location);
-        if(isConnected(getContext())) {
-            getLocation();
-        }else{
+        if (isConnected(getContext())) {
+            //getLocation();
+        } else {
             Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
         }
 
@@ -111,18 +154,18 @@ public class AcudesFragment extends Fragment {
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_LOCATION);
-        }else {
+        } else {
             Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             Log.d(DEBUG_TAG, loc.toString());
             Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
             try {
                 List<Address> locations = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
-                if(locations.size() > 0){
+                if (locations.size() > 0) {
                     String cityName = locations.get(0).getLocality();
                     tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ") | " + cityName);
 
-                    //Populate autocomplete textview
-                    Server.getInstance(getContext()).populateTextViewWithCities(rootView, cityName);
+                    //Populate autocomplete searchView
+                    Server.getInstance(getContext()).populateToolbarCities(searchView, cityName);
 
                 }
             } catch (IOException e) {
@@ -134,7 +177,7 @@ public class AcudesFragment extends Fragment {
         return null;
     }
 
-    public boolean isConnected(Context context){
+    public boolean isConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
@@ -142,29 +185,29 @@ public class AcudesFragment extends Fragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if(requestCode == REQUEST_LOCATION){
+        if (requestCode == REQUEST_LOCATION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 Log.d(DEBUG_TAG, loc.toString());
                 Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                 try {
                     List<Address> locations = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
-                    if(locations.size() > 0){
+                    if (locations.size() > 0) {
                         String cityName = locations.get(0).getLocality();
                         tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ") | " + cityName);
 
-                        //Populate autocomplete textview
-                        Server.getInstance(getContext()).populateTextViewWithCities(rootView, cityName);
+                        //Populate autocomplete searchView
+                        Server.getInstance(getContext()).populateToolbarCities(searchView, cityName);
 
                         //set current city as default
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else{
+            } else {
                 Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
             }
-        }else{
+        } else {
             Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
         }
     }

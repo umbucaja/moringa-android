@@ -3,6 +3,7 @@ package umbucaja.moringa.service;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v7.widget.SearchView;
 
 import com.google.gson.Gson;
 
@@ -35,10 +36,12 @@ public class Connector extends AsyncTask<String, Void, JSONArray> {
 
     @Override
     protected void onPreExecute() {
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Requisitando dados...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        if(context != null) {
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setMessage("Requisitando dados...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
     }
 
     @Override
@@ -71,7 +74,8 @@ public class Connector extends AsyncTask<String, Void, JSONArray> {
 
     @Override
     protected void onPostExecute(JSONArray output) {
-        progressDialog.dismiss();
+        if(progressDialog != null)
+            progressDialog.dismiss();
         response.handleResponse(output);
     }
 
