@@ -6,8 +6,8 @@
         android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"
         app:showAsAction="always"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        android:actionLayout="@layout/toolbar_search_view"
-        android:title="Search"/>
+        app:actionViewClass="umbucaja.moringa.adapter.SearchViewAdapter"
+        android:actionViewClass="umbucaja.moringa.adapter.SearchViewAdapter"
+        android:title="Search" />
 
 </menu>

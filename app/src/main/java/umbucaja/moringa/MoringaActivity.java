@@ -12,7 +12,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -29,9 +28,6 @@ import umbucaja.moringa.fragments.SobreFragment;
 
 public class MoringaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener, SobreFragment.OnFragmentInteractionListener, DesenvolvedoresFragment.OnFragmentInteractionListener {
-
-    private MenuItem myActionMenuItem;
-    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,27 +61,6 @@ public class MoringaActivity extends AppCompatActivity
         setTitle("Info Açudes");
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragmentView, fragment).commit();
-
-
-//        ActionBar actionBar = getActionBar();
-//        //actionBar.setDisplayHomeAsUpEnabled(true);
-//        //actionBar.setDisplayShowCustomEnabled(true);
-//        // actionBar.setDisplayShowTitleEnabled(false);
-//        // actionBar.setIcon(R.drawable.ic_action_search);
-//
-//        LayoutInflater inflator = (LayoutInflater) this
-//                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View v = inflator.inflate(R.layout.toolbar_search_view, null);
-//
-//        actionBar.setCustomView(v);
-//
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_dropdown_item_1line, COUNTRIES);
-//        AutoCompleteTextView textView = (AutoCompleteTextView) v
-//                .findViewById(R.id.textView);
-//        textView.setAdapter(adapter);
-
-
     }
 
     @Override
@@ -102,27 +77,6 @@ public class MoringaActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.moringa, menu);
-
-        myActionMenuItem = menu.findItem( R.id.action_search);
-        searchView = (SearchView) myActionMenuItem.getActionView();
-        searchView.setQueryHint("Buscar Cidade...");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                if( ! searchView.isIconified()) {
-                    searchView.setIconified(true);
-                }
-                Log.d("BUSCAR POR", query);
-                myActionMenuItem.collapseActionView();
-                return false;
-            }
-            @Override
-            public boolean onQueryTextChange(String s) {
-                Log.d("TEXTO", s);
-                //TODO: pode mudar os adapters aqui
-                return false;
-            }
-        });
 
         return true;
     }
