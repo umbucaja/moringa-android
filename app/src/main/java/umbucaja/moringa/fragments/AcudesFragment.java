@@ -13,9 +13,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,18 +25,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import umbucaja.moringa.R;
 import umbucaja.moringa.adapter.SearchViewAdapter;
+import umbucaja.moringa.adapter.WaterSourceRecyclerAdapter;
+import umbucaja.moringa.entity.WaterSource;
 import umbucaja.moringa.service.Server;
-import umbucaja.moringa.util.GlobalData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,6 +67,9 @@ public class AcudesFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView waterSourcesRecyclerView;
+    private List<WaterSource> waterSourcesList;
 
     private OnFragmentInteractionListener mListener;
 
@@ -139,9 +145,27 @@ public class AcudesFragment extends Fragment {
 
         // check permissions to use GPS
         tvLocation = (TextView) rootView.findViewById(R.id.tv_acudes_location);
-        if (isConnected(getContext())) {
+        waterSourcesList = new ArrayList<>();
+        WaterSource w1 = new WaterSource(1, "Farinha", 200, "m³", "Açude", "40%", "323315", "20/06/2016");
+        WaterSource w2 = new WaterSource(2, "Jatobá", 300, "m³", "Açude",  "20%", "323315", "01/06/2016");
+        waterSourcesList.add(w1);
+        waterSourcesList.add(w2);
+        WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(this.getContext(),waterSourcesList);
+        waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
+        waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
+        waterSourcesRecyclerView.setAnimation(new Animation() {
+            @Override
+            protected Animation clone() throws CloneNotSupportedException {
+                return super.clone();
+            }
+        });
+        waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+
+
+        if(isConnected(getContext())) {
             //getLocation();
-        } else {
+        }else{
             Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
         }
 

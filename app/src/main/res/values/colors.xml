@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="orange_percentage">#eb6912</color>
+    <color name="orange_date_text">#eb6912</color>
+    <color name="blue_percentage">#055577</color>
+    <color name="blue_water_source_name">#055577</color>
+    <color name="green_aux_text">#859e98</color>
+    <color name="red_percentage">#ff022c</color>
+
+
 </resources>
