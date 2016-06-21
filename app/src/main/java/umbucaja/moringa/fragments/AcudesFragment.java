@@ -114,12 +114,16 @@ public class AcudesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                searchView.setText(parent.getItemAtPosition(position).toString());
+            searchView.setText(parent.getItemAtPosition(position).toString());
 
             }
         });
 
-        getLocation();
+        if(isConnected(getContext())) {
+            getLocation();
+        }else{
+            Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
+        }
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -162,14 +166,6 @@ public class AcudesFragment extends Fragment {
         waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
 
-
-        if(isConnected(getContext())) {
-            //getLocation();
-        }else{
-            Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
-        }
-
-        //textView.setThreshold(1);
 
         return rootView;
     }
