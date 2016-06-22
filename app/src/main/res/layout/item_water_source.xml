@@ -12,7 +12,7 @@
         android:id="@+id/card_view"
         android:layout_gravity="center"
         android:layout_width="fill_parent"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         card_view:cardCornerRadius="4dp"
         android:paddingBottom="5dp"
         android:paddingTop="5dp">
@@ -28,14 +28,19 @@
 
                 <RelativeLayout
                     android:layout_weight="5">
-                    <ImageView
-                        android:id="@+id/imageView1"
-                        android:layout_width="40dp"
-                        app:gravity="center_horizontal"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/glass_water"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true" />
+
+                    <ProgressBar
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/progress_bar_id"
+                        android:max="100"
+                        android:progress="50"
+                        android:progressDrawable="@drawable/progress_drawable"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"/>
+
                 </RelativeLayout>
                 <LinearLayout
                     android:layout_weight="5"

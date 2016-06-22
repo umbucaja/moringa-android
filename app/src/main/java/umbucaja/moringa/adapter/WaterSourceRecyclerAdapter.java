@@ -51,16 +51,21 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
         float actualVolume = 0;
         String date = "";
         if(wsms!=null){
-            actualVolume = wsms.get(0).getValue();
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            date = formatter.format(wsms.get(0).getDate());
+            if(wsms.size()>0){
+                actualVolume = wsms.get(0).getValue();
+                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                date = formatter.format(wsms.get(0).getDate());
+            }else{
+
+            }
+
         }
         percentage = (actualVolume*100)/capacity;
 
 
-
         holder.tvPercentage.setText(String.format("%.1f%s",percentage,"%"));
         holder.tvDate.setText(date);
+        holder.progressBarPercentage.setProgress((int)percentage);
 
     }
 
