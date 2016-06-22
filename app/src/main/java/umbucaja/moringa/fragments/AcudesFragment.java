@@ -38,6 +38,7 @@ import java.util.Locale;
 import umbucaja.moringa.R;
 import umbucaja.moringa.adapter.SearchViewAdapter;
 import umbucaja.moringa.adapter.WaterSourceRecyclerAdapter;
+import umbucaja.moringa.entity.City;
 import umbucaja.moringa.entity.WaterSource;
 import umbucaja.moringa.service.Server;
 
@@ -116,15 +117,15 @@ public class AcudesFragment extends Fragment {
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                searchView.setText(parent.getItemAtPosition(position).toString());
+                City city = (City) parent.getAdapter().getItem(position);
+                searchView.setText(city.getName());
 
                 waterSourcesList = new ArrayList<>();
                 activity.setTitle(parent.getItemAtPosition(position).toString());
 
-
                 searchView.clearFocus();
 
-                waterSourcesList = Server.getInstance(getContext()).getWaterAllSourcesFromCity(1);
+                waterSourcesList = Server.getInstance(getContext()).getWaterAllSourcesFromCity(city.getId());
 
 
                 WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(getContext(),waterSourcesList);
