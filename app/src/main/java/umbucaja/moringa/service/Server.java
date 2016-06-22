@@ -28,10 +28,9 @@ import umbucaja.moringa.util.GlobalData;
  */
 public class Server {
 
-    private final String URL = "http://192.168.1.105:8080/";
+    private final String URL = "http://192.168.1.100:8080/";
     private Context context;
     private Gson gson;
-    private ArrayAdapter<String> adapter;
 
     private static Server server;
 
@@ -61,7 +60,7 @@ public class Server {
     }
 
     public void populateToolbarCities(final SearchViewAdapter searchView, final String cityName) {
-        if(GlobalData.cityNames == null)
+        if(GlobalData.cities == null)
             new Connector(context, new Connector.Response() {
                 @Override
                 public void handleResponse(JSONArray output) {
@@ -78,27 +77,27 @@ public class Server {
                         }
                     }
 
-                    String[] nomes = new String[cities.size()];
+                    City[] arrayCities = new City[cities.size()];
                     for(int i = 0; i < cities.size(); i++){
-                        nomes[i] = cities.get(i).getName();
+                        arrayCities[i] = cities.get(i);
                     }
 
-                    GlobalData.setCityNames(nomes);
+                    GlobalData.setCities(arrayCities);
 
-                    adapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, nomes);
+                    ArrayAdapter<City> adapter = new ArrayAdapter<City>(context, android.R.layout.simple_dropdown_item_1line, arrayCities);
                     searchView.setText(cityName);
                     searchView.setAdapter(adapter);
                 }
             }).execute(URL + "cities");
         else{
-            adapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, GlobalData.cityNames);
+            ArrayAdapter<City> adapter = new ArrayAdapter<City>(context, android.R.layout.simple_dropdown_item_1line, GlobalData.cities);
             searchView.setText(cityName);
             searchView.setAdapter(adapter);
         }
     }
 
 
-    public List<WaterSource> getWaterAllSourcesFromCity(int idCity) {
+    public List<WaterSource> getWaterAllSourcesFromCity(long idCity) {
         final List<WaterSource> waterSources = new ArrayList<>();
             new Connector(context, new Connector.Response() {
                 @Override

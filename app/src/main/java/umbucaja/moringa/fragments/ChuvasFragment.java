@@ -11,9 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import umbucaja.moringa.R;
-import umbucaja.moringa.adapter.CityArrayAdapter;
 import umbucaja.moringa.entity.City;
 import umbucaja.moringa.service.CityService;
 import umbucaja.moringa.service.mock.CityServiceMock;
@@ -150,7 +150,7 @@ public class ChuvasFragment extends Fragment {
             autocompleteCidades.setOnItemSelectedListener(autocompleteCidadesListener);
 
             // load autocomplete content
-            autocompleteCidades.setAdapter(new CityArrayAdapter(getContext(), cities));
+            autocompleteCidades.setAdapter(new ArrayAdapter<City>(getContext(), android.R.layout.simple_list_item_1, cities));
             autocompleteCidades.setText(selectedCity);
         }
 
