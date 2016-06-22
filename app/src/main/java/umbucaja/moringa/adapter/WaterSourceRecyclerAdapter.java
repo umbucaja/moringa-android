@@ -6,10 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import umbucaja.moringa.R;
 import umbucaja.moringa.entity.WaterSource;
+import umbucaja.moringa.entity.WaterSourceMeasurement;
 
 /**
  * Created by Romeryto on 21/06/2016.
@@ -41,8 +44,23 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
     public void onBindViewHolder(WaterSourceViewHolder holder, int position) {
         WaterSource waterSource = waterSources.get(position);
         holder.tvName.setText(waterSource.getType()+" "+waterSource.getName());
-        holder.tvPercentage.setText(waterSource.getPercentage());
-        holder.tvDate.setText(waterSource.getDateLastVolume());
+        float capacity = waterSource.getCapacity();
+        List<WaterSourceMeasurement> wsms = waterSource.getReservoirMeasurements();
+        float percentage = 0;
+
+        float actualVolume = 0;
+        String date = "";
+        if(wsms!=null){
+            actualVolume = wsms.get(0).getValue();
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            date = formatter.format(wsms.get(0).getDate());
+        }
+        percentage = (actualVolume*100)/capacity;
+
+
+
+        holder.tvPercentage.setText(String.format("%.1f%s",percentage,"%"));
+        holder.tvDate.setText(date);
 
     }
 
@@ -51,4 +69,6 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
     public int getItemCount() {
         return waterSources.size();
     }
+
+
 }

@@ -1,7 +1,10 @@
 package umbucaja.moringa;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
@@ -25,6 +28,7 @@ import umbucaja.moringa.fragments.AcudesFragment;
 import umbucaja.moringa.fragments.ChuvasFragment;
 import umbucaja.moringa.fragments.DesenvolvedoresFragment;
 import umbucaja.moringa.fragments.SobreFragment;
+import umbucaja.moringa.util.ImageColor;
 
 public class MoringaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener, SobreFragment.OnFragmentInteractionListener, DesenvolvedoresFragment.OnFragmentInteractionListener {
@@ -44,8 +48,20 @@ public class MoringaActivity extends AppCompatActivity
 
 
         final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-        Glide.with(this).load(R.drawable.water_1).centerCrop().into(imageView);
+        Glide.with(this).load(R.drawable.logo_top).centerCrop().into(imageView);
 
+        Bitmap icon = BitmapFactory.decodeResource(this.getResources(),
+                R.drawable.logo_top);
+        if (Build.VERSION.SDK_INT >= 21) {
+
+            getWindow().setNavigationBarColor(ImageColor.getDominantColor(icon));
+            //getWindow().setStatusBarColor(ImageColor.getDominantColor(icon));
+        }
+        //getSupportActionBar().setBackgroundDrawable(colorDrawable);
+       // android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+       // actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+        //toolbar.setBackground(new ColorDrawable(Color.parseColor("#FFFFFF")));
+        //}
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -62,6 +78,7 @@ public class MoringaActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragmentView, fragment).commit();
     }
+
 
     @Override
     public void onBackPressed() {

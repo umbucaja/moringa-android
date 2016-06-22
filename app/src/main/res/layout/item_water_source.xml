@@ -12,89 +12,95 @@
         android:id="@+id/card_view"
         android:layout_gravity="center"
         android:layout_width="fill_parent"
-        android:layout_height="140dp"
-        card_view:cardCornerRadius="4dp">
-
-        <GridLayout
-            android:id="@+id/grid"
+        android:layout_height="150dp"
+        card_view:cardCornerRadius="4dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:layout_columnWeight="1"
-            >
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="fill"
-                android:layout_columnWeight="0.5"
-                android:layout_rowWeight="0.5">
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="40dp"
-                    app:gravity="center_horizontal"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/glass_water"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
+            android:orientation="vertical" >
+            <TableRow
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:layout_columnWeight="0.5"
-                android:layout_rowWeight="0.5">
+                android:weightSum="10">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_water_source_percentage"
-                    android:text="40%"
-                    android:textSize="60dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/red_percentage"
-                    android:layout_centerHorizontal="true"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_water_source_name"
-                    android:text="sadfsadfsad"
-                    android:textColor="@color/blue_water_source_name"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/tv_water_source_percentage"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_water_source_in"
-                    android:text="Em:"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/green_aux_text"
-                    android:layout_below="@+id/tv_water_source_name"
-                    android:layout_alignLeft="@+id/tv_water_source_name"
-                    android:layout_alignStart="@+id/tv_water_source_name" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_water_source_last_measurement_date"
-                    android:text="10/06/2016"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/orange_date_text"
-                    android:layout_below="@+id/tv_water_source_name"
-                    android:layout_toRightOf="@+id/tv_water_source_in"
-                    android:layout_toEndOf="@+id/tv_water_source_in" />
+                <RelativeLayout
+                    android:layout_weight="5">
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="40dp"
+                        app:gravity="center_horizontal"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/glass_water"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_weight="5"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal">
 
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_water_source_percentage"
+                        android:text="40%"
+                        android:textSize="40dp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="@color/red_percentage" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_water_source_name"
+                        android:textColor="@color/blue_water_source_name"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:text="Açude Engenheiro Ávidos"
+                        android:maxLines="2"
+                        android:gravity="center"
+                        android:ellipsize="end"
+                        />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_water_source_in"
+                            android:text="Em:  "
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/green_aux_text"
+                            android:ellipsize="end"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_water_source_last_measurement_date"
+                            android:text="10/06/2016"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/orange_date_text"
+                            android:ellipsize="end"/>
+                    </LinearLayout>
 
 
-        </GridLayout>
+                </LinearLayout>
+
+
+
+
+
+            </TableRow>
+
+        </LinearLayout>
+
+
+
 
     </android.support.v7.widget.CardView>
 

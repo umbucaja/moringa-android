@@ -1,6 +1,7 @@
 package umbucaja.moringa.fragments;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -60,7 +61,9 @@ public class AcudesFragment extends Fragment {
     private LocationManager locationManager;
     private View rootView;
     private SearchViewAdapter searchView;
+    private String cityName ="";
 
+    private Activity activity;
 
     private String[] CIDADES = new String[]{"Campina Grande", "Remigio", "João Pessoa"};
 
@@ -107,14 +110,30 @@ public class AcudesFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+
         searchView = (SearchViewAdapter) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint("Buscar Cidade...");
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 searchView.setText(parent.getItemAtPosition(position).toString());
+
+                waterSourcesList = new ArrayList<>();
+                activity.setTitle(parent.getItemAtPosition(position).toString());
+
+
+                searchView.clearFocus();
+
+                waterSourcesList = Server.getInstance(getContext()).getWaterAllSourcesFromCity(1);
+
+
+                WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(getContext(),waterSourcesList);
+                waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
+                waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
+
+                waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
             }
         });
@@ -125,6 +144,8 @@ public class AcudesFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.d("BUSCAR POR", query);
+                searchView.setIconified(true);
+                searchView.clearFocus();
                 return false;
             }
 
@@ -145,22 +166,8 @@ public class AcudesFragment extends Fragment {
 
         // check permissions to use GPS
         tvLocation = (TextView) rootView.findViewById(R.id.tv_acudes_location);
-        waterSourcesList = new ArrayList<>();
-        WaterSource w1 = new WaterSource(1, "Farinha", 200, "m³", "Açude", "40%", "323315", "20/06/2016");
-        WaterSource w2 = new WaterSource(2, "Engenheiro Ávidos", 300, "m³", "Açude",  "20%", "323315", "01/06/2016");
-        waterSourcesList.add(w1);
-        waterSourcesList.add(w2);
-        WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(this.getContext(),waterSourcesList);
-        waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
-        waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
-        waterSourcesRecyclerView.setAnimation(new Animation() {
-            @Override
-            protected Animation clone() throws CloneNotSupportedException {
-                return super.clone();
-            }
-        });
-        waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-
+        activity = this.getActivity();
+        //activity.setTitle("Patossss");
 
 
         if(isConnected(getContext())) {

@@ -18,8 +18,6 @@ public class WaterSourceViewHolder extends RecyclerView.ViewHolder {
     public TextView tvDate;
 
 
-
-
     public WaterSourceViewHolder(Context context, View itemView){
         super(itemView);
         this.context = context;

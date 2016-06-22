@@ -1,21 +1,26 @@
 package umbucaja.moringa.service;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import umbucaja.moringa.R;
 import umbucaja.moringa.adapter.SearchViewAdapter;
 import umbucaja.moringa.entity.City;
+import umbucaja.moringa.entity.WaterSource;
 import umbucaja.moringa.util.GlobalData;
 
 /**
@@ -23,7 +28,7 @@ import umbucaja.moringa.util.GlobalData;
  */
 public class Server {
 
-    private final String URL = "http://192.168.1.100:8080/";
+    private final String URL = "http://192.168.1.105:8080/";
     private Context context;
     private Gson gson;
     private ArrayAdapter<String> adapter;
@@ -38,7 +43,17 @@ public class Server {
     }
 
     private Server(){
-        this.gson = new Gson();
+        GsonBuilder builder = new GsonBuilder();
+
+// Register an adapter to manage the date types as long values
+        builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+            public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                return new Date(json.getAsJsonPrimitive().getAsLong());
+            }
+        });
+
+        //Gson gson = builder.create();
+        this.gson = builder.create();
     }
 
     public void setContext(Context context) {
@@ -80,6 +95,30 @@ public class Server {
             searchView.setText(cityName);
             searchView.setAdapter(adapter);
         }
+    }
+
+
+    public List<WaterSource> getWaterAllSourcesFromCity(int idCity) {
+        final List<WaterSource> waterSources = new ArrayList<>();
+            new Connector(context, new Connector.Response() {
+                @Override
+                public void handleResponse(JSONArray output) {
+                    if(output == null)
+                        return;
+
+                    for(int i=0; i < output.length(); i++){
+                        try {
+                            //String gsonS = "[{"id":72,"name":"Epitácio Pessoa","measurementUnit":"m³","capacity":4.11686272E8,"type":"Açude","waterSourceMeasurements":[{"id":91,"value":3.6371552E7,"date":1466564400000}]}]""
+                            WaterSource waterSource = gson.fromJson(output.getJSONObject(i).toString(), WaterSource.class);
+                            waterSources.add(waterSource);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+            }).execute(URL + "cities/"+idCity+"/watersources");
+        return waterSources;
     }
 
 }

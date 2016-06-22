@@ -3,7 +3,6 @@ package umbucaja.moringa.service;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.widget.SearchView;
 
 import com.google.gson.Gson;
 
@@ -61,12 +60,14 @@ public class Connector extends AsyncTask<String, Void, JSONArray> {
 
             String line = bufferedReader.readLine();
             jsonArray = new JSONArray(line);
-
+            //Thread.sleep(10000);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
-        } finally {
+        }
+
+         finally {
             urlConnection.disconnect();
         }
         return jsonArray;
