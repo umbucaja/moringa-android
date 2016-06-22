@@ -110,8 +110,7 @@ public class AcudesFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        final MenuItem searchItem = menu.findItem(R.id.action_search);
-
+        MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchViewAdapter) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint("Buscar Cidade...");
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -138,7 +137,11 @@ public class AcudesFragment extends Fragment {
             }
         });
 
-        getLocation();
+        if(isConnected(getContext())) {
+            getLocation();
+        }else{
+            Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
+        }
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
