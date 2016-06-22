@@ -74,7 +74,7 @@ public class MoringaActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Fragment fragment = AcudesFragment.newInstance("","");
-        setTitle("Info Açudes");
+        setTitle("Açudes");
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragmentView, fragment).commit();
     }

@@ -6,11 +6,11 @@
             android:id="@+id/nav_acudes"
             android:checked="true"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Info Açudes" />
+            android:title="Açudes" />
         <item
             android:id="@+id/nav_chuvas"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Info Chuvas" />
+            android:title="Chuvas" />
         <item
             android:id="@+id/nav_desenvolvedores"
             android:icon="@drawable/ic_menu_camera"

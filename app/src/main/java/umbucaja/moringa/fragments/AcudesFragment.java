@@ -13,6 +13,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -62,7 +63,7 @@ public class AcudesFragment extends Fragment {
     private LocationManager locationManager;
     private View rootView;
     private SearchViewAdapter searchView;
-    private String cityName ="";
+    private String cityName = "";
 
     private Activity activity;
 
@@ -111,7 +112,7 @@ public class AcudesFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchViewAdapter) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint("Buscar Cidade...");
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -121,14 +122,17 @@ public class AcudesFragment extends Fragment {
                 searchView.setText(city.getName());
 
                 waterSourcesList = new ArrayList<>();
-                activity.setTitle(parent.getItemAtPosition(position).toString());
 
+                //getActivity().invalidateOptionsMenu();
                 searchView.clearFocus();
+                searchView.setQuery("", false);
+                searchView.setIconified(true);
+                activity.setTitle(city.getName());
 
                 waterSourcesList = Server.getInstance(getContext()).getWaterAllSourcesFromCity(city.getId());
 
 
-                WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(getContext(),waterSourcesList);
+                WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(getContext(), waterSourcesList);
                 waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
                 waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
 
@@ -138,9 +142,9 @@ public class AcudesFragment extends Fragment {
             }
         });
 
-        if(isConnected(getContext())) {
+        if (isConnected(getContext())) {
             getLocation();
-        }else{
+        } else {
             Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
         }
 
@@ -148,8 +152,7 @@ public class AcudesFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.d("BUSCAR POR", query);
-                searchView.setIconified(true);
-                searchView.clearFocus();
+                //TODO: buscar pela cidade e atualizar o view
                 return false;
             }
 
@@ -174,14 +177,14 @@ public class AcudesFragment extends Fragment {
         //activity.setTitle("Patossss");
 
 
-        if(isConnected(getContext())) {
+        if (isConnected(getContext())) {
             //getLocation();
-        }else{
+        } else {
             Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
         }
 
         //textView.setThreshold(1);
-
+        setHasOptionsMenu(true);
         return rootView;
     }
 
@@ -201,6 +204,7 @@ public class AcudesFragment extends Fragment {
 
                     //Populate autocomplete searchView
                     Server.getInstance(getContext()).populateToolbarCities(searchView, cityName);
+
 
                 }
             } catch (IOException e) {
@@ -222,6 +226,9 @@ public class AcudesFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == REQUEST_LOCATION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
                 Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 Log.d(DEBUG_TAG, loc.toString());
                 Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
