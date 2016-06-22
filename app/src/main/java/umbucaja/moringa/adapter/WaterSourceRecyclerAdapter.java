@@ -58,9 +58,9 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
         percentage = (actualVolume*100)/capacity;
 
 
-
         holder.tvPercentage.setText(String.format("%.1f%s",percentage,"%"));
         holder.tvDate.setText(date);
+        holder.progressBarPercentage.setProgress((int)percentage);
 
     }
 
