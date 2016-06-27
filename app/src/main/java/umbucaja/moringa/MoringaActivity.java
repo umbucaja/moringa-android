@@ -28,10 +28,13 @@ import umbucaja.moringa.fragments.AcudesFragment;
 import umbucaja.moringa.fragments.ChuvasFragment;
 import umbucaja.moringa.fragments.DesenvolvedoresFragment;
 import umbucaja.moringa.fragments.SobreFragment;
+import umbucaja.moringa.util.GlobalData;
 import umbucaja.moringa.util.ImageColor;
 
 public class MoringaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener, SobreFragment.OnFragmentInteractionListener, DesenvolvedoresFragment.OnFragmentInteractionListener {
+
+    public CollapsingToolbarLayout collapsingToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,9 @@ public class MoringaActivity extends AppCompatActivity
 
 
 
-        CollapsingToolbarLayout collapsingToolbar =
+        collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        //collapsingToolbar.setTitle("OI OI");
 
 
         final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
@@ -123,17 +127,17 @@ public class MoringaActivity extends AppCompatActivity
 
         if (id == R.id.nav_acudes) {
             fragmentClass = AcudesFragment.class;
-            setTitle(item.getTitle());
+            collapsingToolbar.setTitle(item.getTitle());
         } else if (id == R.id.nav_chuvas) {
             fragmentClass = ChuvasFragment.class;
-            setTitle(item.getTitle());
+            collapsingToolbar.setTitle(item.getTitle());
         } else if (id == R.id.nav_desenvolvedores) {
             fragmentClass = DesenvolvedoresFragment.class;
-            setTitle(item.getTitle());
+            collapsingToolbar.setTitle(item.getTitle());
             closeOptionsMenu();
         } else if (id == R.id.nav_sobre) {
             fragmentClass = SobreFragment.class;
-            setTitle(item.getTitle());
+            collapsingToolbar.setTitle(item.getTitle());
             closeOptionsMenu();
         } else if (id == R.id.nav_sair) {
             finish();

@@ -25,12 +25,10 @@ public class Connector extends AsyncTask<String, Void, JSONArray> {
     private Context context;
     private Response response;
     private ProgressDialog progressDialog;
-    private Gson gson;
 
     public Connector(Context context, Response response){
         this.context = context;
         this.response = response;
-        this.gson = new Gson();
     }
 
     @Override

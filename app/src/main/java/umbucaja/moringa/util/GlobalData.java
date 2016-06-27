@@ -10,6 +10,7 @@ import umbucaja.moringa.entity.City;
 public class GlobalData {
     public static City[] cities = null;
     public static Location location = null;
+    public static City currCity = null;
 
     public static void setCities(City[] cities) { GlobalData.cities = cities; }
 
@@ -17,4 +18,7 @@ public class GlobalData {
         GlobalData.location = location;
     }
 
+    public static void setCurrCity(City currCity) {
+        GlobalData.currCity = currCity;
+    }
 }

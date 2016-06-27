@@ -1,7 +1,6 @@
 package umbucaja.moringa.fragments;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -19,7 +18,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,7 +25,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
@@ -36,12 +33,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
 import umbucaja.moringa.adapter.SearchViewAdapter;
 import umbucaja.moringa.adapter.WaterSourceRecyclerAdapter;
 import umbucaja.moringa.entity.City;
 import umbucaja.moringa.entity.WaterSource;
 import umbucaja.moringa.service.Server;
+import umbucaja.moringa.util.GlobalData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,11 +62,7 @@ public class AcudesFragment extends Fragment {
     private LocationManager locationManager;
     private View rootView;
     private SearchViewAdapter searchView;
-    private String cityName = "";
 
-    private Activity activity;
-
-    private String[] CIDADES = new String[]{"Campina Grande", "Remigio", "João Pessoa"};
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -111,7 +106,7 @@ public class AcudesFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchViewAdapter) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint("Buscar Cidade...");
@@ -120,14 +115,14 @@ public class AcudesFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 City city = (City) parent.getAdapter().getItem(position);
                 searchView.setText(city.getName());
+                GlobalData.setCurrCity(city);
 
                 waterSourcesList = new ArrayList<>();
 
-                //getActivity().invalidateOptionsMenu();
                 searchView.clearFocus();
                 searchView.setQuery("", false);
                 searchView.setIconified(true);
-                activity.setTitle(city.getName());
+                ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(city.getName());
 
                 waterSourcesList = Server.getInstance(getContext()).getWaterAllSourcesFromCity(city.getId());
 
@@ -138,7 +133,6 @@ public class AcudesFragment extends Fragment {
 
                 waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
             }
         });
 
@@ -148,21 +142,21 @@ public class AcudesFragment extends Fragment {
             Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
         }
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Log.d("BUSCAR POR", query);
-                //TODO: buscar pela cidade e atualizar o view
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Log.d("TEXTO", newText);
-                //TODO: pode mudar os adapters aqui
-                return false;
-            }
-        });
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                Log.d("BUSCAR POR", query);
+//                //TODO: buscar pela cidade e atualizar o view
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                Log.d("TEXTO", newText);
+//                //TODO: pode mudar os adapters aqui
+//                return false;
+//            }
+//        });
     }
 
     @Override
@@ -170,11 +164,7 @@ public class AcudesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_acudes, container, false);
-
-        // check permissions to use GPS
         tvLocation = (TextView) rootView.findViewById(R.id.tv_acudes_location);
-        activity = this.getActivity();
-        //activity.setTitle("Patossss");
 
 
         if (isConnected(getContext())) {
@@ -182,9 +172,6 @@ public class AcudesFragment extends Fragment {
         } else {
             Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
         }
-
-        //textView.setThreshold(1);
-        setHasOptionsMenu(true);
         return rootView;
     }
 

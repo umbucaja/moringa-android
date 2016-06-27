@@ -85,13 +85,13 @@ public class Server {
                     GlobalData.setCities(arrayCities);
 
                     ArrayAdapter<City> adapter = new ArrayAdapter<City>(context, android.R.layout.simple_dropdown_item_1line, arrayCities);
-                    searchView.setText(cityName);
+                    //searchView.setText(cityName);
                     searchView.setAdapter(adapter);
                 }
             }).execute(URL + "cities");
         else{
             ArrayAdapter<City> adapter = new ArrayAdapter<City>(context, android.R.layout.simple_dropdown_item_1line, GlobalData.cities);
-            searchView.setText(cityName);
+            //searchView.setText(cityName);
             searchView.setAdapter(adapter);
         }
     }
