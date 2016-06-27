@@ -37,7 +37,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:max="100"
-                        android:progress="7"
+                        android:progress="1"
                         android:progressDrawable="@drawable/progress_drawable"
                         android:layout_alignRight="@+id/image_test"
                         android:layout_alignEnd="@+id/image_test"
@@ -46,7 +46,10 @@
                         android:layout_centerHorizontal="true"
                         android:layout_alignTop="@+id/image_test2"
                         android:layout_alignBottom="@+id/image_test2"
-                        android:padding="7dp"/>
+                        android:paddingBottom="10dp"
+                        android:paddingTop="15dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"/>
 
                     <ImageView
                         android:id="@+id/image_test"
