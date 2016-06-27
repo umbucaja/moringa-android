@@ -26,20 +26,55 @@
                 android:gravity="center"
                 android:weightSum="10">
 
+
+
                 <RelativeLayout
                     android:layout_weight="5">
 
                     <ProgressBar
+                        android:id="@+id/progress_bar_id"
                         style="@android:style/Widget.ProgressBar.Horizontal"
-                        android:layout_centerInParent="true"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:id="@+id/progress_bar_id"
                         android:max="100"
-                        android:progress="50"
+                        android:progress="7"
                         android:progressDrawable="@drawable/progress_drawable"
-                        android:paddingTop="15dp"
-                        android:paddingBottom="15dp"/>
+                        android:layout_alignRight="@+id/image_test"
+                        android:layout_alignEnd="@+id/image_test"
+                        android:layout_alignLeft="@+id/image_test"
+                        android:layout_alignStart="@+id/image_test"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignTop="@+id/image_test2"
+                        android:layout_alignBottom="@+id/image_test2"
+                        android:padding="7dp"/>
+
+                    <ImageView
+                        android:id="@+id/image_test"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:adjustViewBounds="true"
+                        android:layout_centerInParent="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/moringa_marrom"
+                        android:padding="7dp"
+                        />
+
+                    <ImageView
+                        android:id="@+id/image_test2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:layout_centerInParent="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/moringa_segunda"
+                        android:visibility="invisible"
+                        />
+
+
+                    <!--<ImageView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:src="@drawable/moringa_primeira"/>-->
 
                 </RelativeLayout>
                 <LinearLayout
