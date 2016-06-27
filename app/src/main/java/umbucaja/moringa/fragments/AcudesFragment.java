@@ -137,7 +137,8 @@ public class AcudesFragment extends Fragment {
         });
 
         if (isConnected(getContext())) {
-            getLocation();
+            GlobalData.getLocation(getContext());
+            Server.getInstance(getContext()).populateToolbarCities(searchView);
         } else {
             Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
         }
@@ -159,6 +160,17 @@ public class AcudesFragment extends Fragment {
 //        });
     }
 
+    private void addCardviews(){
+//        waterSourcesList = Server.getInstance(getContext()).getWaterAllSourcesFromCity(city.getId());
+
+
+        WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(getContext(), waterSourcesList);
+        waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
+        waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
+
+        waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -166,16 +178,10 @@ public class AcudesFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_acudes, container, false);
         tvLocation = (TextView) rootView.findViewById(R.id.tv_acudes_location);
 
-
-        if (isConnected(getContext())) {
-            //getLocation();
-        } else {
-            Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
-        }
         return rootView;
     }
 
-    public String getLocation() {
+    /*public String getLocation() {
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_LOCATION);
@@ -187,10 +193,10 @@ public class AcudesFragment extends Fragment {
                 List<Address> locations = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
                 if (locations.size() > 0) {
                     String cityName = locations.get(0).getLocality();
-                    tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ") | " + cityName);
+                    tvLocation.setText("POINT(" + loc.getLatitude() + ", " + loc.getLongitude() + ") | " + cityName);
 
                     //Populate autocomplete searchView
-                    Server.getInstance(getContext()).populateToolbarCities(searchView, cityName);
+                    Server.getInstance(getContext()).populateToolbarCities(searchView);
 
 
                 }
@@ -201,7 +207,7 @@ public class AcudesFragment extends Fragment {
 
         }
         return null;
-    }
+    }*/
 
     public boolean isConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -216,7 +222,8 @@ public class AcudesFragment extends Fragment {
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                Server.getInstance(getContext()).populateToolbarCities(searchView);
+                /*Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 Log.d(DEBUG_TAG, loc.toString());
                 Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                 try {
@@ -226,13 +233,13 @@ public class AcudesFragment extends Fragment {
                         tvLocation.setText("(" + loc.getLatitude() + ", " + loc.getLongitude() + ") | " + cityName);
 
                         //Populate autocomplete searchView
-                        Server.getInstance(getContext()).populateToolbarCities(searchView, cityName);
+                        Server.getInstance(getContext()).populateToolbarCities(searchView);
 
                         //set current city as default
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
+                }*/
             } else {
                 Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
             }

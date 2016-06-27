@@ -59,7 +59,7 @@ public class Server {
         this.context = context;
     }
 
-    public void populateToolbarCities(final SearchViewAdapter searchView, final String cityName) {
+    public void populateToolbarCities(final SearchViewAdapter searchView) {
         if(GlobalData.cities == null)
             new Connector(context, new Connector.Response() {
                 @Override
@@ -118,6 +118,17 @@ public class Server {
                 }
             }).execute(URL + "cities/"+idCity+"/watersources");
         return waterSources;
+    }
+
+    public City getCityByName(String cityName){
+        if(GlobalData.cities != null){
+            for (int i=0; i < GlobalData.cities.length; i++){
+                if(GlobalData.cities[i].getName().equals(cityName)){
+                    return GlobalData.cities[i];
+                }
+            }
+        }
+        return null;
     }
 
 }
