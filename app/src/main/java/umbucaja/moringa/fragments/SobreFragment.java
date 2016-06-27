@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
 
 /**
@@ -69,6 +70,7 @@ public class SobreFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem item = menu.findItem(R.id.action_search);
         item.setVisible(false);
+        ((MoringaActivity)getActivity()).collapsingToolbar.setTitle("Sobre");
     }
 
     @Override
