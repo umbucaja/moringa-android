@@ -1,13 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
 
-        
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="10">
+
+            <RelativeLayout
+                android:layout_weight="5">
+                <ImageView
+                    android:id="@+id/image_view_chuvas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:adjustViewBounds="true"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/moringa"
+                    android:padding="7dp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_weight="5"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_chuvas_milimetragem"
+                    android:text="40mm"
+                    android:textSize="40dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/red_percentage" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_chuvas_station_name"
+                    android:textColor="@color/blue_water_source_name"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:text="Campina Grande Centro"
+                    android:maxLines="2"
+                    android:gravity="center"
+                    android:ellipsize="end" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_chuvas_in"
+                        android:text="Em:  "
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/green_aux_text"
+                        android:ellipsize="end"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_chuvas_last_measurement_date"
+                        android:text="10/06/2016"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/orange_date_text"
+                        android:ellipsize="end"/>
+                </LinearLayout>
+            </LinearLayout>
+        </TableRow>
+
     </android.support.v7.widget.CardView>
 
 </LinearLayout>

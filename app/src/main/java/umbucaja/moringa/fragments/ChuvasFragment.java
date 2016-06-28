@@ -127,7 +127,7 @@ public class ChuvasFragment extends Fragment {
         });
 
         if (GlobalData.isConnected(getContext())) {
-            GlobalData.getLocation(getContext());
+            //GlobalData.getLocation(getContext());
             Server.getInstance(getContext()).populateToolbarCities(searchView);
         } else {
             Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
