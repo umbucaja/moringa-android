@@ -29,11 +29,11 @@ import umbucaja.moringa.fragments.AcudesFragment;
 import umbucaja.moringa.fragments.ChuvasFragment;
 import umbucaja.moringa.fragments.DesenvolvedoresFragment;
 import umbucaja.moringa.fragments.SobreFragment;
-import umbucaja.moringa.util.GlobalData;
+import umbucaja.moringa.fragments.WaterSourceFragment;
 import umbucaja.moringa.util.ImageColor;
 
 public class MoringaActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener, SobreFragment.OnFragmentInteractionListener, DesenvolvedoresFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener, SobreFragment.OnFragmentInteractionListener, DesenvolvedoresFragment.OnFragmentInteractionListener, WaterSourceFragment.OnFragmentInteractionListener {
 
     public CollapsingToolbarLayout collapsingToolbar;
     public AppBarLayout appBarLayout;
@@ -141,6 +141,10 @@ public class MoringaActivity extends AppCompatActivity
             closeOptionsMenu();
         } else if (id == R.id.nav_sobre) {
             fragmentClass = SobreFragment.class;
+            collapsingToolbar.setTitle(item.getTitle());
+            closeOptionsMenu();
+        } else if (id == R.id.nav_acude) {
+            fragmentClass = WaterSourceFragment.class;
             collapsingToolbar.setTitle(item.getTitle());
             closeOptionsMenu();
         } else if (id == R.id.nav_sair) {
