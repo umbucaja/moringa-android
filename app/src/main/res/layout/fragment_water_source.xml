@@ -29,7 +29,7 @@
                     <ProgressBar
                         android:id="@+id/progress_bar_watersource"
                         style="@android:style/Widget.ProgressBar.Horizontal"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:max="100"
                         android:progress="40"
@@ -71,7 +71,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_water_source_percentage"
+                        android:id="@+id/tv_current_water_source_percentage"
                         android:text="40%"
                         android:textSize="40dp"
                         android:textStyle="bold"
@@ -80,11 +80,32 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_water_source_name"
-                        android:textColor="@color/blue_water_source_name"
+                        android:id="@+id/tv_current_water_source_name"
+                        android:textColor="@color/green_aux_text"
                         android:textSize="15dp"
                         android:textStyle="bold"
-                        android:text="Açude Engenheiro Ávidos"
+                        android:text="Percentual de Água"
+                        android:maxLines="2"
+                        android:gravity="center"
+                        android:ellipsize="end"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_actual_volume_million_m3"
+                        android:text="300,5 m³"
+                        android:textSize="40dp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="@color/red_percentage" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_label_volume_million_m3"
+                        android:textColor="@color/green_aux_text"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:text="Volume Atual(Milhões de m³)"
                         android:maxLines="2"
                         android:gravity="center"
                         android:ellipsize="end"
@@ -105,7 +126,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/tv_water_source_last_measurement_date"
+                            android:id="@+id/tv_water_source_current_last_measurement_date"
                             android:text="10/06/2016"
                             android:textSize="15dp"
                             android:textStyle="bold"
@@ -113,7 +134,27 @@
                             android:ellipsize="end"/>
                     </LinearLayout>
 
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_current_capacity"
+                        android:text="300,5 m³"
+                        android:textSize="40dp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="@color/blue_percentage" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_label_current_capacity"
+                        android:textColor="@color/green_aux_text"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:text="Capacidade (Milhões de m³)"
+                        android:maxLines="2"
+                        android:gravity="center"
+                        android:ellipsize="end"
+                        />
                 </LinearLayout>
 
 
