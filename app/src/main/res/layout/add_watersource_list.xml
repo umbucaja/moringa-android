@@ -23,7 +23,7 @@
                 android:layout_height="36dp"
                 android:id="@+id/imageButtonDeleteField"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_github"
+                android:src="@drawable/github"
                 android:scaleType="fitCenter"
                 android:gravity="center_vertical"
                 android:adjustViewBounds="true"

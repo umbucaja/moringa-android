@@ -60,6 +60,8 @@ public class MoringaActivity extends AppCompatActivity
 
             getWindow().setNavigationBarColor(ImageColor.getDominantColor(icon));
             //getWindow().setStatusBarColor(ImageColor.getDominantColor(icon));
+            collapsingToolbar.setStatusBarScrimColor(ImageColor.getDominantColor(icon));
+            collapsingToolbar.setContentScrimColor(ImageColor.getDominantColor(icon));
         }
         //getSupportActionBar().setBackgroundDrawable(colorDrawable);
        // android.support.v7.app.ActionBar actionBar = getSupportActionBar();
