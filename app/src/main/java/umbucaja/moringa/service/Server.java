@@ -19,9 +19,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import umbucaja.moringa.adapter.ChuvasRecyclerAdapter;
 import umbucaja.moringa.adapter.SearchViewAdapter;
 import umbucaja.moringa.adapter.WaterSourceRecyclerAdapter;
 import umbucaja.moringa.entity.City;
+import umbucaja.moringa.entity.MeasurementStation;
 import umbucaja.moringa.entity.WaterSource;
 import umbucaja.moringa.util.GlobalData;
 
@@ -98,25 +100,25 @@ public class Server {
 
 
     public void getWaterAllSourcesFromCity(final RecyclerView waterSourcesRecyclerView, long idCity) {
-            new Connector(context, new Connector.Response() {
-                @Override
-                public void handleResponse(JSONArray output) {
-                    if(output == null)
-                        return;
-                    List<WaterSource> list = new ArrayList<WaterSource>();
-                    for(int i=0; i < output.length(); i++){
-                        try {
-                            WaterSource waterSource = gson.fromJson(output.getJSONObject(i).toString(), WaterSource.class);
-                            list.add(waterSource);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+        new Connector(context, new Connector.Response() {
+            @Override
+            public void handleResponse(JSONArray output) {
+                if(output == null)
+                    return;
+                List<WaterSource> list = new ArrayList<WaterSource>();
+                for(int i=0; i < output.length(); i++){
+                    try {
+                        WaterSource waterSource = gson.fromJson(output.getJSONObject(i).toString(), WaterSource.class);
+                        list.add(waterSource);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(context, list);
-                    waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
-
                 }
-            }).execute(URL + "cities/"+idCity+"/watersources");
+                WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(context, list);
+                waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
+
+            }
+        }).execute(URL + "cities/"+idCity+"/watersources");
     }
 
     public City getCityByName(String cityName){
@@ -130,4 +132,25 @@ public class Server {
         return null;
     }
 
+    public void getMeasurementStationsFromCity(final RecyclerView recyclerView, long cityId) {
+        new Connector(context, new Connector.Response() {
+            @Override
+            public void handleResponse(JSONArray output) {
+                if(output == null)
+                    return;
+                List<MeasurementStation> list = new ArrayList<MeasurementStation>();
+                for(int i=0; i < output.length(); i++){
+                    try {
+                        MeasurementStation station = gson.fromJson(output.getJSONObject(i).toString(), MeasurementStation.class);
+                        list.add(station);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                ChuvasRecyclerAdapter chuvasRecyclerAdapter = new ChuvasRecyclerAdapter(list);
+                recyclerView.setAdapter(chuvasRecyclerAdapter);
+
+            }
+        }).execute(URL + "cities/" + cityId + "/measurementstations");
+    }
 }
