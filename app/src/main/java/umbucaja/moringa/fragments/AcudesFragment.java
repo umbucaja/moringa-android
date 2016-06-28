@@ -130,7 +130,7 @@ public class AcudesFragment extends Fragment {
         });
 
         if (GlobalData.isConnected(getContext())) {
-            GlobalData.getLocation(getContext());
+            //GlobalData.getLocation(getContext());
             Server.getInstance(getContext()).populateToolbarCities(searchView);
         } else {
             Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
@@ -168,7 +168,7 @@ public class AcudesFragment extends Fragment {
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                GlobalData.getLocation(getContext());
+                //GlobalData.getLocation(getContext());
                 Server.getInstance(getContext()).populateToolbarCities(searchView);
             } else {
                 Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
