@@ -4,23 +4,6 @@
     android:layout_height="match_parent"
     tools:context="umbucaja.moringa.fragments.AcudesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_acudes_location"
-            android:text="info here"
-            android:inputType="text"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
-
-
-    </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/water_source_recycler_view"
         android:scrollbars="vertical"

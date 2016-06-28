@@ -71,6 +71,7 @@ public class SobreFragment extends Fragment {
         MenuItem item = menu.findItem(R.id.action_search);
         item.setVisible(false);
         ((MoringaActivity)getActivity()).collapsingToolbar.setTitle("Sobre");
+        ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
     }
 
     @Override

@@ -3,20 +3,28 @@ package umbucaja.moringa.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
+import umbucaja.moringa.adapter.ChuvasRecyclerAdapter;
+import umbucaja.moringa.adapter.SearchViewAdapter;
 import umbucaja.moringa.entity.City;
-import umbucaja.moringa.service.CityService;
-import umbucaja.moringa.service.mock.CityServiceMock;
+import umbucaja.moringa.service.Server;
+import umbucaja.moringa.util.GlobalData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,15 +38,12 @@ public class ChuvasFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_SELECTED_CITY = "default_city";
 
-    private String selectedCity;
-    private City[] cities = {};
+    private View rootView;
+    private RecyclerView recyclerView;
+    private ChuvasRecyclerAdapter chuvasRecyclerAdapter;
+    private SearchViewAdapter searchView;
 
     private OnFragmentInteractionListener mListener;
-
-    /*
-    Fragment Views
-     */
-    private AppCompatAutoCompleteTextView autocompleteCidades;
 
     public ChuvasFragment() {
         // Required empty public constructor
@@ -84,30 +89,6 @@ public class ChuvasFragment extends Fragment {
 
 
     /*
-    Event listeners
-     */
-    private AdapterView.OnItemSelectedListener autocompleteCidadesListener = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-            for (City c : cities) {
-                if (c.getId() == id) {
-                    loadViewData(c);
-                    break;
-                }
-            }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    };
-
-    private void loadViewData(City c) {
-
-    }
-
-    /*
     Android Lifecycle
      */
 
@@ -115,46 +96,54 @@ public class ChuvasFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        CityService cityService = CityServiceMock.getInstance();
-        cities = cityService.listCities().toArray(cities);
-
-        if (getArguments() != null) {
-            selectedCity = getArguments().getString(ARG_SELECTED_CITY);
-        }
         setHasOptionsMenu(true);
     }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem item = menu.findItem(R.id.action_search);
-        item.setVisible(false);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchViewAdapter) MenuItemCompat.getActionView(searchItem);
+        searchView.setQueryHint("Buscar Cidade...");
+        searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                City city = (City) parent.getAdapter().getItem(position);
+                searchView.setText(city.getName());
+                GlobalData.setCurrCity(city);
+
+                searchView.clearFocus();
+                searchView.setQuery("", false);
+                searchView.setIconified(true);
+                ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(city.getName());
+
+
+                recyclerView = (RecyclerView) rootView.findViewById(R.id.chuvas_recycler_view);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                Server.getInstance(getContext()).getMeasurementStationsFromCity(recyclerView, city.getId());
+
+            }
+        });
+
+        if (GlobalData.isConnected(getContext())) {
+            GlobalData.getLocation(getContext());
+            Server.getInstance(getContext()).populateToolbarCities(searchView);
+        } else {
+            Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view;
-        if (savedInstanceState != null) {
-            // Use savedInstanceState
-            view = super.onCreateView(inflater, container, savedInstanceState);
-        }
-        else {
-            // Inflate the layout for this fragment
-            view = inflater.inflate(R.layout.fragment_chuvas, container, false);
-        }
-
-        if (view != null) {
-            // Get layout views
-            autocompleteCidades = (AppCompatAutoCompleteTextView) view.findViewById(R.id.fragment_chuvas_autocomplete_cidades);
-            autocompleteCidades.setOnItemSelectedListener(autocompleteCidadesListener);
-
-            // load autocomplete content
-            autocompleteCidades.setAdapter(new ArrayAdapter<City>(getContext(), android.R.layout.simple_list_item_1, cities));
-            autocompleteCidades.setText(selectedCity);
-        }
-
-        return view;
+        rootView = inflater.inflate(R.layout.fragment_chuvas, container, false);
+        return rootView;
     }
 
     @Override

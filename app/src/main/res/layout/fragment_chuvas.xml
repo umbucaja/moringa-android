@@ -5,9 +5,10 @@
     tools:context="umbucaja.moringa.fragments.ChuvasFragment"
     android:padding="@dimen/fragment_root_padding">
 
-    <android.support.v7.widget.AppCompatAutoCompleteTextView
-        android:id="@+id/fragment_chuvas_autocomplete_cidades"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/chuvas_recycler_view"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

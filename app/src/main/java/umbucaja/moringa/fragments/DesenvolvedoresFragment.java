@@ -70,6 +70,7 @@ public class DesenvolvedoresFragment extends Fragment {
         MenuItem item = menu.findItem(R.id.action_search);
         item.setVisible(false);
         ((MoringaActivity)getActivity()).collapsingToolbar.setTitle("Desenvolvedores");
+        ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
     }
 
     @Override
