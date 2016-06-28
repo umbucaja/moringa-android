@@ -54,7 +54,7 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
             if(wsms.size()>0){
                 actualVolume = wsms.get(0).getValue();
                 DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                date = formatter.format(wsms.get(0).getDate());
+                date = formatter.format(wsms.get(wsms.size()-1).getDate());
             }else{
 
             }
