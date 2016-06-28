@@ -69,7 +69,6 @@ public class AcudesFragment extends Fragment {
     private String mParam2;
 
     private RecyclerView waterSourcesRecyclerView;
-    private List<WaterSource> waterSourcesList;
 
     private OnFragmentInteractionListener mListener;
 
@@ -117,21 +116,19 @@ public class AcudesFragment extends Fragment {
                 searchView.setText(city.getName());
                 GlobalData.setCurrCity(city);
 
-                waterSourcesList = new ArrayList<>();
-
                 searchView.clearFocus();
                 searchView.setQuery("", false);
                 searchView.setIconified(true);
                 ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(city.getName());
 
-                waterSourcesList = Server.getInstance(getContext()).getWaterAllSourcesFromCity(city.getId());
 
 
-                WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(getContext(), waterSourcesList);
+                //WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(getContext(), waterSourcesList);
+//                waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
                 waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
-                waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
-
                 waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                Server.getInstance(getContext()).getWaterAllSourcesFromCity(waterSourcesRecyclerView, city.getId());
 
             }
         });
@@ -160,16 +157,16 @@ public class AcudesFragment extends Fragment {
 //        });
     }
 
-    private void addCardviews(){
-//        waterSourcesList = Server.getInstance(getContext()).getWaterAllSourcesFromCity(city.getId());
-
-
-        WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(getContext(), waterSourcesList);
-        waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
-        waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
-
-        waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
+//    private void addCardviews(){
+////        waterSourcesList = Server.getInstance(getContext()).getWaterAllSourcesFromCity(city.getId());
+//
+//
+//        WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(getContext(), waterSourcesList);
+//        waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
+//        waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
+//
+//        waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

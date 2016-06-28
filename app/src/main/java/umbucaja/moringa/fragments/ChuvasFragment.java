@@ -5,18 +5,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import umbucaja.moringa.R;
+import umbucaja.moringa.adapter.ChuvasRecyclerAdapter;
 import umbucaja.moringa.entity.City;
-import umbucaja.moringa.service.CityService;
-import umbucaja.moringa.service.mock.CityServiceMock;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,15 +30,11 @@ public class ChuvasFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_SELECTED_CITY = "default_city";
 
-    private String selectedCity;
-    private City[] cities = {};
+    private View rootView;
+    private RecyclerView recyclerView;
+    private ChuvasRecyclerAdapter chuvasRecyclerAdapter;
 
     private OnFragmentInteractionListener mListener;
-
-    /*
-    Fragment Views
-     */
-    private AppCompatAutoCompleteTextView autocompleteCidades;
 
     public ChuvasFragment() {
         // Required empty public constructor
@@ -84,30 +80,6 @@ public class ChuvasFragment extends Fragment {
 
 
     /*
-    Event listeners
-     */
-    private AdapterView.OnItemSelectedListener autocompleteCidadesListener = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-            for (City c : cities) {
-                if (c.getId() == id) {
-                    loadViewData(c);
-                    break;
-                }
-            }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    };
-
-    private void loadViewData(City c) {
-
-    }
-
-    /*
     Android Lifecycle
      */
 
@@ -115,12 +87,6 @@ public class ChuvasFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        CityService cityService = CityServiceMock.getInstance();
-        cities = cityService.listCities().toArray(cities);
-
-        if (getArguments() != null) {
-            selectedCity = getArguments().getString(ARG_SELECTED_CITY);
-        }
         setHasOptionsMenu(true);
     }
 
@@ -133,28 +99,18 @@ public class ChuvasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_chuvas, container, false);
 
-        View view;
-        if (savedInstanceState != null) {
-            // Use savedInstanceState
-            view = super.onCreateView(inflater, container, savedInstanceState);
-        }
-        else {
-            // Inflate the layout for this fragment
-            view = inflater.inflate(R.layout.fragment_chuvas, container, false);
-        }
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.chuvas_recycler_view);
+        recyclerView.setHasFixedSize(true);
 
-        if (view != null) {
-            // Get layout views
-            autocompleteCidades = (AppCompatAutoCompleteTextView) view.findViewById(R.id.fragment_chuvas_autocomplete_cidades);
-            autocompleteCidades.setOnItemSelectedListener(autocompleteCidadesListener);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
 
-            // load autocomplete content
-            autocompleteCidades.setAdapter(new ArrayAdapter<City>(getContext(), android.R.layout.simple_list_item_1, cities));
-            autocompleteCidades.setText(selectedCity);
-        }
+        //chuvasRecyclerAdapter = new ChuvasRecyclerAdapter();
+        //recyclerView.setAdapter(chuvasRecyclerAdapter);
 
-        return view;
+        return rootView;
     }
 
     @Override
