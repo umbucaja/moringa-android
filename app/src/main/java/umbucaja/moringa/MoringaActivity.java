@@ -80,7 +80,7 @@ public class MoringaActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Fragment fragment = AcudesFragment.newInstance("","");
-        setTitle("Açudes");
+        setTitle("Cidades");
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragmentView, fragment).commit();
     }
@@ -127,7 +127,7 @@ public class MoringaActivity extends AppCompatActivity
         int id = item.getItemId();
         Class fragmentClass = AcudesFragment.class;
 
-        if (id == R.id.nav_acudes) {
+        if (id == R.id.nav_cidades) {
             fragmentClass = AcudesFragment.class;
             collapsingToolbar.setTitle(item.getTitle());
         } else if (id == R.id.nav_chuvas) {

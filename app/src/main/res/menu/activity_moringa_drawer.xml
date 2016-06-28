@@ -3,10 +3,10 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_acudes"
+            android:id="@+id/nav_cidades"
             android:checked="true"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Açudes" />
+            android:title="Cidades" />
         <item
             android:id="@+id/nav_chuvas"
             android:icon="@drawable/ic_menu_camera"
