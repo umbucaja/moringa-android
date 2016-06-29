@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import umbucaja.moringa.R;
+import umbucaja.moringa.entity.MeasurementStation;
+import umbucaja.moringa.service.Server;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,12 +23,10 @@ import umbucaja.moringa.R;
 public class ChuvasEstacaoFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM = "station_id";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Long stationId;
 
     private OnFragmentInteractionListener mListener;
 
@@ -38,16 +38,13 @@ public class ChuvasEstacaoFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment ChuvasEstacaoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ChuvasEstacaoFragment newInstance(String param1, String param2) {
+    public static ChuvasEstacaoFragment newInstance(MeasurementStation station) {
         ChuvasEstacaoFragment fragment = new ChuvasEstacaoFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putLong(ARG_PARAM, station.getId());
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,9 +53,12 @@ public class ChuvasEstacaoFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            stationId = getArguments().getLong(ARG_PARAM);
         }
+
+        //TODO: criar metodo em Server para requisitar os dados de uma dada estacao por ID
+        //Server.getInstance(getContext()).getDataFromStation(stationId)
+
     }
 
     @Override
