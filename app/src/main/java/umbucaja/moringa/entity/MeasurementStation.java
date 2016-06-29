@@ -1,7 +1,6 @@
 package umbucaja.moringa.entity;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.List;
 
 /**
  * Created by Andre on 17/06/2016.
@@ -12,7 +11,7 @@ public class MeasurementStation {
     private String name;
     private float latitude;
     private float longitude;
-    private Collection<RainFallMeasurement> rainFallMeasurements;
+    private List<RainFallMeasurement> rainFallMeasurements;
 
     public MeasurementStation(long id, String name, float latitude, float longitude) {
         this.id = id;
@@ -37,11 +36,11 @@ public class MeasurementStation {
         return longitude;
     }
 
-    public Collection<RainFallMeasurement> getRainFallMeasurements() {
+    public List<RainFallMeasurement> getRainFallMeasurements() {
         return rainFallMeasurements;
     }
 
-    public void setRainFallMeasurements(Collection<RainFallMeasurement> rainFallMeasurements) {
+    public void setRainFallMeasurements(List<RainFallMeasurement> rainFallMeasurements) {
         this.rainFallMeasurements = rainFallMeasurements;
     }
 }

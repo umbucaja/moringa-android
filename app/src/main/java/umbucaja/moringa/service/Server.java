@@ -24,6 +24,7 @@ import umbucaja.moringa.adapter.SearchViewAdapter;
 import umbucaja.moringa.adapter.WaterSourceRecyclerAdapter;
 import umbucaja.moringa.entity.City;
 import umbucaja.moringa.entity.MeasurementStation;
+import umbucaja.moringa.entity.RainFallMeasurement;
 import umbucaja.moringa.entity.WaterSource;
 import umbucaja.moringa.util.GlobalData;
 
@@ -133,6 +134,14 @@ public class Server {
     }
 
     public void getMeasurementStationsFromCity(final RecyclerView recyclerView, long cityId) {
+        List<MeasurementStation> list = new ArrayList<MeasurementStation>();
+        List<RainFallMeasurement> list2 = new ArrayList<RainFallMeasurement>();
+        list2.add(new RainFallMeasurement(0, new Date(), 50.2f, "mm"));
+        MeasurementStation ms = new MeasurementStation(0, "Remigio", 1f, 1f);
+        ms.setRainFallMeasurements(list2);
+        list.add(ms);
+        ChuvasRecyclerAdapter chuvasRecyclerAdapter = new ChuvasRecyclerAdapter(list);
+        recyclerView.setAdapter(chuvasRecyclerAdapter);
         new Connector(context, new Connector.Response() {
             @Override
             public void handleResponse(JSONArray output) {
