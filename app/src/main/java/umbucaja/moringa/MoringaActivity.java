@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 import umbucaja.moringa.fragments.AcudesFragment;
+import umbucaja.moringa.fragments.ChuvasEstacaoFragment;
 import umbucaja.moringa.fragments.ChuvasFragment;
 import umbucaja.moringa.fragments.DesenvolvedoresFragment;
 import umbucaja.moringa.fragments.SobreFragment;
@@ -33,7 +34,7 @@ import umbucaja.moringa.fragments.WaterSourceFragment;
 import umbucaja.moringa.util.ImageColor;
 
 public class MoringaActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener, SobreFragment.OnFragmentInteractionListener, DesenvolvedoresFragment.OnFragmentInteractionListener, WaterSourceFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener, SobreFragment.OnFragmentInteractionListener, DesenvolvedoresFragment.OnFragmentInteractionListener, WaterSourceFragment.OnFragmentInteractionListener, ChuvasEstacaoFragment.OnFragmentInteractionListener {
 
     public CollapsingToolbarLayout collapsingToolbar;
     public AppBarLayout appBarLayout;

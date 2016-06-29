@@ -1,11 +1,14 @@
 package umbucaja.moringa.adapter;
 
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,9 +16,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
 import umbucaja.moringa.entity.MeasurementStation;
 import umbucaja.moringa.entity.RainFallMeasurement;
+import umbucaja.moringa.fragments.ChuvasEstacaoFragment;
 
 /**
  * Created by jordaoesa on 28/06/2016.
@@ -56,6 +61,7 @@ public class ChuvasRecyclerAdapter extends RecyclerView.Adapter<ChuvasRecyclerAd
 
             holder.tvMilimetragem.setText(String.format("%.1f%s",value,unit));
             holder.tvData.setText(date);
+            holder.station = stations.get(position);
 
             checkValuesAndSetImage(value, holder);
 
@@ -83,13 +89,25 @@ public class ChuvasRecyclerAdapter extends RecyclerView.Adapter<ChuvasRecyclerAd
         public TextView tvMilimetragem;
         public TextView tvNomeEstacao;
         public TextView tvData;
+        public MeasurementStation station;
 
-        public ChuvasHolder(View itemView) {
+        public ChuvasHolder(final View itemView) {
             super(itemView);
             ivSituacao = (ImageView) itemView.findViewById(R.id.image_view_chuvas);
             tvMilimetragem = (TextView) itemView.findViewById(R.id.tv_chuvas_milimetragem);
             tvNomeEstacao = (TextView) itemView.findViewById(R.id.tv_chuvas_station_name);
             tvData = (TextView) itemView.findViewById(R.id.tv_chuvas_last_measurement_date);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Toast.makeText(itemView.getContext(), station.getName(), Toast.LENGTH_LONG).show();
+                    ChuvasEstacaoFragment fragment = ChuvasEstacaoFragment.newInstance("","");
+                    MoringaActivity activity = (MoringaActivity)itemView.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView, fragment).addToBackStack(null).commit();
+
+                }
+            });
         }
     }
 }
