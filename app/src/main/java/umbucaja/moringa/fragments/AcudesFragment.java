@@ -162,6 +162,7 @@ public class AcudesFragment extends Fragment {
         if(GlobalData.currCity != null){
             waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
             waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(GlobalData.currCity.getName());
             Server.getInstance(getContext()).getWaterAllSourcesFromCity(waterSourcesRecyclerView, GlobalData.currCity.getId());
         }
         return rootView;

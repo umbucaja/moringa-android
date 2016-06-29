@@ -148,6 +148,7 @@ public class ChuvasFragment extends Fragment {
             recyclerView = (RecyclerView) rootView.findViewById(R.id.chuvas_recycler_view);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(GlobalData.currCity.getName());
             Server.getInstance(getContext()).getMeasurementStationsFromCity(recyclerView, GlobalData.currCity.getId());
         }
         return rootView;
