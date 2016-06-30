@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.Toast;
 
 import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
@@ -29,8 +32,10 @@ public class ChuvasEstacaoFragment extends Fragment {
     private static final String ARG_PARAM = "station_id";
 
     // TODO: Rename and change types of parameters
-    private Long stationId;
     private static MeasurementStation station;
+    private Long stationId;
+    private View rootView;
+    private GridView gridView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -69,16 +74,27 @@ public class ChuvasEstacaoFragment extends Fragment {
             stationId = getArguments().getLong(ARG_PARAM);
         }
         setHasOptionsMenu(true);
-        //TODO: criar metodo em Server para requisitar os dados de uma dada estacao por ID
-        //Server.getInstance(getContext()).getDataFromStation(stationId)
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chuvas_estacao, container, false);
+        rootView = inflater.inflate(R.layout.fragment_chuvas_estacao, container, false);
+
+        gridView = (GridView) rootView.findViewById(R.id.gridview_chuva_item);
+
+        //TODO: criar metodo em Server para requisitar os dados de uma dada estacao por ID
+        Server.getInstance(getContext()).getMeasurementsFromStation(gridView, stationId);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getContext(), "OI", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

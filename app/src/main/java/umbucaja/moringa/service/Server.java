@@ -3,6 +3,7 @@ package umbucaja.moringa.service;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import umbucaja.moringa.R;
+import umbucaja.moringa.adapter.ChuvasMedicaoArrayAdapter;
 import umbucaja.moringa.adapter.ChuvasRecyclerAdapter;
 import umbucaja.moringa.adapter.SearchViewAdapter;
 import umbucaja.moringa.adapter.WaterSourceRecyclerAdapter;
@@ -99,6 +102,35 @@ public class Server {
         }
     }
 
+    public void getMeasurementsFromStation(final GridView gridView, long stationId){
+        List<RainFallMeasurement> measurements = new ArrayList<RainFallMeasurement>();
+        measurements.add(new RainFallMeasurement(0, new Date(), 10, "mm"));
+        measurements.add(new RainFallMeasurement(1, new Date(), 20, "mm"));
+        measurements.add(new RainFallMeasurement(2, new Date(), 30, "mm"));
+        ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
+        gridView.setAdapter(adapter);
+        /*new Connector(context, new Connector.Response() {
+            @Override
+            public void handleResponse(JSONArray output) {
+                if(output == null)
+                    return;
+
+                List<RainFallMeasurement> measurements = new ArrayList<RainFallMeasurement>();
+                for(int i=0; i < output.length(); i++){
+                    try {
+                        RainFallMeasurement measurement = gson.fromJson(output.getJSONObject(i).toString(), RainFallMeasurement.class);
+                        measurements.add(measurement);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
+                gridView.setAdapter(adapter);
+            }
+        }).execute(URL + "stations/" + stationId + "/measurements");*/
+    }
+
 
     public void getWaterAllSourcesFromCity(final RecyclerView waterSourcesRecyclerView, long idCity) {
         new Connector(context, new Connector.Response() {
@@ -142,7 +174,7 @@ public class Server {
         list.add(ms);
         ChuvasRecyclerAdapter chuvasRecyclerAdapter = new ChuvasRecyclerAdapter(list);
         recyclerView.setAdapter(chuvasRecyclerAdapter);
-        new Connector(context, new Connector.Response() {
+        /*new Connector(context, new Connector.Response() {
             @Override
             public void handleResponse(JSONArray output) {
                 if(output == null)
@@ -160,6 +192,6 @@ public class Server {
                 recyclerView.setAdapter(chuvasRecyclerAdapter);
 
             }
-        }).execute(URL + "cities/" + cityId + "/measurementstations");
+        }).execute(URL + "cities/" + cityId + "/measurementstations");*/
     }
 }
