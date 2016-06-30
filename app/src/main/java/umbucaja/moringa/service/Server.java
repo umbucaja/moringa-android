@@ -15,6 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +28,8 @@ import umbucaja.moringa.entity.City;
 import umbucaja.moringa.entity.MeasurementStation;
 import umbucaja.moringa.entity.RainFallMeasurement;
 import umbucaja.moringa.entity.WaterSource;
+import umbucaja.moringa.entity.WaterSourceMeasurement;
+import umbucaja.moringa.fragments.WaterSourceFragment;
 import umbucaja.moringa.util.GlobalData;
 
 /**
@@ -33,7 +37,8 @@ import umbucaja.moringa.util.GlobalData;
  */
 public class Server {
 
-    private final String URL = "http://150.165.98.43:8080/";
+    //private final String URL = "http://150.165.98.43:8080/";
+    private final String URL = "http://192.168.1.109:8080/";
     private Context context;
     private Gson gson;
 
@@ -99,6 +104,56 @@ public class Server {
         }
     }
 
+    public void getWaterAllSourcesFromCity2(final WaterSourceFragment waterSourceFragment, int idCity) {
+        final List<WaterSource> waterSources = new ArrayList<>();
+        new Connector(context, new Connector.Response() {
+            @Override
+            public void handleResponse(JSONArray output) {
+                if(output == null)
+                    return;
+
+                for(int i=0; i < output.length(); i++){
+                    try {
+                        //String gsonS = "[{"id":72,"name":"Epitácio Pessoa","measurementUnit":"m³","capacity":4.11686272E8,"type":"Açude","waterSourceMeasurements":[{"id":91,"value":3.6371552E7,"date":1466564400000}]}]""
+                        WaterSource waterSource = gson.fromJson(output.getJSONObject(i).toString(), WaterSource.class);
+                        waterSources.add(waterSource);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if(waterSources.size()>0){
+                    //waterSourceFragment.tvName.setText(waterSource.getType()+" "+waterSource.getName());
+                    WaterSource waterSource = waterSources.get(0);
+                    float capacity = waterSource.getCapacity();
+                    List<WaterSourceMeasurement> wsms = waterSource.getReservoirMeasurements();
+
+                    float percentage = 0;
+                    float actualVolume = 0;
+
+                    String date = "";
+                    waterSourceFragment.getTvCurrentCapacity().setText(String.format("%.1f",capacity/(1000000)));
+                   // holder.currentWaterSource = waterSource;
+                    if(wsms!=null){
+                        if(wsms.size()>0){
+                            actualVolume = wsms.get(wsms.size()-1).getValue();
+                            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                            date = formatter.format(wsms.get(wsms.size()-1).getDate());
+
+                        }
+                    }
+                    percentage = (actualVolume*100)/capacity;
+                    waterSourceFragment.getTvActualWaterSourceVolume().setText(String.format("%.1f",actualVolume/1000000));
+                    waterSourceFragment.getTvCurrentWaterSourcePercentage().setText(String.format("%.1f%s",percentage,"%"));
+                    waterSourceFragment.getTvWaterSourceLastMeasurementDate().setText(date);
+                    waterSourceFragment.getProgressBarWaterSource().setProgress((int)percentage);
+                }
+                System.out.println("=============================> "+waterSources);
+            }
+        }).execute(URL + "cities/"+idCity+"/watersources");
+        //execute(URL + "watersources/"+idCity);
+        //execute(URL + "cities/"+idCity+"/watersources");
+    }
 
     public void getWaterAllSourcesFromCity(final RecyclerView waterSourcesRecyclerView, long idCity) {
         new Connector(context, new Connector.Response() {

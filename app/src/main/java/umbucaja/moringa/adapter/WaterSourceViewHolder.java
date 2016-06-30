@@ -1,13 +1,12 @@
 package umbucaja.moringa.adapter;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
 import umbucaja.moringa.entity.WaterSource;
 import umbucaja.moringa.fragments.WaterSourceFragment;
@@ -39,14 +38,12 @@ public class WaterSourceViewHolder extends RecyclerView.ViewHolder implements Wa
     @Override
     public void onClick(View view) {
 
-        Toast.makeText(view.getContext(), currentWaterSource.getName(), Toast.LENGTH_LONG).show();
-        Class fragmentClass = WaterSourceFragment.class;
-        Fragment fragment = null;
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+                //Toast.makeText(itemView.getContext(), station.getName(), Toast.LENGTH_LONG).show();
+                WaterSourceFragment fragment = WaterSourceFragment.newInstance(currentWaterSource.getId(), currentWaterSource.getName());
+                MoringaActivity activity = (MoringaActivity) itemView.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView, fragment).addToBackStack(null).commit();
+
 
         //FragmentManager fragmentManager = view.getSupportFragmentManager();
        // fragmentManager.beginTransaction().replace(R.id.fragmentView, fragment).commit();

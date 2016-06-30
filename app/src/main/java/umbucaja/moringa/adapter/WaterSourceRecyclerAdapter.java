@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -44,7 +43,7 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
     @Override
     public void onBindViewHolder(WaterSourceViewHolder holder, int position) {
         WaterSource waterSource = waterSources.get(position);
-        Toast.makeText(holder.context, waterSource.getName(), Toast.LENGTH_LONG).show();
+       // Toast.makeText(holder.context, waterSource.getName(), Toast.LENGTH_LONG).show();
         holder.tvName.setText(waterSource.getType()+" "+waterSource.getName());
         float capacity = waterSource.getCapacity();
         List<WaterSourceMeasurement> wsms = waterSource.getReservoirMeasurements();

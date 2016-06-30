@@ -1,14 +1,11 @@
 package umbucaja.moringa.adapter;
 
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -103,7 +100,7 @@ public class ChuvasRecyclerAdapter extends RecyclerView.Adapter<ChuvasRecyclerAd
                 public void onClick(View view) {
                     //Toast.makeText(itemView.getContext(), station.getName(), Toast.LENGTH_LONG).show();
                     ChuvasEstacaoFragment fragment = ChuvasEstacaoFragment.newInstance("","");
-                    MoringaActivity activity = (MoringaActivity)itemView.getContext();
+                    MoringaActivity activity = (MoringaActivity) itemView.getContext();
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView, fragment).addToBackStack(null).commit();
 
                 }
