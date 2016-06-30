@@ -55,7 +55,7 @@
                         android:textColor="@color/blue_water_source_name"
                         android:textSize="15dp"
                         android:textStyle="bold"
-                        android:text="Campina Grande Centro"
+                        android:text="Última Medição"
                         android:maxLines="2"
                         android:gravity="center"
                         android:ellipsize="end" />

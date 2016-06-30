@@ -5,9 +5,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
 import umbucaja.moringa.entity.MeasurementStation;
 import umbucaja.moringa.service.Server;
@@ -27,6 +30,7 @@ public class ChuvasEstacaoFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private Long stationId;
+    private static MeasurementStation station;
 
     private OnFragmentInteractionListener mListener;
 
@@ -42,6 +46,7 @@ public class ChuvasEstacaoFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static ChuvasEstacaoFragment newInstance(MeasurementStation station) {
+        ChuvasEstacaoFragment.station = station;
         ChuvasEstacaoFragment fragment = new ChuvasEstacaoFragment();
         Bundle args = new Bundle();
         args.putLong(ARG_PARAM, station.getId());
@@ -50,12 +55,20 @@ public class ChuvasEstacaoFragment extends Fragment {
     }
 
     @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem item = menu.findItem(R.id.action_search);
+        item.setVisible(false);
+        ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(station.getName());
+        ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             stationId = getArguments().getLong(ARG_PARAM);
         }
-
+        setHasOptionsMenu(true);
         //TODO: criar metodo em Server para requisitar os dados de uma dada estacao por ID
         //Server.getInstance(getContext()).getDataFromStation(stationId)
 
