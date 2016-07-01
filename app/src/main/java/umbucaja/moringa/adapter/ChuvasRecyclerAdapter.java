@@ -99,10 +99,11 @@ public class ChuvasRecyclerAdapter extends RecyclerView.Adapter<ChuvasRecyclerAd
                 @Override
                 public void onClick(View view) {
                     //Toast.makeText(itemView.getContext(), station.getName(), Toast.LENGTH_LONG).show();
-                    ChuvasEstacaoFragment fragment = ChuvasEstacaoFragment.newInstance("","");
-                    MoringaActivity activity = (MoringaActivity) itemView.getContext();
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView, fragment).addToBackStack(null).commit();
 
+                    ChuvasEstacaoFragment fragment = ChuvasEstacaoFragment.newInstance(station);
+                    MoringaActivity activity = (MoringaActivity)itemView.getContext();
+
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView, fragment).addToBackStack(null).commit();
                 }
             });
         }

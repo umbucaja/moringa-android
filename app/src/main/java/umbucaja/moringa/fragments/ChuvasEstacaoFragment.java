@@ -5,10 +5,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.Toast;
 
+import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
+import umbucaja.moringa.entity.MeasurementStation;
+import umbucaja.moringa.service.Server;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,12 +29,13 @@ import umbucaja.moringa.R;
 public class ChuvasEstacaoFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM = "station_id";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static MeasurementStation station;
+    private Long stationId;
+    private View rootView;
+    private GridView gridView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -38,34 +47,54 @@ public class ChuvasEstacaoFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment ChuvasEstacaoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ChuvasEstacaoFragment newInstance(String param1, String param2) {
+    public static ChuvasEstacaoFragment newInstance(MeasurementStation station) {
+        ChuvasEstacaoFragment.station = station;
         ChuvasEstacaoFragment fragment = new ChuvasEstacaoFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putLong(ARG_PARAM, station.getId());
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem item = menu.findItem(R.id.action_search);
+        item.setVisible(false);
+        ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(station.getName());
+        ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            stationId = getArguments().getLong(ARG_PARAM);
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chuvas_estacao, container, false);
+        rootView = inflater.inflate(R.layout.fragment_chuvas_estacao, container, false);
+
+        gridView = (GridView) rootView.findViewById(R.id.gridview_chuva_item);
+
+        //TODO: criar metodo em Server para requisitar os dados de uma dada estacao por ID
+        Server.getInstance(getContext()).getMeasurementsFromStation(gridView, stationId);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getContext(), "OI", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

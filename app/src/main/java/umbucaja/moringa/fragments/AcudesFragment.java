@@ -158,6 +158,13 @@ public class AcudesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_acudes, container, false);
+        //utilizado para salvar o estado atual do fragment
+        if(GlobalData.currCity != null){
+            waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
+            waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(GlobalData.currCity.getName());
+            Server.getInstance(getContext()).getWaterAllSourcesFromCity(waterSourcesRecyclerView, GlobalData.currCity.getId());
+        }
         return rootView;
     }
 

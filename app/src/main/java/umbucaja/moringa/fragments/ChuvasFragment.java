@@ -143,6 +143,14 @@ public class ChuvasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_chuvas, container, false);
+        //utilizado para salvar o estado atual do fragment
+        if(GlobalData.currCity != null){
+            recyclerView = (RecyclerView) rootView.findViewById(R.id.chuvas_recycler_view);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(GlobalData.currCity.getName());
+            Server.getInstance(getContext()).getMeasurementStationsFromCity(recyclerView, GlobalData.currCity.getId());
+        }
         return rootView;
     }
 

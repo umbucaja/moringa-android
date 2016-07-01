@@ -40,7 +40,7 @@ public class WaterSourceViewHolder extends RecyclerView.ViewHolder implements Wa
 
 
                 //Toast.makeText(itemView.getContext(), station.getName(), Toast.LENGTH_LONG).show();
-                WaterSourceFragment fragment = WaterSourceFragment.newInstance(currentWaterSource.getId(), currentWaterSource.getName());
+                WaterSourceFragment fragment = WaterSourceFragment.newInstance(currentWaterSource);
                 MoringaActivity activity = (MoringaActivity) itemView.getContext();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView, fragment).addToBackStack(null).commit();
 

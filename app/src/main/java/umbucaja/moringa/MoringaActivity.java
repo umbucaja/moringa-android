@@ -160,6 +160,10 @@ public class MoringaActivity extends AppCompatActivity
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
+//        for(int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
+//            fragmentManager.popBackStack();
+//        }
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentManager.beginTransaction().replace(R.id.fragmentView, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
