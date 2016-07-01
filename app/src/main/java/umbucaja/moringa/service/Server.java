@@ -292,6 +292,6 @@ public class Server {
                 recyclerView.setAdapter(chuvasRecyclerAdapter);
 
             }
-        }).execute(URL + "cities/" + cityId + "/measurementstations");
+        }).execute(URL + "cities/" + cityId + "/stations");
     }
 }
