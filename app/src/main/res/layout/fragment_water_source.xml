@@ -101,7 +101,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_current_water_source_percentage"
                         android:text="40"
-                        android:textSize="50dp"
+                        android:textSize="45dp"
                         android:textStyle="bold"
                         android:gravity="center"
                         android:textColor="@color/red_percentage" />
@@ -110,7 +110,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_percentage"
                         android:text="%"
-                        android:textSize="30dp"
+                        android:textSize="22dp"
                         android:textStyle="bold"
                         android:gravity="center"
                         android:textColor="@color/red_percentage" />

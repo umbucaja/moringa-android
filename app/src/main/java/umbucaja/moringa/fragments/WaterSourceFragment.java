@@ -111,7 +111,7 @@ public class WaterSourceFragment extends Fragment {
         }
         percentage = (actualVolume*100)/capacity;
         tvActualWaterSourceVolume.setText(String.format("%.1f",actualVolume/1000000));
-        tvCurrentWaterSourcePercentage.setText(String.format("%.1f%s",percentage,"%"));
+        tvCurrentWaterSourcePercentage.setText(String.format("%.1f",percentage));
         tvWaterSourceLastMeasurementDate.setText(date);
         progressBarWaterSource.setProgress((int)percentage);
 
