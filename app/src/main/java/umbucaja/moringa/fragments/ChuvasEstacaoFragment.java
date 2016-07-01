@@ -63,7 +63,8 @@ public class ChuvasEstacaoFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem item = menu.findItem(R.id.action_search);
         item.setVisible(false);
-        ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(station.getName());
+        if(station != null)
+            ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(station.getName());
         ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
     }
 
@@ -85,7 +86,8 @@ public class ChuvasEstacaoFragment extends Fragment {
         gridView = (GridView) rootView.findViewById(R.id.gridview_chuva_item);
 
         //TODO: criar metodo em Server para requisitar os dados de uma dada estacao por ID
-        Server.getInstance(getContext()).getMeasurementsFromStation(rootView, gridView, station);
+        if(station != null)
+            Server.getInstance(getContext()).getMeasurementsFromStation(rootView, gridView, station);
 
 //        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
