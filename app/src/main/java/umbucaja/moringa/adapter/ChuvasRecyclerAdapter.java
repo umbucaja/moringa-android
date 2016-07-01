@@ -72,6 +72,8 @@ public class ChuvasRecyclerAdapter extends RecyclerView.Adapter<ChuvasRecyclerAd
     private void checkValuesAndSetImage(Float value, ChuvasHolder holder) {
         if(value == 0f)
             holder.ivSituacao.setImageResource(R.drawable.moringa);
+        else if(value <= 10)
+            holder.ivSituacao.setImageResource(R.drawable.moringa);
         else if(value <= 25)
             holder.ivSituacao.setImageResource(R.drawable.moringa);
         else if(value <= 50)

@@ -133,6 +133,8 @@ public class Server {
         TextView tvDate = (TextView)  rootView.findViewById(R.id.tv_chuvas_last_measurement_date);
         if(lastMeasurement.getValue() == 0f)
             iv.setImageResource(R.drawable.moringa);
+        else if(lastMeasurement.getValue() <= 10)
+            iv.setImageResource(R.drawable.moringa);
         else if(lastMeasurement.getValue() <= 25)
             iv.setImageResource(R.drawable.moringa);
         else if(lastMeasurement.getValue() <= 50)
@@ -175,6 +177,8 @@ public class Server {
                 TextView tvValue = (TextView)  rootView.findViewById(R.id.tv_chuvas_milimetragem);
                 TextView tvDate = (TextView)  rootView.findViewById(R.id.tv_chuvas_last_measurement_date);
                 if(lastMeasurement.getValue() == 0f)
+                    iv.setImageResource(R.drawable.moringa);
+                else if(lastMeasurement.getValue() <= 10)
                     iv.setImageResource(R.drawable.moringa);
                 else if(lastMeasurement.getValue() <= 25)
                     iv.setImageResource(R.drawable.moringa);
