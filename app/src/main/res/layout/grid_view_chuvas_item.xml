@@ -4,21 +4,21 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="30dp"
+        android:layout_width="40dp"
         android:layout_height="40dp"
         android:id="@+id/iv_grid_view_chuvas_item"
         android:src="@drawable/moringa"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/tv_grid_view_chuvas_item_value"
-        android:layout_toEndOf="@+id/tv_grid_view_chuvas_item_value" />
+        android:layout_alignRight="@+id/tv_grid_view_chuvas_item_unit"
+        android:layout_alignEnd="@+id/tv_grid_view_chuvas_item_unit" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="mm"
         android:id="@+id/tv_grid_view_chuvas_item_unit"
-        android:textSize="12dp"
-        android:layout_below="@+id/iv_grid_view_chuvas_item"
+        android:textSize="10dp"
+        android:layout_alignBottom="@+id/tv_grid_view_chuvas_item_value"
         android:layout_toRightOf="@+id/tv_grid_view_chuvas_item_value"
         android:layout_toEndOf="@+id/tv_grid_view_chuvas_item_value" />
 
@@ -29,8 +29,11 @@
         android:id="@+id/tv_grid_view_chuvas_item_dayofweek"
         android:textSize="10dp"
         android:layout_below="@+id/tv_grid_view_chuvas_item_unit"
-        android:layout_toRightOf="@+id/tv_grid_view_chuvas_item_value"
-        android:layout_toEndOf="@+id/tv_grid_view_chuvas_item_value" />
+        android:layout_alignRight="@+id/tv_grid_view_chuvas_item_date"
+        android:layout_alignEnd="@+id/tv_grid_view_chuvas_item_date"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textAlignment="center" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,7 +51,7 @@
         android:text="30"
         android:id="@+id/tv_grid_view_chuvas_item_value"
         android:textSize="15dp"
-        android:layout_alignBottom="@+id/tv_grid_view_chuvas_item_unit"
+        android:layout_below="@+id/iv_grid_view_chuvas_item"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

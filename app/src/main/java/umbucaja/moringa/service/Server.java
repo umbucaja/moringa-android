@@ -2,7 +2,6 @@ package umbucaja.moringa.service;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
@@ -111,15 +110,15 @@ public class Server {
 
     public void getMeasurementsFromStation(final View rootView, final GridView gridView, long stationId){
         List<RainFallMeasurement> measurements = new ArrayList<RainFallMeasurement>();
-        measurements.add(new RainFallMeasurement(0, new Date(), 10, "mm"));
-        measurements.add(new RainFallMeasurement(1, new Date(), 20, "mm"));
-        measurements.add(new RainFallMeasurement(2, new Date(), 30, "mm"));
-        measurements.add(new RainFallMeasurement(3, new Date(), 40, "mm"));
-        measurements.add(new RainFallMeasurement(4, new Date(), 50, "mm"));
-        measurements.add(new RainFallMeasurement(5, new Date(), 60, "mm"));
-        measurements.add(new RainFallMeasurement(5, new Date(), 70, "mm"));
-        measurements.add(new RainFallMeasurement(5, new Date(), 80, "mm"));
-        measurements.add(new RainFallMeasurement(5, new Date(), 90, "mm"));
+        measurements.add(new RainFallMeasurement(0, new Date(), 10f, "mm"));
+        measurements.add(new RainFallMeasurement(1, new Date(), 20f, "mm"));
+        measurements.add(new RainFallMeasurement(2, new Date(), 30f, "mm"));
+        measurements.add(new RainFallMeasurement(3, new Date(), 0f, "mm"));
+        measurements.add(new RainFallMeasurement(4, new Date(), 5f, "mm"));
+        measurements.add(new RainFallMeasurement(5, new Date(), 20f, "mm"));
+        measurements.add(new RainFallMeasurement(6, new Date(), 40f, "mm"));
+        measurements.add(new RainFallMeasurement(7, new Date(), 100f, "mm"));
+        measurements.add(new RainFallMeasurement(8, new Date(), 0f, "mm"));
 
         Collections.sort(measurements, new Comparator<RainFallMeasurement>() {
             @Override
@@ -132,15 +131,15 @@ public class Server {
         TextView tvValue = (TextView)  rootView.findViewById(R.id.tv_chuvas_milimetragem);
         TextView tvDate = (TextView)  rootView.findViewById(R.id.tv_chuvas_last_measurement_date);
         if(lastMeasurement.getValue() == 0f)
-            iv.setImageResource(R.drawable.moringa);
+            iv.setImageResource(R.drawable.sol);
         else if(lastMeasurement.getValue() <= 10)
-            iv.setImageResource(R.drawable.moringa);
+            iv.setImageResource(R.drawable.pouquissima_chuva);
         else if(lastMeasurement.getValue() <= 25)
-            iv.setImageResource(R.drawable.moringa);
+            iv.setImageResource(R.drawable.pouca_chuva);
         else if(lastMeasurement.getValue() <= 50)
-            iv.setImageResource(R.drawable.moringa);
+            iv.setImageResource(R.drawable.muita_chuva);
         else if(lastMeasurement.getValue() > 50)
-            iv.setImageResource(R.drawable.moringa);
+            iv.setImageResource(R.drawable.toro);
         tvValue.setText(lastMeasurement.getValue()+"mm");
         String date = new SimpleDateFormat("dd/MM/yyyy").format(lastMeasurement.getDate());
         tvDate.setText(date);
@@ -177,15 +176,15 @@ public class Server {
                 TextView tvValue = (TextView)  rootView.findViewById(R.id.tv_chuvas_milimetragem);
                 TextView tvDate = (TextView)  rootView.findViewById(R.id.tv_chuvas_last_measurement_date);
                 if(lastMeasurement.getValue() == 0f)
-                    iv.setImageResource(R.drawable.moringa);
+                    iv.setImageResource(R.drawable.sol);
                 else if(lastMeasurement.getValue() <= 10)
-                    iv.setImageResource(R.drawable.moringa);
+                    iv.setImageResource(R.drawable.pouquissima_chuva);
                 else if(lastMeasurement.getValue() <= 25)
-                    iv.setImageResource(R.drawable.moringa);
+                    iv.setImageResource(R.drawable.pouca_chuva);
                 else if(lastMeasurement.getValue() <= 50)
-                    iv.setImageResource(R.drawable.moringa);
+                    iv.setImageResource(R.drawable.muita_chuva);
                 else if(lastMeasurement.getValue() > 50)
-                    iv.setImageResource(R.drawable.moringa);
+                    iv.setImageResource(R.drawable.toro);
                 tvValue.setText(lastMeasurement.getValue()+"mm");
                 String date = new SimpleDateFormat("dd/MM/yyyy").format(lastMeasurement.getDate());
                 tvDate.setText(date);
@@ -236,7 +235,7 @@ public class Server {
     public void getMeasurementStationsFromCity(final RecyclerView recyclerView, long cityId) {
         List<MeasurementStation> list = new ArrayList<MeasurementStation>();
         List<RainFallMeasurement> list2 = new ArrayList<RainFallMeasurement>();
-        list2.add(new RainFallMeasurement(0, new Date(), 50.2f, "mm"));
+        list2.add(new RainFallMeasurement(5, new Date(), 0f, "mm"));
         MeasurementStation ms = new MeasurementStation(0, "Estação Cidade", 1f, 1f);
         ms.setRainFallMeasurements(list2);
         list.add(ms);
