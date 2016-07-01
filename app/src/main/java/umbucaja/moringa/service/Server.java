@@ -109,7 +109,7 @@ public class Server {
     }
 
     public void getMeasurementsFromStation(final View rootView, final GridView gridView, MeasurementStation station){
-        List<RainFallMeasurement> measurements = new ArrayList<RainFallMeasurement>();
+        /*List<RainFallMeasurement> measurements = new ArrayList<RainFallMeasurement>();
         measurements.add(new RainFallMeasurement(0, new Date(), 10f, "mm"));
         measurements.add(new RainFallMeasurement(1, new Date(), 20f, "mm"));
         measurements.add(new RainFallMeasurement(2, new Date(), 30f, "mm"));
@@ -148,10 +148,10 @@ public class Server {
             measurements = measurements.subList(measurements.size()-5, measurements.size());
 
         ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
-        gridView.setAdapter(adapter);
+        gridView.setAdapter(adapter);*/
 
         //TODO: parte correta. Nao eh necessario requisitar novamente os dados de rainFallMeasurement
-        /*List<RainFallMeasurement> measurements = station.getRainFallMeasurements()
+        List<RainFallMeasurement> measurements = station.getRainFallMeasurements();
         Collections.sort(measurements, new Comparator<RainFallMeasurement>() {
             @Override
             public int compare(RainFallMeasurement rfm1, RainFallMeasurement rfm2) {
@@ -180,7 +180,7 @@ public class Server {
             measurements = measurements.subList(measurements.size()-5, measurements.size());
 
         ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
-        gridView.setAdapter(adapter);*/
+        gridView.setAdapter(adapter);
 
         /*new Connector(context, new Connector.Response() {
             @Override
@@ -266,15 +266,15 @@ public class Server {
     }
 
     public void getMeasurementStationsFromCity(final RecyclerView recyclerView, long cityId) {
-        List<MeasurementStation> list = new ArrayList<MeasurementStation>();
+        /*List<MeasurementStation> list = new ArrayList<MeasurementStation>();
         List<RainFallMeasurement> list2 = new ArrayList<RainFallMeasurement>();
         list2.add(new RainFallMeasurement(5, new Date(), 0f, "mm"));
         MeasurementStation ms = new MeasurementStation(0, "Estação Cidade", 1f, 1f);
         ms.setRainFallMeasurements(list2);
         list.add(ms);
         ChuvasRecyclerAdapter chuvasRecyclerAdapter = new ChuvasRecyclerAdapter(list);
-        recyclerView.setAdapter(chuvasRecyclerAdapter);
-        /*new Connector(context, new Connector.Response() {
+        recyclerView.setAdapter(chuvasRecyclerAdapter);*/
+        new Connector(context, new Connector.Response() {
             @Override
             public void handleResponse(JSONArray output) {
                 if(output == null)
@@ -292,6 +292,6 @@ public class Server {
                 recyclerView.setAdapter(chuvasRecyclerAdapter);
 
             }
-        }).execute(URL + "cities/" + cityId + "/measurementstations");*/
+        }).execute(URL + "cities/" + cityId + "/measurementstations");
     }
 }
