@@ -185,11 +185,7 @@ public class WaterSourceFragment extends Fragment {
         System.out.println("WSID: "+waterSourceId);
       //  Server.getInstance(getContext()).getWaterAllSourcesFromCity2(this, (int)waterSourceId);
 
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         //WaterSource waterSource = waterSources.get(0);
        // view.findViewById(R.id.)
 
