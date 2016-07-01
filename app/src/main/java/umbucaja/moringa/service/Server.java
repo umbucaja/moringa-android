@@ -116,6 +116,10 @@ public class Server {
         measurements.add(new RainFallMeasurement(2, new Date(), 30, "mm"));
         measurements.add(new RainFallMeasurement(3, new Date(), 40, "mm"));
         measurements.add(new RainFallMeasurement(4, new Date(), 50, "mm"));
+        measurements.add(new RainFallMeasurement(5, new Date(), 60, "mm"));
+        measurements.add(new RainFallMeasurement(5, new Date(), 70, "mm"));
+        measurements.add(new RainFallMeasurement(5, new Date(), 80, "mm"));
+        measurements.add(new RainFallMeasurement(5, new Date(), 90, "mm"));
 
         Collections.sort(measurements, new Comparator<RainFallMeasurement>() {
             @Override
@@ -138,6 +142,9 @@ public class Server {
         tvValue.setText(lastMeasurement.getValue()+"mm");
         String date = new SimpleDateFormat("dd/MM/yyyy").format(lastMeasurement.getDate());
         tvDate.setText(date);
+
+        if(measurements.size() > 5)
+            measurements = measurements.subList(measurements.size()-5, measurements.size());
 
         ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
         gridView.setAdapter(adapter);
@@ -178,6 +185,9 @@ public class Server {
                 tvValue.setText(lastMeasurement.getValue()+"mm");
                 String date = new SimpleDateFormat("dd/MM/yyyy").format(lastMeasurement.getDate());
                 tvDate.setText(date);
+
+                if(measurements.size() > 5)
+                    measurements = measurements.subList(measurements.size()-5, measurements.size());
 
                 ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
                 gridView.setAdapter(adapter);
