@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -16,10 +18,15 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
+import umbucaja.moringa.entity.WaterSource;
+import umbucaja.moringa.entity.WaterSourceMeasurement;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,12 +39,24 @@ import umbucaja.moringa.R;
 public class WaterSourceFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    private static final String WATER_SOURCE_ID = "water_source_id";
+    private static final String WATER_SOURCE_NAME = "water_source_name";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private long waterSourceId;
+    private String waterSourceName;
     private String mParam2;
+
+    private ProgressBar progressBarWaterSource;
+    private TextView tvCurrentWaterSourcePercentage;
+    private TextView tvWaterSourceLastMeasurementDate;
+    private TextView tvActualWaterSourceVolume;
+    private TextView tvCurrentCapacity;
+    private LineChart chartWaterSource;
+    private View mainView;
+    private static WaterSource waterSource;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -45,20 +64,14 @@ public class WaterSourceFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WaterSourceFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static WaterSourceFragment newInstance(String param1, String param2) {
+
+    public static WaterSourceFragment newInstance(WaterSource waterSource1) {
         WaterSourceFragment fragment = new WaterSourceFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        waterSource = waterSource1;
+
+       // args.putLong(WATER_SOURCE_ID, waterSourceId);
+        //args.putString(WATER_SOURCE_NAME, waterSourceName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,31 +80,54 @@ public class WaterSourceFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            waterSourceId = getArguments().getLong(WATER_SOURCE_ID);
+            waterSourceName =  getArguments().getString(WATER_SOURCE_NAME);
         }
-
-
-
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_water_source, container, false);
-        LineChart lineChart = (LineChart) view.findViewById(R.id.chart);
+    public void setUp(View view){
+        tvCurrentWaterSourcePercentage = (TextView) view.findViewById(R.id.tv_current_water_source_percentage);
+        tvWaterSourceLastMeasurementDate = (TextView) view.findViewById(R.id.tv_water_source_current_last_measurement_date);
+        tvActualWaterSourceVolume = (TextView) view.findViewById(R.id.tv_actual_volume_million_m3);
+        tvCurrentCapacity =  (TextView) view.findViewById(R.id.tv_current_capacity);
+        progressBarWaterSource = (ProgressBar)  view.findViewById(R.id.progress_bar_watersource);
+        chartWaterSource = (LineChart) view.findViewById(R.id.chartWaterSource);
+        float capacity = waterSource.getCapacity();
+        List<WaterSourceMeasurement> wsms = waterSource.getReservoirMeasurements();
+
+        float percentage = 0;
+        float actualVolume = 0;
+
+        String date = "";
+        this.tvCurrentCapacity.setText(String.format("%.1f",capacity/(1000000)));
+        // holder.currentWaterSource = waterSource;
+        if(wsms!=null){
+            if(wsms.size()>0){
+                actualVolume = wsms.get(wsms.size()-1).getValue();
+                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                date = formatter.format(wsms.get(wsms.size()-1).getDate());
+
+            }
+        }
+        percentage = (actualVolume*100)/capacity;
+        tvActualWaterSourceVolume.setText(String.format("%.1f",actualVolume/1000000));
+        tvCurrentWaterSourcePercentage.setText(String.format("%.1f",percentage));
+        tvWaterSourceLastMeasurementDate.setText(date);
+        progressBarWaterSource.setProgress((int)percentage);
 
 
         int cnt = 1;
-
+        ArrayList<String> mX = new ArrayList<String>();
         ArrayList<Entry> e1 = new ArrayList<Entry>();
-
-        for (int i = 0; i < 12; i++) {
-            e1.add(new Entry((int) (Math.random() * 65) + 40, i));
+        //e1.add(new Entry(0, 0));
+        //mX.add("Inicio");
+        for (int i = 0; i < wsms.size(); i++) {
+            e1.add(new Entry(Float.parseFloat(String.format("%.1f",wsms.get(i).getValue()/1000000).replace(",",".")), i));
+            DateFormat formatter = new SimpleDateFormat("dd/MM");
+            mX.add(formatter.format(wsms.get(i).getDate()));
         }
 
-        LineDataSet d1 = new LineDataSet(e1, "New DataSet " + cnt + ", (1)");
+        LineDataSet d1 = new LineDataSet(e1, "Volume "+waterSource.getType()+" "+waterSource.getName() + cnt + ", (1)");
         d1.setLineWidth(2.5f);
         d1.setCircleRadius(4.5f);
         d1.setHighLightColor(Color.rgb(244, 117, 117));
@@ -99,8 +135,8 @@ public class WaterSourceFragment extends Fragment {
 
         ArrayList<Entry> e2 = new ArrayList<Entry>();
 
-        for (int i = 0; i < 12; i++) {
-            e2.add(new Entry(e1.get(i).getVal() - 30, i));
+        for (int i = 0; i < wsms.size(); i++) {
+            e2.add(new Entry(e1.get(i).getVal(), i));
         }
 
         LineDataSet d2 = new LineDataSet(e2, "New DataSet " + cnt + ", (2)");
@@ -113,15 +149,45 @@ public class WaterSourceFragment extends Fragment {
 
         ArrayList<ILineDataSet> sets = new ArrayList<ILineDataSet>();
         sets.add(d1);
-        sets.add(d2);
+        //sets.add(d2);
 
-        LineData data = new LineData(getMonths(), sets);
+        LineData data = new LineData(mX, sets);
 
 
-        lineChart.setData(data); // set the data and list of lables into chart
-        lineChart.setDescription("Description");  // set the description
+        chartWaterSource.setData(data); // set the data and list of lables into chart
+        chartWaterSource.setDescription("Description");  // set the description
+
+
+
+
+        }
+       // System.out.println("=============================> "+waterSources);
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_water_source, container, false);
+       // mainView = view;
+        //LineChart lineChart = (LineChart) view.findViewById(R.id.chartWaterSource);
+        this.setUp(view);
+        System.out.println("WSID: "+waterSourceId);
+      //  Server.getInstance(getContext()).getWaterAllSourcesFromCity2(this, (int)waterSourceId);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //WaterSource waterSource = waterSources.get(0);
+       // view.findViewById(R.id.)
+
+        int cnt = 1;
+
+
         ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
         ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
+        ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(waterSource.getName());
 
 
         return view;
@@ -181,5 +247,58 @@ public class WaterSourceFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public LineChart getChartWaterSource() {
+        return chartWaterSource;
+    }
+
+    public void setChartWaterSource(LineChart chartWaterSource) {
+        this.chartWaterSource = chartWaterSource;
+    }
+
+    public TextView getTvCurrentCapacity() {
+        return tvCurrentCapacity;
+    }
+
+    public void setTvCurrentCapacity(TextView tvCurrentCapacity) {
+        this.tvCurrentCapacity = tvCurrentCapacity;
+    }
+
+    public TextView getTvActualWaterSourceVolume() {
+        return tvActualWaterSourceVolume;
+    }
+
+    public void setTvActualWaterSourceVolume(TextView tvActualWaterSourceVolume) {
+        this.tvActualWaterSourceVolume = tvActualWaterSourceVolume;
+    }
+
+    public TextView getTvWaterSourceLastMeasurementDate() {
+        return tvWaterSourceLastMeasurementDate;
+    }
+
+    public void setTvWaterSourceLastMeasurementDate(TextView tvWaterSourceLastMeasurementDate) {
+        this.tvWaterSourceLastMeasurementDate = tvWaterSourceLastMeasurementDate;
+    }
+
+    public TextView getTvCurrentWaterSourcePercentage() {
+        return tvCurrentWaterSourcePercentage;
+    }
+
+    public void setTvCurrentWaterSourcePercentage(TextView tvCurrentWaterSourcePercentage) {
+        this.tvCurrentWaterSourcePercentage = tvCurrentWaterSourcePercentage;
+    }
+
+    public ProgressBar getProgressBarWaterSource() {
+        return progressBarWaterSource;
+    }
+
+    public void setProgressBarWaterSource(ProgressBar progressBarWaterSource) {
+        this.progressBarWaterSource = progressBarWaterSource;
+    }
+
+
+    public View getMainView() {
+        return mainView;
     }
 }

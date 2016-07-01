@@ -43,6 +43,7 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
     @Override
     public void onBindViewHolder(WaterSourceViewHolder holder, int position) {
         WaterSource waterSource = waterSources.get(position);
+       // Toast.makeText(holder.context, waterSource.getName(), Toast.LENGTH_LONG).show();
         holder.tvName.setText(waterSource.getType()+" "+waterSource.getName());
         float capacity = waterSource.getCapacity();
         List<WaterSourceMeasurement> wsms = waterSource.getReservoirMeasurements();
@@ -50,18 +51,18 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
 
         float actualVolume = 0;
         String date = "";
+        holder.currentWaterSource = waterSource;
         if(wsms!=null){
             if(wsms.size()>0){
-                actualVolume = wsms.get(0).getValue();
+                actualVolume = wsms.get(wsms.size()-1).getValue();
                 DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                 date = formatter.format(wsms.get(wsms.size()-1).getDate());
+
             }else{
 
             }
-
         }
         percentage = (actualVolume*100)/capacity;
-
 
         holder.tvPercentage.setText(String.format("%.1f%s",percentage,"%"));
         holder.tvDate.setText(date);
@@ -74,6 +75,7 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
     public int getItemCount() {
         return waterSources.size();
     }
+
 
 
 }

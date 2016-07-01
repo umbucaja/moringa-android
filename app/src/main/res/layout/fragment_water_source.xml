@@ -83,19 +83,46 @@
                     android:layout_gravity="center"
                     android:gravity="center_horizontal">
 
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_current_water_source_percentage"
-                        android:text="40%"
-                        android:textSize="60dp"
+                        android:text="40"
+                        android:textSize="45dp"
                         android:textStyle="bold"
                         android:gravity="center"
                         android:textColor="@color/red_percentage" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_current_water_source_name"
+                        android:id="@+id/tv_percentage"
+                        android:text="%"
+                        android:textSize="22dp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="@color/red_percentage" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_label_percentage"
                         android:textColor="@color/green_aux_text"
                         android:textSize="15dp"
                         android:textStyle="bold"
@@ -303,7 +330,7 @@
         android:layout_marginTop="8dp"
         >
         <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chart"
+            android:id="@+id/chartWaterSource"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             />

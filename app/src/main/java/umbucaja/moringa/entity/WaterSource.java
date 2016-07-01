@@ -50,4 +50,16 @@ public class WaterSource {
     public List<WaterSourceMeasurement> getReservoirMeasurements() {
         return waterSourceMeasurements;
     }
+
+    @Override
+    public String toString() {
+        return "WaterSource{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", capacity=" + capacity +
+                ", measurementUnit='" + measurementUnit + '\'' +
+                ", type='" + type + '\'' +
+                ", waterSourceMeasurements=" + waterSourceMeasurements +
+                '}';
+    }
 }
