@@ -144,10 +144,6 @@ public class MoringaActivity extends AppCompatActivity
             fragmentClass = SobreFragment.class;
             collapsingToolbar.setTitle(item.getTitle());
             closeOptionsMenu();
-        } else if (id == R.id.nav_acude) {
-            fragmentClass = WaterSourceFragment.class;
-            collapsingToolbar.setTitle(item.getTitle());
-            closeOptionsMenu();
         } else if (id == R.id.nav_sair) {
             finish();
         }
