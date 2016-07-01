@@ -54,9 +54,10 @@ public class ChuvasRecyclerAdapter extends RecyclerView.Adapter<ChuvasRecyclerAd
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             String date = formatter.format(lastMeasurement.getDate());
             Float value = lastMeasurement.getValue();
+            //TODO: modificar para usar UNIT
             String unit = lastMeasurement.getUnit();
 
-            holder.tvMilimetragem.setText(String.format("%.1f%s",value,unit));
+            holder.tvMilimetragem.setText(String.format("%.1f%s",value,"mm"));
             holder.tvData.setText(date);
             holder.station = stations.get(position);
 

@@ -54,7 +54,7 @@ public class ChuvasEstacaoFragment extends Fragment {
         ChuvasEstacaoFragment.station = station;
         ChuvasEstacaoFragment fragment = new ChuvasEstacaoFragment();
         Bundle args = new Bundle();
-        args.putLong(ARG_PARAM, station.getId());
+        //args.putLong(ARG_PARAM, station.getId());
         fragment.setArguments(args);
         return fragment;
     }
