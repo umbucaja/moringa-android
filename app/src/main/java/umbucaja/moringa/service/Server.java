@@ -108,7 +108,7 @@ public class Server {
         }
     }
 
-    public void getMeasurementsFromStation(final View rootView, final GridView gridView, long stationId){
+    public void getMeasurementsFromStation(final View rootView, final GridView gridView, MeasurementStation station){
         List<RainFallMeasurement> measurements = new ArrayList<RainFallMeasurement>();
         measurements.add(new RainFallMeasurement(0, new Date(), 10f, "mm"));
         measurements.add(new RainFallMeasurement(1, new Date(), 20f, "mm"));
@@ -149,6 +149,39 @@ public class Server {
 
         ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
         gridView.setAdapter(adapter);
+
+        //TODO: parte correta. Nao eh necessario requisitar novamente os dados de rainFallMeasurement
+        /*List<RainFallMeasurement> measurements = station.getRainFallMeasurements()
+        Collections.sort(measurements, new Comparator<RainFallMeasurement>() {
+            @Override
+            public int compare(RainFallMeasurement rfm1, RainFallMeasurement rfm2) {
+                return rfm1.getDate().compareTo(rfm2.getDate());
+            }
+        });
+        RainFallMeasurement lastMeasurement = measurements.remove(measurements.size()-1);
+        ImageView iv = (ImageView) rootView.findViewById(R.id.image_view_chuvas);
+        TextView tvValue = (TextView)  rootView.findViewById(R.id.tv_chuvas_milimetragem);
+        TextView tvDate = (TextView)  rootView.findViewById(R.id.tv_chuvas_last_measurement_date);
+        if(lastMeasurement.getValue() == 0f)
+            iv.setImageResource(R.drawable.sol);
+        else if(lastMeasurement.getValue() <= 10)
+            iv.setImageResource(R.drawable.pouquissima_chuva);
+        else if(lastMeasurement.getValue() <= 25)
+            iv.setImageResource(R.drawable.pouca_chuva);
+        else if(lastMeasurement.getValue() <= 50)
+            iv.setImageResource(R.drawable.muita_chuva);
+        else if(lastMeasurement.getValue() > 50)
+            iv.setImageResource(R.drawable.toro);
+        tvValue.setText(lastMeasurement.getValue()+"mm");
+        String date = new SimpleDateFormat("dd/MM/yyyy").format(lastMeasurement.getDate());
+        tvDate.setText(date);
+
+        if(measurements.size() > 5)
+            measurements = measurements.subList(measurements.size()-5, measurements.size());
+
+        ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
+        gridView.setAdapter(adapter);*/
+
         /*new Connector(context, new Connector.Response() {
             @Override
             public void handleResponse(JSONArray output) {
