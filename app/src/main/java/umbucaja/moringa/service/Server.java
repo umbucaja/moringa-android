@@ -2,8 +2,11 @@ package umbucaja.moringa.service;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,7 +19,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -102,11 +108,45 @@ public class Server {
         }
     }
 
-    public void getMeasurementsFromStation(final GridView gridView, long stationId){
+    public void getMeasurementsFromStation(final View rootView, final GridView gridView, long stationId){
         List<RainFallMeasurement> measurements = new ArrayList<RainFallMeasurement>();
-        measurements.add(new RainFallMeasurement(0, new Date(), 10, "mm"));
-        measurements.add(new RainFallMeasurement(1, new Date(), 20, "mm"));
-        measurements.add(new RainFallMeasurement(2, new Date(), 30, "mm"));
+        measurements.add(new RainFallMeasurement(0, new Date(), 10f, "mm"));
+        measurements.add(new RainFallMeasurement(1, new Date(), 20f, "mm"));
+        measurements.add(new RainFallMeasurement(2, new Date(), 30f, "mm"));
+        measurements.add(new RainFallMeasurement(3, new Date(), 0f, "mm"));
+        measurements.add(new RainFallMeasurement(4, new Date(), 5f, "mm"));
+        measurements.add(new RainFallMeasurement(5, new Date(), 20f, "mm"));
+        measurements.add(new RainFallMeasurement(6, new Date(), 40f, "mm"));
+        measurements.add(new RainFallMeasurement(7, new Date(), 100f, "mm"));
+        measurements.add(new RainFallMeasurement(8, new Date(), 0f, "mm"));
+
+        Collections.sort(measurements, new Comparator<RainFallMeasurement>() {
+            @Override
+            public int compare(RainFallMeasurement rfm1, RainFallMeasurement rfm2) {
+                return rfm1.getDate().compareTo(rfm2.getDate());
+            }
+        });
+        RainFallMeasurement lastMeasurement = measurements.remove(measurements.size()-1);
+        ImageView iv = (ImageView) rootView.findViewById(R.id.image_view_chuvas);
+        TextView tvValue = (TextView)  rootView.findViewById(R.id.tv_chuvas_milimetragem);
+        TextView tvDate = (TextView)  rootView.findViewById(R.id.tv_chuvas_last_measurement_date);
+        if(lastMeasurement.getValue() == 0f)
+            iv.setImageResource(R.drawable.sol);
+        else if(lastMeasurement.getValue() <= 10)
+            iv.setImageResource(R.drawable.pouquissima_chuva);
+        else if(lastMeasurement.getValue() <= 25)
+            iv.setImageResource(R.drawable.pouca_chuva);
+        else if(lastMeasurement.getValue() <= 50)
+            iv.setImageResource(R.drawable.muita_chuva);
+        else if(lastMeasurement.getValue() > 50)
+            iv.setImageResource(R.drawable.toro);
+        tvValue.setText(lastMeasurement.getValue()+"mm");
+        String date = new SimpleDateFormat("dd/MM/yyyy").format(lastMeasurement.getDate());
+        tvDate.setText(date);
+
+        if(measurements.size() > 5)
+            measurements = measurements.subList(measurements.size()-5, measurements.size());
+
         ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
         gridView.setAdapter(adapter);
         /*new Connector(context, new Connector.Response() {
@@ -124,6 +164,33 @@ public class Server {
                         e.printStackTrace();
                     }
                 }
+
+                Collections.sort(measurements, new Comparator<RainFallMeasurement>() {
+                    @Override
+                    public int compare(RainFallMeasurement rfm1, RainFallMeasurement rfm2) {
+                        return rfm1.getDate().compareTo(rfm2.getDate());
+                    }
+                });
+                RainFallMeasurement lastMeasurement = measurements.remove(measurements.size()-1);
+                ImageView iv = (ImageView) rootView.findViewById(R.id.image_view_chuvas);
+                TextView tvValue = (TextView)  rootView.findViewById(R.id.tv_chuvas_milimetragem);
+                TextView tvDate = (TextView)  rootView.findViewById(R.id.tv_chuvas_last_measurement_date);
+                if(lastMeasurement.getValue() == 0f)
+                    iv.setImageResource(R.drawable.sol);
+                else if(lastMeasurement.getValue() <= 10)
+                    iv.setImageResource(R.drawable.pouquissima_chuva);
+                else if(lastMeasurement.getValue() <= 25)
+                    iv.setImageResource(R.drawable.pouca_chuva);
+                else if(lastMeasurement.getValue() <= 50)
+                    iv.setImageResource(R.drawable.muita_chuva);
+                else if(lastMeasurement.getValue() > 50)
+                    iv.setImageResource(R.drawable.toro);
+                tvValue.setText(lastMeasurement.getValue()+"mm");
+                String date = new SimpleDateFormat("dd/MM/yyyy").format(lastMeasurement.getDate());
+                tvDate.setText(date);
+
+                if(measurements.size() > 5)
+                    measurements = measurements.subList(measurements.size()-5, measurements.size());
 
                 ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
                 gridView.setAdapter(adapter);
@@ -168,8 +235,8 @@ public class Server {
     public void getMeasurementStationsFromCity(final RecyclerView recyclerView, long cityId) {
         List<MeasurementStation> list = new ArrayList<MeasurementStation>();
         List<RainFallMeasurement> list2 = new ArrayList<RainFallMeasurement>();
-        list2.add(new RainFallMeasurement(0, new Date(), 50.2f, "mm"));
-        MeasurementStation ms = new MeasurementStation(0, "Remigio", 1f, 1f);
+        list2.add(new RainFallMeasurement(5, new Date(), 0f, "mm"));
+        MeasurementStation ms = new MeasurementStation(0, "Estação Cidade", 1f, 1f);
         ms.setRainFallMeasurements(list2);
         list.add(ms);
         ChuvasRecyclerAdapter chuvasRecyclerAdapter = new ChuvasRecyclerAdapter(list);

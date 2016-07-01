@@ -67,12 +67,16 @@ public class ChuvasRecyclerAdapter extends RecyclerView.Adapter<ChuvasRecyclerAd
 
     //TODO: precisamos das imagens e dos intervalos para terminar a implementacao!
     private void checkValuesAndSetImage(Float value, ChuvasHolder holder) {
-        /*if(value <= 10)
-            holder.ivSituacao.setImageDrawable();
+        if(value == 0f)
+            holder.ivSituacao.setImageResource(R.drawable.sol);
+        else if(value <= 10)
+            holder.ivSituacao.setImageResource(R.drawable.pouquissima_chuva);
+        else if(value <= 25)
+            holder.ivSituacao.setImageResource(R.drawable.pouca_chuva);
         else if(value <= 50)
-            holder.ivSituacao.setImageDrawable();
-        else
-            holder.ivSituacao.setImageDrawable();*/
+            holder.ivSituacao.setImageResource(R.drawable.muita_chuva);
+        else if(value > 50)
+            holder.ivSituacao.setImageResource(R.drawable.toro);
     }
 
     @Override

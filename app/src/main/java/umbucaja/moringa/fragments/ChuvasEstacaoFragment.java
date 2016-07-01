@@ -85,14 +85,14 @@ public class ChuvasEstacaoFragment extends Fragment {
         gridView = (GridView) rootView.findViewById(R.id.gridview_chuva_item);
 
         //TODO: criar metodo em Server para requisitar os dados de uma dada estacao por ID
-        Server.getInstance(getContext()).getMeasurementsFromStation(gridView, stationId);
+        Server.getInstance(getContext()).getMeasurementsFromStation(rootView, gridView, stationId);
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getContext(), "OI", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Toast.makeText(getContext(), "OI", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         return rootView;
     }
