@@ -31,7 +31,7 @@
             ext:documentView_insetPaddingLeft="10dp"
             ext:documentView_insetPaddingRight="10dp"
             ext:documentView_insetPaddingTop="10dp"
-            ext:documentView_text="    O aplicativo Moringa foi desenvolvido com o intúito de alertar a população Paraibana sobre o problema da escassez de água.\n    É importante frizar que no desenvolvimento deste aplicativo, nós não levamos em consideração o 'volume morto' do reservatório assim como a porcentagem de evaporação das águas."
+            ext:documentView_text="\t\t\t\t\tO aplicativo Moringa foi desenvolvido com o intúito de alertar a população Paraibana sobre o problema da escassez de água.\n\t\t\t\t\tÉ importante frizar que no desenvolvimento deste aplicativo, nós não levamos em consideração o 'volume morto' do reservatório assim como a porcentagem de evaporação das águas."
             ext:documentView_textAlignment="justified"
             ext:documentView_textFormat="plain"
             ext:documentView_textSize="20sp"/>
