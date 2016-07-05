@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_back"
     tools:context="umbucaja.moringa.fragments.WaterSourceFragment">
 
 
@@ -47,14 +48,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:max="100"
-                        android:progress="40"
+                        android:progress="1"
                         android:progressDrawable="@drawable/progress_drawable"
                         android:layout_alignRight="@+id/image_test"
                         android:layout_alignEnd="@+id/image_test"
                         android:layout_alignLeft="@+id/image_test"
                         android:layout_alignStart="@+id/image_test"
                         android:layout_centerHorizontal="true"
-                        android:paddingBottom="10dp"
+                        android:paddingBottom="11dp"
                         android:paddingTop="15dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"/>

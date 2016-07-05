@@ -42,7 +42,8 @@ import umbucaja.moringa.util.GlobalData;
  */
 public class Server {
 
-    private final String URL = "http://150.165.98.43:8080/";
+   /// private final String URL = "http://150.165.98.43:8080/";
+    private final String URL = "http://192.168.1.106:8080/";
     private Context context;
     private Gson gson;
 
@@ -162,6 +163,9 @@ public class Server {
         ImageView iv = (ImageView) rootView.findViewById(R.id.image_view_chuvas);
         TextView tvValue = (TextView)  rootView.findViewById(R.id.tv_chuvas_milimetragem);
         TextView tvDate = (TextView)  rootView.findViewById(R.id.tv_chuvas_last_measurement_date);
+        TextView tvChuvasIn = (TextView)  rootView.findViewById(R.id.tv_chuvas_in);
+        TextView tvChuvasStationName = (TextView)  rootView.findViewById(R.id.tv_chuvas_station_name);
+
         if(lastMeasurement.getValue() == 0f)
             iv.setImageResource(R.drawable.sol);
         else if(lastMeasurement.getValue() <= 10)
@@ -172,10 +176,15 @@ public class Server {
             iv.setImageResource(R.drawable.muita_chuva);
         else if(lastMeasurement.getValue() > 50)
             iv.setImageResource(R.drawable.toro);
+        tvValue.setTextSize(40);
+        tvValue.setTextColor(rootView.getResources().getColor(R.color.red_percentage));
         tvValue.setText(lastMeasurement.getValue()+"mm");
+
         String date = new SimpleDateFormat("dd/MM/yyyy").format(lastMeasurement.getDate());
         tvDate.setText(date);
-
+        tvDate.setVisibility(View.VISIBLE);
+        tvChuvasIn.setVisibility(View.VISIBLE);
+        tvChuvasStationName.setVisibility(View.VISIBLE);
         if(measurements.size() > 5)
             measurements = measurements.subList(measurements.size()-5, measurements.size());
 

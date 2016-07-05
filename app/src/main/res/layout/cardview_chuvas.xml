@@ -27,7 +27,7 @@
                     android:adjustViewBounds="true"
                     android:layout_centerInParent="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/moringa"
+                    android:src="@drawable/sertanejo_sem_chuva"
                     android:padding="7dp" />
             </RelativeLayout>
 
@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_chuvas_milimetragem"
-                    android:text="40mm"
+                    android:text="--mm"
                     android:textSize="40dp"
                     android:textStyle="bold"
                     android:gravity="center"
@@ -75,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_chuvas_last_measurement_date"
-                        android:text="10/06/2016"
+                        android:text="Sem Chuva"
                         android:textSize="15dp"
                         android:textStyle="bold"
                         android:textColor="@color/orange_date_text"
