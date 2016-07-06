@@ -20,8 +20,11 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginStart="48dp"
-            app:expandedTitleMarginEnd="64dp">
+            app:expandedTitleMarginStart="15dp"
+            app:expandedTitleMarginEnd="17dp"
+            app:expandedTitleGravity="right"
+            app:expandedTitleMarginBottom="8dp"
+            app:expandedTitleTextAppearance="@style/ExpandedAppBar">
 
             <ImageView
                 android:id="@+id/backdrop"

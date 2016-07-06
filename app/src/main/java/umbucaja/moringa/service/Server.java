@@ -43,7 +43,7 @@ import umbucaja.moringa.util.GlobalData;
 public class Server {
 
    /// private final String URL = "http://150.165.98.43:8080/";
-    private final String URL = "http://192.168.1.106:8080/";
+    private final String URL = "http://192.168.1.109:8080/";
     private Context context;
     private Gson gson;
 
