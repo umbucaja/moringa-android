@@ -127,7 +127,7 @@ public class ChuvasFragment extends Fragment {
         if (GlobalData.isConnected(getContext())) {
             Server.getInstance(getContext()).populateToolbarCities(searchView, null);
         } else {
-            Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(((MoringaActivity)getContext()).appBarLayout, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
         }
     }
 
