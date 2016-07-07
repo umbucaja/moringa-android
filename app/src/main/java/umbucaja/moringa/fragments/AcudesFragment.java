@@ -131,26 +131,9 @@ public class AcudesFragment extends Fragment {
 
         if (GlobalData.isConnected(getContext())) {
             Server.getInstance(getContext()).populateToolbarCities(searchView, waterSourcesRecyclerView);
-            //GlobalData.getLocation(getContext());
         } else {
             Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
         }
-
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                Log.d("BUSCAR POR", query);
-//                //TODO: buscar pela cidade e atualizar o view
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                Log.d("TEXTO", newText);
-//                //TODO: pode mudar os adapters aqui
-//                return false;
-//            }
-//        });
     }
 
     @Override
@@ -168,21 +151,21 @@ public class AcudesFragment extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == REQUEST_LOCATION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                Server.getInstance(getContext()).populateToolbarCities(searchView, waterSourcesRecyclerView);
-            } else {
-                Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
-            }
-        } else {
-            Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+//        if (requestCode == REQUEST_LOCATION) {
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                    return;
+//                }
+//                Server.getInstance(getContext()).populateToolbarCities(searchView, waterSourcesRecyclerView);
+//            } else {
+//                Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
+//            }
+//        } else {
+//            Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
+//        }
+//    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

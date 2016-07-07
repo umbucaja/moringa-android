@@ -1,6 +1,8 @@
 package umbucaja.moringa;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -10,8 +12,10 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,11 +35,15 @@ import umbucaja.moringa.fragments.ChuvasFragment;
 import umbucaja.moringa.fragments.DesenvolvedoresFragment;
 import umbucaja.moringa.fragments.SobreFragment;
 import umbucaja.moringa.fragments.WaterSourceFragment;
+import umbucaja.moringa.service.Server;
+import umbucaja.moringa.util.GlobalData;
 import umbucaja.moringa.util.ImageColor;
 
 public class MoringaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener, SobreFragment.OnFragmentInteractionListener, DesenvolvedoresFragment.OnFragmentInteractionListener, WaterSourceFragment.OnFragmentInteractionListener, ChuvasEstacaoFragment.OnFragmentInteractionListener {
 
+    private final int REQUEST_LOCATION = 1;
+    private final String DEBUG_TAG = "MORINGA_ACTIVITY";
     public CollapsingToolbarLayout collapsingToolbar;
     public AppBarLayout appBarLayout;
 
@@ -47,7 +55,13 @@ public class MoringaActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        }
+//        else{
+//            GlobalData.getLocation(getApplicationContext(), null);
+//        }
 
         collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -87,6 +101,22 @@ public class MoringaActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragmentView, fragment).commit();
     }
+//
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+//        if (requestCode == REQUEST_LOCATION) {
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                    return;
+//                }
+//                GlobalData.getLocation(getApplicationContext(), null);
+//            } else {
+//                Log.wtf(DEBUG_TAG, "Acesse as configurações do aplicativo para modificar as permissões!");
+//            }
+//        } else {
+//            Log.wtf(DEBUG_TAG, "Acesse as configurações do aplicativo para modificar as permissões!");
+//        }
+//    }
 
 
     @Override
