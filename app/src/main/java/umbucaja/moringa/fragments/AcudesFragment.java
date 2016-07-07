@@ -130,27 +130,10 @@ public class AcudesFragment extends Fragment {
         });
 
         if (GlobalData.isConnected(getContext())) {
-            //GlobalData.getLocation(getContext());
-            Server.getInstance(getContext()).populateToolbarCities(searchView);
+            Server.getInstance(getContext()).populateToolbarCities(searchView, waterSourcesRecyclerView);
         } else {
             Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
         }
-
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                Log.d("BUSCAR POR", query);
-//                //TODO: buscar pela cidade e atualizar o view
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                Log.d("TEXTO", newText);
-//                //TODO: pode mudar os adapters aqui
-//                return false;
-//            }
-//        });
     }
 
     @Override
@@ -159,31 +142,30 @@ public class AcudesFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_acudes, container, false);
         //utilizado para salvar o estado atual do fragment
+        waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
+        waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(GlobalData.currCity != null){
-            waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
-            waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(GlobalData.currCity.getName());
             Server.getInstance(getContext()).getWaterAllSourcesFromCity(waterSourcesRecyclerView, GlobalData.currCity.getId());
         }
         return rootView;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == REQUEST_LOCATION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                //GlobalData.getLocation(getContext());
-                Server.getInstance(getContext()).populateToolbarCities(searchView);
-            } else {
-                Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
-            }
-        } else {
-            Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+//        if (requestCode == REQUEST_LOCATION) {
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                    return;
+//                }
+//                Server.getInstance(getContext()).populateToolbarCities(searchView, waterSourcesRecyclerView);
+//            } else {
+//                Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
+//            }
+//        } else {
+//            Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
+//        }
+//    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
