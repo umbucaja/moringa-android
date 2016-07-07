@@ -130,8 +130,8 @@ public class AcudesFragment extends Fragment {
         });
 
         if (GlobalData.isConnected(getContext())) {
+            Server.getInstance(getContext()).populateToolbarCities(searchView, waterSourcesRecyclerView);
             //GlobalData.getLocation(getContext());
-            Server.getInstance(getContext()).populateToolbarCities(searchView);
         } else {
             Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
         }
@@ -159,9 +159,9 @@ public class AcudesFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_acudes, container, false);
         //utilizado para salvar o estado atual do fragment
+        waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
+        waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(GlobalData.currCity != null){
-            waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
-            waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(GlobalData.currCity.getName());
             Server.getInstance(getContext()).getWaterAllSourcesFromCity(waterSourcesRecyclerView, GlobalData.currCity.getId());
         }
@@ -175,8 +175,7 @@ public class AcudesFragment extends Fragment {
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                //GlobalData.getLocation(getContext());
-                Server.getInstance(getContext()).populateToolbarCities(searchView);
+                Server.getInstance(getContext()).populateToolbarCities(searchView, waterSourcesRecyclerView);
             } else {
                 Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
             }

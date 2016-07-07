@@ -73,7 +73,7 @@ public class Server {
         this.context = context;
     }
 
-    public void populateToolbarCities(final SearchViewAdapter searchView) {
+    public void populateToolbarCities(final SearchViewAdapter searchView, final RecyclerView waterSourcesRecyclerView) {
         if(GlobalData.cities == null)
             new Connector(context, new Connector.Response() {
                 @Override
@@ -97,6 +97,8 @@ public class Server {
                     }
 
                     GlobalData.setCities(arrayCities);
+                    if(waterSourcesRecyclerView != null)
+                        GlobalData.getLocation(context, waterSourcesRecyclerView);
 
                     ArrayAdapter<City> adapter = new ArrayAdapter<City>(context, android.R.layout.simple_dropdown_item_1line, arrayCities);
                     searchView.setAdapter(adapter);
