@@ -124,7 +124,8 @@ public class WaterSourceFragment extends Fragment {
         if(waterSource != null)
             Server.getInstance(getContext()).getMeasurementsFromWaterSource(view, waterSource);
 
-
+        LineChart chartWaterSource = (LineChart) view.findViewById(R.id.chartWaterSource);
+        chartWaterSource.setNoDataText("Não há registros!");
 
         percentage = (actualVolume*100)/capacity;
         tvActualWaterSourceVolume.setText(String.format("%.1f",actualVolume/1000000).replace(".", ","));
