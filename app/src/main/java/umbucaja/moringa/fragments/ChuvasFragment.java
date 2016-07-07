@@ -1,7 +1,6 @@
 package umbucaja.moringa.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -143,8 +142,7 @@ public class ChuvasFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_chuvas, container, false);
 
-        ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
-        ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
+
         //utilizado para salvar o estado atual do fragment
         if(GlobalData.currCity != null){
             recyclerView = (RecyclerView) rootView.findViewById(R.id.chuvas_recycler_view);
@@ -153,6 +151,8 @@ public class ChuvasFragment extends Fragment {
             ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(GlobalData.currCity.getName());
             Server.getInstance(getContext()).getMeasurementStationsFromCity(recyclerView, GlobalData.currCity.getId());
         }
+       // ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
+       // ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
         return rootView;
     }
 

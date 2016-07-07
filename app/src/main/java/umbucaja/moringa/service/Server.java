@@ -376,7 +376,7 @@ public class Server {
 
                 LineData data = new LineData(mX, sets);
 
-                chartWaterSource.setDescription("Description");  // set the description
+                chartWaterSource.setDescription("Últimos Volumes");  // set the description
                 chartWaterSource.setData(data); // set the data and list of lables into chart
                 chartWaterSource.invalidate();
 //                chartWaterSource.refreshDrawableState();

@@ -17,14 +17,14 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="ExpandedAppBar" parent="@android:style/TextAppearance.Large">
+    <style name="ExpandedAppBar" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:textStyle">bold</item>
         <item name="android:shadowColor">@color/black</item>
-        <item name="android:shadowDx">7</item>
-        <item name="android:shadowDy">7</item>
-        <item name="android:shadowRadius">30</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">7</item>
     </style>
 
 </resources>
