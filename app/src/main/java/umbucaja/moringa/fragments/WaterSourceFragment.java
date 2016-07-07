@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,6 +49,7 @@ public class WaterSourceFragment extends Fragment {
 
     private ProgressBar progressBarWaterSource;
     private TextView tvCurrentWaterSourcePercentage;
+    private TextView tvPercentage;
     private TextView tvWaterSourceLastMeasurementDate;
     private TextView tvActualWaterSourceVolume;
     private TextView tvCurrentCapacity;
@@ -94,6 +96,7 @@ public class WaterSourceFragment extends Fragment {
 
     public void setUp(View view){
         tvCurrentWaterSourcePercentage = (TextView) view.findViewById(R.id.tv_current_water_source_percentage);
+        tvPercentage = (TextView) view.findViewById(R.id.tv_percentage);
         tvWaterSourceLastMeasurementDate = (TextView) view.findViewById(R.id.tv_water_source_current_last_measurement_date);
         tvActualWaterSourceVolume = (TextView) view.findViewById(R.id.tv_actual_volume_million_m3);
         tvCurrentCapacity =  (TextView) view.findViewById(R.id.tv_current_capacity);
@@ -106,8 +109,8 @@ public class WaterSourceFragment extends Fragment {
         float percentage = 0;
         float actualVolume = 0;
 
-        String date = "";
-        this.tvCurrentCapacity.setText(String.format("%.1f",capacity/(1000000)));
+        String date = "Sem Medição";
+        this.tvCurrentCapacity.setText(String.format("%.1f",capacity/(1000000)).replace(".", ","));
         // holder.currentWaterSource = waterSource;
         if(wsms!=null){
             if(wsms.size()>0){
@@ -124,12 +127,16 @@ public class WaterSourceFragment extends Fragment {
 
 
         percentage = (actualVolume*100)/capacity;
-        tvActualWaterSourceVolume.setText(String.format("%.1f",actualVolume/1000000));
-        tvCurrentWaterSourcePercentage.setText(String.format("%.1f",percentage));
+        tvActualWaterSourceVolume.setText(String.format("%.1f",actualVolume/1000000).replace(".", ","));
+        if(percentage > 0f) tvCurrentWaterSourcePercentage.setText(String.format("%.1f",percentage).replace(".", ","));
+        else{
+            tvCurrentWaterSourcePercentage.setText("--");
+            tvPercentage.setText("");
+        }
         tvWaterSourceLastMeasurementDate.setText(date);
         progressBarWaterSource.setProgress((int)percentage);
 
-        }
+    }
        // System.out.println("=============================> "+waterSources);
 
     @Override
