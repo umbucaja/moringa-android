@@ -309,13 +309,13 @@ public class Server {
 
         final ImageView imageView = ((MoringaActivity)context).imageViewLogoTop;
         final Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
-        fadeIn.setDuration(400);
+        fadeIn.setDuration(500);
         imageView.startAnimation(fadeIn);
 
         Glide.with(context).load(R.drawable.logo_top).centerCrop().into(imageView);
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
                 R.drawable.logo_top);
-        if(percentage>0 && percentage<20){
+        if(percentage>0 && percentage<35){
             Glide.with(context).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
             icon = BitmapFactory.decodeResource(context.getResources(),
                     R.drawable.menos_35_v2);
