@@ -42,6 +42,7 @@ public class ChuvasRecyclerAdapter extends RecyclerView.Adapter<ChuvasRecyclerAd
         MeasurementStation station = stations.get(position);
         holder.tvNomeEstacao.setText(station.getName());
         List<RainFallMeasurement> measurements = station.getRainFallMeasurements();
+        holder.station = stations.get(position);
         if(measurements != null && measurements.size() > 0){
             Collections.sort(measurements, new Comparator<RainFallMeasurement>() {
                 @Override
@@ -59,7 +60,7 @@ public class ChuvasRecyclerAdapter extends RecyclerView.Adapter<ChuvasRecyclerAd
 
             holder.tvMilimetragem.setText(String.format("%.1f%s",value,"mm"));
             holder.tvData.setText(date);
-            holder.station = stations.get(position);
+
 
             checkValuesAndSetImage(value, holder);
 
@@ -105,6 +106,7 @@ public class ChuvasRecyclerAdapter extends RecyclerView.Adapter<ChuvasRecyclerAd
                 public void onClick(View view) {
                     //Toast.makeText(itemView.getContext(), station.getName(), Toast.LENGTH_LONG).show();
 
+                    System.out.println("STATION _ ID : "+station.getId());
                     ChuvasEstacaoFragment fragment = ChuvasEstacaoFragment.newInstance(station);
                     MoringaActivity activity = (MoringaActivity)itemView.getContext();
 

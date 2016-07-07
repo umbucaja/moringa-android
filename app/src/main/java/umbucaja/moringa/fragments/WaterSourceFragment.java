@@ -14,11 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -29,6 +24,7 @@ import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
 import umbucaja.moringa.entity.WaterSource;
 import umbucaja.moringa.entity.WaterSourceMeasurement;
+import umbucaja.moringa.service.Server;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -102,7 +98,8 @@ public class WaterSourceFragment extends Fragment {
         tvActualWaterSourceVolume = (TextView) view.findViewById(R.id.tv_actual_volume_million_m3);
         tvCurrentCapacity =  (TextView) view.findViewById(R.id.tv_current_capacity);
         progressBarWaterSource = (ProgressBar)  view.findViewById(R.id.progress_bar_watersource);
-        chartWaterSource = (LineChart) view.findViewById(R.id.chartWaterSource);
+
+
         float capacity = waterSource.getCapacity();
         List<WaterSourceMeasurement> wsms = waterSource.getReservoirMeasurements();
 
@@ -120,56 +117,17 @@ public class WaterSourceFragment extends Fragment {
 
             }
         }
+
+        if(waterSource != null)
+            Server.getInstance(getContext()).getMeasurementsFromWaterSource(view, waterSource);
+
+
+
         percentage = (actualVolume*100)/capacity;
         tvActualWaterSourceVolume.setText(String.format("%.1f",actualVolume/1000000));
         tvCurrentWaterSourcePercentage.setText(String.format("%.1f",percentage));
         tvWaterSourceLastMeasurementDate.setText(date);
         progressBarWaterSource.setProgress((int)percentage);
-
-
-        int cnt = 1;
-        ArrayList<String> mX = new ArrayList<String>();
-        ArrayList<Entry> e1 = new ArrayList<Entry>();
-        //e1.add(new Entry(0, 0));
-        //mX.add("Inicio");
-        for (int i = 0; i < wsms.size(); i++) {
-            e1.add(new Entry(Float.parseFloat(String.format("%.1f",wsms.get(i).getValue()/1000000).replace(",",".")), i));
-            DateFormat formatter = new SimpleDateFormat("dd/MM");
-            mX.add(formatter.format(wsms.get(i).getDate()));
-        }
-
-        LineDataSet d1 = new LineDataSet(e1, "Volume "+waterSource.getType()+" "+waterSource.getName() + cnt + ", (1)");
-        d1.setLineWidth(2.5f);
-        d1.setCircleRadius(4.5f);
-        d1.setHighLightColor(Color.rgb(244, 117, 117));
-        d1.setDrawValues(false);
-
-        ArrayList<Entry> e2 = new ArrayList<Entry>();
-
-        for (int i = 0; i < wsms.size(); i++) {
-            e2.add(new Entry(e1.get(i).getVal(), i));
-        }
-
-        LineDataSet d2 = new LineDataSet(e2, "New DataSet " + cnt + ", (2)");
-        d2.setLineWidth(2.5f);
-        d2.setCircleRadius(4.5f);
-        d2.setHighLightColor(Color.rgb(244, 117, 117));
-        d2.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-        d2.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-        d2.setDrawValues(false);
-
-        ArrayList<ILineDataSet> sets = new ArrayList<ILineDataSet>();
-        sets.add(d1);
-        //sets.add(d2);
-
-        LineData data = new LineData(mX, sets);
-
-
-        chartWaterSource.setData(data); // set the data and list of lables into chart
-        chartWaterSource.setDescription("Description");  // set the description
-
-
-
 
         }
        // System.out.println("=============================> "+waterSources);
@@ -189,7 +147,7 @@ public class WaterSourceFragment extends Fragment {
         //WaterSource waterSource = waterSources.get(0);
        // view.findViewById(R.id.)
 
-        int cnt = 1;
+
 
 
         ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));

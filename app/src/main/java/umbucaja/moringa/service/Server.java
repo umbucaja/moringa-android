@@ -1,6 +1,7 @@
 package umbucaja.moringa.service;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -8,6 +9,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -19,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.lang.reflect.Type;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,6 +43,7 @@ import umbucaja.moringa.entity.City;
 import umbucaja.moringa.entity.MeasurementStation;
 import umbucaja.moringa.entity.RainFallMeasurement;
 import umbucaja.moringa.entity.WaterSource;
+import umbucaja.moringa.entity.WaterSourceMeasurement;
 import umbucaja.moringa.util.GlobalData;
 
 /**
@@ -42,8 +51,8 @@ import umbucaja.moringa.util.GlobalData;
  */
 public class Server {
 
-   /// private final String URL = "http://150.165.98.43:8080/";
-    private final String URL = "http://192.168.1.109:8080/";
+    private final String URL = "http://150.165.98.43:8080/";
+    //private final String URL = "http://192.168.1.109:8080/";
     private Context context;
     private Gson gson;
 
@@ -151,7 +160,7 @@ public class Server {
         ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
         gridView.setAdapter(adapter);*/
 
-        //TODO: parte correta. Nao eh necessario requisitar novamente os dados de rainFallMeasurement
+        /*//TODO: parte correta. Nao eh necessario requisitar novamente os dados de rainFallMeasurement
         List<RainFallMeasurement> measurements = station.getRainFallMeasurements();
         Collections.sort(measurements, new Comparator<RainFallMeasurement>() {
             @Override
@@ -189,9 +198,9 @@ public class Server {
             measurements = measurements.subList(measurements.size()-5, measurements.size());
 
         ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
-        gridView.setAdapter(adapter);
+        gridView.setAdapter(adapter);*/
 
-        /*new Connector(context, new Connector.Response() {
+        new Connector(context, new Connector.Response() {
             @Override
             public void handleResponse(JSONArray output) {
                 if(output == null)
@@ -217,6 +226,8 @@ public class Server {
                 ImageView iv = (ImageView) rootView.findViewById(R.id.image_view_chuvas);
                 TextView tvValue = (TextView)  rootView.findViewById(R.id.tv_chuvas_milimetragem);
                 TextView tvDate = (TextView)  rootView.findViewById(R.id.tv_chuvas_last_measurement_date);
+                TextView tvChuvasIn = (TextView)  rootView.findViewById(R.id.tv_chuvas_in);
+                TextView tvChuvasStationName = (TextView)  rootView.findViewById(R.id.tv_chuvas_station_name);
                 if(lastMeasurement.getValue() == 0f)
                     iv.setImageResource(R.drawable.sol);
                 else if(lastMeasurement.getValue() <= 10)
@@ -227,17 +238,22 @@ public class Server {
                     iv.setImageResource(R.drawable.muita_chuva);
                 else if(lastMeasurement.getValue() > 50)
                     iv.setImageResource(R.drawable.toro);
+                tvValue.setTextSize(40);
+                tvValue.setTextColor(rootView.getResources().getColor(R.color.red_percentage));
                 tvValue.setText(lastMeasurement.getValue()+"mm");
+
                 String date = new SimpleDateFormat("dd/MM/yyyy").format(lastMeasurement.getDate());
                 tvDate.setText(date);
-
+                tvDate.setVisibility(View.VISIBLE);
+                tvChuvasIn.setVisibility(View.VISIBLE);
+                tvChuvasStationName.setVisibility(View.VISIBLE);
                 if(measurements.size() > 5)
                     measurements = measurements.subList(measurements.size()-5, measurements.size());
 
                 ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
                 gridView.setAdapter(adapter);
             }
-        }).execute(URL + "stations/" + stationId + "/measurements");*/
+        }).execute(URL + "stations/" + station.getId() + "/measurements?lastMeasurements=6");
     }
 
 
@@ -260,7 +276,7 @@ public class Server {
                 waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
 
             }
-        }).execute(URL + "cities/"+idCity+"/watersources");
+        }).execute(URL + "cities/"+idCity+"/watersources?lastMeasurements=1");
     }
 
     public City getCityByName(String cityName){
@@ -301,6 +317,80 @@ public class Server {
                 recyclerView.setAdapter(chuvasRecyclerAdapter);
 
             }
-        }).execute(URL + "cities/" + cityId + "/stations");
+        }).execute(URL + "cities/" + cityId + "/stations?lastMeasurements=1");
+    }
+
+    public void getMeasurementsFromWaterSource(final View view, final WaterSource waterSource) {
+        new Connector(context, new Connector.Response() {
+            @Override
+            public void handleResponse(JSONArray output) {
+                if(output == null)
+                    return;
+
+                List<WaterSourceMeasurement> list = new ArrayList<WaterSourceMeasurement>();
+                for(int i=0; i < output.length(); i++){
+                    try {
+                        WaterSourceMeasurement wsMeasurement = gson.fromJson(output.getJSONObject(i).toString(), WaterSourceMeasurement.class);
+                        list.add(wsMeasurement);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                LineChart chartWaterSource = (LineChart) view.findViewById(R.id.chartWaterSource);
+                chartWaterSource.setNoDataText("");
+                List<WaterSourceMeasurement> wsms = list;
+                int cnt = 1;
+                ArrayList<String> mX = new ArrayList<String>();
+                ArrayList<Entry> e1 = new ArrayList<Entry>();
+                //e1.add(new Entry(0, 0));
+                //mX.add("Inicio");
+                for (int i = 0; i < wsms.size(); i++) {
+                    e1.add(new Entry(Float.parseFloat(String.format("%.1f",wsms.get(i).getValue()/1000000).replace(",",".")), i));
+                    DateFormat formatter = new SimpleDateFormat("dd/MM");
+                    mX.add(formatter.format(wsms.get(i).getDate()));
+                }
+
+                LineDataSet d1 = new LineDataSet(e1, "Volume "+waterSource.getType()+" "+waterSource.getName() + cnt + ", (1)");
+                d1.setLineWidth(4.0f);
+                d1.setCircleRadius(4.5f);
+                d1.setHighLightColor(Color.rgb(244, 117, 117));
+                d1.setDrawValues(false);
+
+                ArrayList<Entry> e2 = new ArrayList<Entry>();
+
+                for (int i = 0; i < wsms.size(); i++) {
+                    e2.add(new Entry(e1.get(i).getVal(), i));
+                }
+
+                LineDataSet d2 = new LineDataSet(e2, "New DataSet " + cnt + ", (2)");
+                d2.setLineWidth(3.0f);
+                d2.setCircleRadius(4.5f);
+                d2.setHighLightColor(Color.rgb(244, 117, 117));
+                d2.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+                d2.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+                d2.setDrawValues(false);
+
+                ArrayList<ILineDataSet> sets = new ArrayList<ILineDataSet>();
+                sets.add(d1);
+                //sets.add(d2);
+
+                LineData data = new LineData(mX, sets);
+
+                chartWaterSource.setDescription("Description");  // set the description
+                chartWaterSource.setData(data); // set the data and list of lables into chart
+                chartWaterSource.invalidate();
+//                chartWaterSource.refreshDrawableState();
+//                view.requestFocus();
+//                view.refreshDrawableState();
+//                chartWaterSource.refreshDrawableState();
+
+                //chartWaterSource.setData(data);
+
+
+               // ChuvasRecyclerAdapter chuvasRecyclerAdapter = new ChuvasRecyclerAdapter(list);
+               // recyclerView.setAdapter(chuvasRecyclerAdapter);
+            }
+        }).execute(URL + "watersources/" + waterSource.getId() + "/measurements?lastMeasurements=15");
+
     }
 }
