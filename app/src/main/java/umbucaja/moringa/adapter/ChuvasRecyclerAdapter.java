@@ -58,7 +58,7 @@ public class ChuvasRecyclerAdapter extends RecyclerView.Adapter<ChuvasRecyclerAd
             //TODO: modificar para usar UNIT
             String unit = lastMeasurement.getUnit();
 
-            holder.tvMilimetragem.setText(String.format("%.1f%s",value,"mm"));
+            holder.tvMilimetragem.setText(String.format("%.1f%s",value,"mm").replace(".", ","));
             holder.tvData.setText(date);
 
 

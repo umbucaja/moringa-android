@@ -63,7 +63,7 @@ public class ChuvasEstacaoFragment extends Fragment {
         item.setVisible(false);
         if(station != null)
             ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(station.getName());
-        //((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
+        ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
     }
 
     @Override

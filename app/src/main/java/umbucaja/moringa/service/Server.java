@@ -250,7 +250,8 @@ public class Server {
                     iv.setImageResource(R.drawable.toro);
                 tvValue.setTextSize(40);
                 tvValue.setTextColor(rootView.getResources().getColor(R.color.red_percentage));
-                tvValue.setText(lastMeasurement.getValue()+"mm");
+                String value = lastMeasurement.getValue()+"mm";
+                tvValue.setText(value.replace(".", ","));
 
                 String date = new SimpleDateFormat("dd/MM/yyyy").format(lastMeasurement.getDate());
                 tvDate.setText(date);

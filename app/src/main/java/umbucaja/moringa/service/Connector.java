@@ -3,6 +3,7 @@ package umbucaja.moringa.service;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +21,7 @@ import java.net.URL;
  */
 public class Connector extends AsyncTask<String, Void, JSONArray> {
 
+    private final String DEBUG_TAG = "CONNECTOR";
     private Context context;
     private Response response;
     private ProgressDialog progressDialog;
@@ -56,14 +58,12 @@ public class Connector extends AsyncTask<String, Void, JSONArray> {
 
             String line = bufferedReader.readLine();
             jsonArray = new JSONArray(line);
-            //Thread.sleep(10000);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-         finally {
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, e.getMessage());
+        } catch (JSONException e) {
+            Log.e(DEBUG_TAG, e.getMessage());
+        } finally {
             urlConnection.disconnect();
         }
         return jsonArray;

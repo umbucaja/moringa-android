@@ -50,7 +50,7 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
         float percentage = 0;
 
         float actualVolume = 0;
-        String date = "";
+        String date = "Sem Medição";
         holder.currentWaterSource = waterSource;
         if(wsms!=null){
             if(wsms.size()>0){
@@ -63,8 +63,8 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
             }
         }
         percentage = (actualVolume*100)/capacity;
-
-        holder.tvPercentage.setText(String.format("%.1f%s",percentage,"%"));
+        if(percentage > 0f) holder.tvPercentage.setText(String.format("%.1f%s",percentage,"%").replace(".", ","));
+        else holder.tvPercentage.setText("--");
         holder.tvDate.setText(date);
         holder.progressBarPercentage.setProgress((int)percentage);
 
