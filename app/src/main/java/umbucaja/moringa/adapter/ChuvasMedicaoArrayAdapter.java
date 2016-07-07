@@ -40,8 +40,10 @@ public class ChuvasMedicaoArrayAdapter extends ArrayAdapter {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             element = inflater.inflate(resourceId, parent, false);
             holder = new ViewHolder(element);
-            holder.tvValue.setText(measurements.get(position).getValue()+"");
-            holder.tvUnit.setText(measurements.get(position).getUnit());
+            String value = measurements.get(position).getValue()+"";
+            holder.tvValue.setText(value.replace(".", ","));
+            //TODO: unit no banco de dados precisa ser preenchido corretamente
+            //holder.tvUnit.setText(measurements.get(position).getUnit());
             String dayOfWeek = new SimpleDateFormat("EE", new Locale("pt", "BR")).format(measurements.get(position).getDate());
             holder.tvDayOfWeek.setText(dayOfWeek);
             String date = new SimpleDateFormat("dd/MM", new Locale("pt", "BR")).format(measurements.get(position).getDate());
