@@ -35,8 +35,6 @@ import umbucaja.moringa.fragments.ChuvasFragment;
 import umbucaja.moringa.fragments.DesenvolvedoresFragment;
 import umbucaja.moringa.fragments.SobreFragment;
 import umbucaja.moringa.fragments.WaterSourceFragment;
-import umbucaja.moringa.service.Server;
-import umbucaja.moringa.util.GlobalData;
 import umbucaja.moringa.util.ImageColor;
 
 public class MoringaActivity extends AppCompatActivity
@@ -46,6 +44,7 @@ public class MoringaActivity extends AppCompatActivity
     private final String DEBUG_TAG = "MORINGA_ACTIVITY";
     public CollapsingToolbarLayout collapsingToolbar;
     public AppBarLayout appBarLayout;
+    public ImageView imageViewLogoTop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +67,11 @@ public class MoringaActivity extends AppCompatActivity
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
 
-        final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-        Glide.with(this).load(R.drawable.logo_top).centerCrop().into(imageView);
+        imageViewLogoTop = (ImageView) findViewById(R.id.backdrop);
+        Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageViewLogoTop);
 
         Bitmap icon = BitmapFactory.decodeResource(this.getResources(),
-                R.drawable.logo_top);
+                R.drawable.menos_35_v2);
         if (Build.VERSION.SDK_INT >= 21) {
 
             getWindow().setNavigationBarColor(ImageColor.getDominantColor(icon));

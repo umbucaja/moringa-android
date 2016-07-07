@@ -1,24 +1,14 @@
 package umbucaja.moringa.fragments;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,19 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.TextView;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
 import umbucaja.moringa.adapter.SearchViewAdapter;
-import umbucaja.moringa.adapter.WaterSourceRecyclerAdapter;
 import umbucaja.moringa.entity.City;
-import umbucaja.moringa.entity.WaterSource;
 import umbucaja.moringa.service.Server;
 import umbucaja.moringa.util.GlobalData;
 
@@ -117,14 +99,14 @@ public class AcudesFragment extends Fragment {
                 searchView.clearFocus();
                 searchView.setQuery("", false);
                 searchView.setIconified(true);
-                ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(city.getName());
+               // ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(city.getName());
 
 
 
                 waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
                 waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-                Server.getInstance(getContext()).getWaterAllSourcesFromCity(waterSourcesRecyclerView, city.getId());
+                Server.getInstance(getContext()).getWaterAllSourcesFromCity(waterSourcesRecyclerView, city);
 
             }
         });
@@ -146,8 +128,10 @@ public class AcudesFragment extends Fragment {
         waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(GlobalData.currCity != null){
             ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(GlobalData.currCity.getName());
-            Server.getInstance(getContext()).getWaterAllSourcesFromCity(waterSourcesRecyclerView, GlobalData.currCity.getId());
+            Server.getInstance(getContext()).getWaterAllSourcesFromCity(waterSourcesRecyclerView, GlobalData.currCity);
         }
+        ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
+        ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
         return rootView;
     }
 

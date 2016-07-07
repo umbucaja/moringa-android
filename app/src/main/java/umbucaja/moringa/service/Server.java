@@ -1,14 +1,20 @@
 package umbucaja.moringa.service;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -34,6 +40,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
 import umbucaja.moringa.adapter.ChuvasMedicaoArrayAdapter;
 import umbucaja.moringa.adapter.ChuvasRecyclerAdapter;
@@ -45,6 +52,7 @@ import umbucaja.moringa.entity.RainFallMeasurement;
 import umbucaja.moringa.entity.WaterSource;
 import umbucaja.moringa.entity.WaterSourceMeasurement;
 import umbucaja.moringa.util.GlobalData;
+import umbucaja.moringa.util.ImageColor;
 
 /**
  * Created by jordaoesa on 17/06/2016.
@@ -259,7 +267,8 @@ public class Server {
     }
 
 
-    public void getWaterAllSourcesFromCity(final RecyclerView waterSourcesRecyclerView, long idCity) {
+    public void getWaterAllSourcesFromCity(final RecyclerView waterSourcesRecyclerView, final City city) {
+        long idCity = city.getId();
         new Connector(context, new Connector.Response() {
             @Override
             public void handleResponse(JSONArray output) {
@@ -277,9 +286,64 @@ public class Server {
                 WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(context, list);
                 waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
 
+                updateTopBarImage(list);
+                ((MoringaActivity)context).collapsingToolbar.setTitle(city.getName());
+
             }
         }).execute(URL + "cities/"+idCity+"/watersources?lastMeasurements=1");
     }
+
+    public void updateTopBarImage(List<WaterSource> waterSources){
+        double totalCapacity = 0;
+        double currentLevel = 0;
+        for (WaterSource ws:waterSources) {
+            List<WaterSourceMeasurement> wsms = ws.getReservoirMeasurements();
+            if(wsms.size()>0){
+                currentLevel+= wsms.get(0).getValue();
+            }
+            totalCapacity+=ws.getCapacity();
+        }
+
+        double percentage = (currentLevel/totalCapacity)*100;
+
+        final ImageView imageView = ((MoringaActivity)context).imageViewLogoTop;
+        final Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
+        fadeIn.setDuration(400);
+        imageView.startAnimation(fadeIn);
+
+        Glide.with(context).load(R.drawable.logo_top).centerCrop().into(imageView);
+        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.logo_top);
+        if(percentage>0 && percentage<20){
+            Glide.with(context).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
+            icon = BitmapFactory.decodeResource(context.getResources(),
+                    R.drawable.menos_35_v2);
+        }else if(percentage>=35 && percentage <70){
+            Glide.with(context).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
+            icon = BitmapFactory.decodeResource(context.getResources(),
+                    R.drawable.entre_35_69_v2);
+        }else{
+            Glide.with(context).load(R.drawable.mais70_v2).centerCrop().into(imageView);
+            icon = BitmapFactory.decodeResource(context.getResources(),
+                    R.drawable.mais70_v2);
+        }
+        if (Build.VERSION.SDK_INT >= 21) {
+
+            ((MoringaActivity)context).getWindow().setNavigationBarColor(ImageColor.getDominantColor(icon));
+            //getWindow().setStatusBarColor(ImageColor.getDominantColor(icon));
+            ((MoringaActivity)context).collapsingToolbar.setStatusBarScrimColor(ImageColor.getDominantColor(icon));
+            ((MoringaActivity)context).collapsingToolbar.setContentScrimColor(ImageColor.getDominantColor(icon));
+            ((MoringaActivity)context).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
+            ((MoringaActivity)context).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
+            //((MoringaActivity)context).collapsingToolbar.setC
+
+
+        }
+
+        System.out.println("Total Capacity: "+totalCapacity+" Current Level: "+currentLevel);
+
+    }
+
 
     public City getCityByName(String cityName){
         if(GlobalData.cities != null){

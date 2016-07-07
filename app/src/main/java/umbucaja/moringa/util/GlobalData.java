@@ -12,11 +12,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-
-import org.json.JSONArray;
 
 import java.io.IOException;
 import java.util.List;
@@ -56,7 +53,7 @@ public class GlobalData {
                     if(waterSourcesRecyclerView != null) {
                         GlobalData.setCurrCity(output);
                         ((MoringaActivity) context).collapsingToolbar.setTitle(location.getName());
-                        Server.getInstance(context).getWaterAllSourcesFromCity(waterSourcesRecyclerView, location.getId());
+                        Server.getInstance(context).getWaterAllSourcesFromCity(waterSourcesRecyclerView, location);
                     }
                 }
             }).execute();

@@ -1,8 +1,11 @@
 package umbucaja.moringa.fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,9 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.github.mikephil.charting.charts.LineChart;
 
 import java.text.DateFormat;
@@ -25,6 +30,7 @@ import umbucaja.moringa.R;
 import umbucaja.moringa.entity.WaterSource;
 import umbucaja.moringa.entity.WaterSourceMeasurement;
 import umbucaja.moringa.service.Server;
+import umbucaja.moringa.util.ImageColor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -129,8 +135,58 @@ public class WaterSourceFragment extends Fragment {
         tvWaterSourceLastMeasurementDate.setText(date);
         progressBarWaterSource.setProgress((int)percentage);
 
+
+        final ImageView imageView = ((MoringaActivity)getActivity()).imageViewLogoTop;
+        Glide.with(this).load(R.drawable.logo_top).centerCrop().into(imageView);
+        Bitmap icon = BitmapFactory.decodeResource(this.getResources(),
+                R.drawable.logo_top);
+
+
+        //final Animation fadeIn = AnimationUtils.loadAnimation((MoringaActivity)getActivity(), R.anim.fade_in);
+       // fadeIn.setDuration(500);
+        //imageView.startAnimation(fadeIn);
+
+
+/*
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+               // Animation fadeOut = AnimationUtils.loadAnimation((MoringaActivity)getActivity(), R.anim.fade_out);
+                //imageView.startAnimation(fadeOut);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        */
+
+       if(percentage>0 && percentage<35){
+           Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
+           icon = BitmapFactory.decodeResource(this.getResources(),
+                   R.drawable.menos_35_v2);
+       }else if(percentage>=35 && percentage <70){
+           Glide.with(this).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
+           icon = BitmapFactory.decodeResource(this.getResources(),
+                   R.drawable.entre_35_69_v2);
+       }else{
+           Glide.with(this).load(R.drawable.mais70_v2).centerCrop().into(imageView);
+           icon = BitmapFactory.decodeResource(this.getResources(),
+                   R.drawable.mais70_v2);
+       }
+        if (Build.VERSION.SDK_INT >= 21) {
+
+            ((MoringaActivity)getActivity()).getWindow().setNavigationBarColor(ImageColor.getDominantColor(icon));
+            //getWindow().setStatusBarColor(ImageColor.getDominantColor(icon));
+            ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(ImageColor.getDominantColor(icon));
+            ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(ImageColor.getDominantColor(icon));
+            ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
+            ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
         }
-       // System.out.println("=============================> "+waterSources);
+        }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -144,11 +200,10 @@ public class WaterSourceFragment extends Fragment {
       //  Server.getInstance(getContext()).getWaterAllSourcesFromCity2(this, (int)waterSourceId);
 
 
+
         //WaterSource waterSource = waterSources.get(0);
        // view.findViewById(R.id.)
-
-
-
+        //((MoringaActivity)getActivity()).collapsingToolbar.setBackground();
 
         ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
         ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
