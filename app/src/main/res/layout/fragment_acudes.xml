@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="umbucaja.moringa.fragments.AcudesFragment">
+    tools:context="umbucaja.moringa.fragments.AcudesFragment"
+    android:background="@color/gray_back">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/water_source_recycler_view"

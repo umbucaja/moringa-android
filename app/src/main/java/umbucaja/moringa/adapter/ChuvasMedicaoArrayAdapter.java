@@ -44,7 +44,7 @@ public class ChuvasMedicaoArrayAdapter extends ArrayAdapter {
             holder.tvUnit.setText(measurements.get(position).getUnit());
             String dayOfWeek = new SimpleDateFormat("EE", new Locale("pt", "BR")).format(measurements.get(position).getDate());
             holder.tvDayOfWeek.setText(dayOfWeek);
-            String date = new SimpleDateFormat("dd/MM/yyyy", new Locale("pt", "BR")).format(measurements.get(position).getDate());
+            String date = new SimpleDateFormat("dd/MM", new Locale("pt", "BR")).format(measurements.get(position).getDate());
             holder.tvDate.setText(date);
 
             checkValuesAndSetImage(measurements.get(position).getValue(), holder);
