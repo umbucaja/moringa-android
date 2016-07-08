@@ -1,5 +1,6 @@
 package umbucaja.moringa.fragments;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,7 +32,6 @@ import umbucaja.moringa.R;
 import umbucaja.moringa.entity.WaterSource;
 import umbucaja.moringa.entity.WaterSourceMeasurement;
 import umbucaja.moringa.service.Server;
-import umbucaja.moringa.util.ImageColor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -99,13 +100,14 @@ public class WaterSourceFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    public void setUp(View view){
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void setUp(View view) {
         tvCurrentWaterSourcePercentage = (TextView) view.findViewById(R.id.tv_current_water_source_percentage);
         tvPercentage = (TextView) view.findViewById(R.id.tv_percentage);
         tvWaterSourceLastMeasurementDate = (TextView) view.findViewById(R.id.tv_water_source_current_last_measurement_date);
         tvActualWaterSourceVolume = (TextView) view.findViewById(R.id.tv_actual_volume_million_m3);
-        tvCurrentCapacity =  (TextView) view.findViewById(R.id.tv_current_capacity);
-        progressBarWaterSource = (ProgressBar)  view.findViewById(R.id.progress_bar_watersource);
+        tvCurrentCapacity = (TextView) view.findViewById(R.id.tv_current_capacity);
+        progressBarWaterSource = (ProgressBar) view.findViewById(R.id.progress_bar_watersource);
 
 
         float capacity = waterSource.getCapacity();
@@ -115,43 +117,44 @@ public class WaterSourceFragment extends Fragment {
         float actualVolume = 0;
 
         String date = "Sem Medição";
-        this.tvCurrentCapacity.setText(String.format("%.1f",capacity/(1000000)).replace(".", ","));
+        this.tvCurrentCapacity.setText(String.format("%.1f", capacity / (1000000)).replace(".", ","));
         // holder.currentWaterSource = waterSource;
-        if(wsms!=null){
-            if(wsms.size()>0){
-                actualVolume = wsms.get(wsms.size()-1).getValue();
+        if (wsms != null) {
+            if (wsms.size() > 0) {
+                actualVolume = wsms.get(wsms.size() - 1).getValue();
                 DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                date = formatter.format(wsms.get(wsms.size()-1).getDate());
+                date = formatter.format(wsms.get(wsms.size() - 1).getDate());
 
             }
         }
 
-        if(waterSource != null)
+        if (waterSource != null)
             Server.getInstance(getContext()).getMeasurementsFromWaterSource(view, waterSource);
 
         LineChart chartWaterSource = (LineChart) view.findViewById(R.id.chartWaterSource);
         chartWaterSource.setNoDataText("Não há registros!");
 
-        percentage = (actualVolume*100)/capacity;
-        tvActualWaterSourceVolume.setText(String.format("%.1f",actualVolume/1000000).replace(".", ","));
-        if(percentage > 0f) tvCurrentWaterSourcePercentage.setText(String.format("%.1f",percentage).replace(".", ","));
-        else{
+        percentage = (actualVolume * 100) / capacity;
+        tvActualWaterSourceVolume.setText(String.format("%.1f", actualVolume / 1000000).replace(".", ","));
+        if (percentage > 0f)
+            tvCurrentWaterSourcePercentage.setText(String.format("%.1f", percentage).replace(".", ","));
+        else {
             tvCurrentWaterSourcePercentage.setText("--");
             tvPercentage.setText("");
             percentage = -1;
         }
         tvWaterSourceLastMeasurementDate.setText(date);
-        progressBarWaterSource.setProgress((int)percentage);
+        progressBarWaterSource.setProgress((int) percentage);
 
 
-        final ImageView imageView = ((MoringaActivity)getActivity()).imageViewLogoTop;
+        final ImageView imageView = ((MoringaActivity) getActivity()).imageViewLogoTop;
         Glide.with(this).load(R.drawable.logo_top).centerCrop().into(imageView);
         Bitmap icon = BitmapFactory.decodeResource(this.getResources(),
                 R.drawable.logo_top);
 
 
         //final Animation fadeIn = AnimationUtils.loadAnimation((MoringaActivity)getActivity(), R.anim.fade_in);
-       // fadeIn.setDuration(500);
+        // fadeIn.setDuration(500);
         //imageView.startAnimation(fadeIn);
 
 
@@ -170,41 +173,21 @@ public class WaterSourceFragment extends Fragment {
             }
         });
         */
-        System.out.print("PERCENTAGE: "+percentage);
-        if(percentage<35){
-           Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
-           //Picasso.with(getContext())
-                //   .load(R.drawable.menos_35_v2).centerCrop()
-                //   .into(imageView);
-
-           icon = BitmapFactory.decodeResource(this.getResources(),
-                   R.drawable.menos_35_v2);
-       }else if(percentage>=35 && percentage <70){
-           Glide.with(this).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
-           //Picasso.with(getContext())
-                  // .load(R.drawable.entre_35_69_v2).centerCrop()
-                  // .into(imageView);
-           icon = BitmapFactory.decodeResource(this.getResources(),
-                   R.drawable.entre_35_69_v2);
-       }else{
-           Glide.with(this).load(R.drawable.mais70_v2).centerCrop().into(imageView);
-           //Picasso.with(getContext())
-                  // .load(R.drawable.mais70_v2).centerCrop()
-                  // .into(imageView);
-           icon = BitmapFactory.decodeResource(this.getResources(),
-                   R.drawable.mais70_v2);
-       }
-        if (Build.VERSION.SDK_INT >= 21) {
-
-            ((MoringaActivity)getActivity()).getWindow().setNavigationBarColor(ImageColor.getDominantColor(icon));
-            //getWindow().setStatusBarColor(ImageColor.getDominantColor(icon));
-            ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(ImageColor.getDominantColor(icon));
-            ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(ImageColor.getDominantColor(icon));
-            ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
-            ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
-        }
+        System.out.print("PERCENTAGE: " + percentage);
+        if (percentage < 35) {
+            Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
+            ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.menos_35_v2));
+        } else if (percentage >= 35 && percentage < 70) {
+            Glide.with(this).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
+            ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.entre_35_69_v2));
+        } else {
+            Glide.with(this).load(R.drawable.mais70_v2).centerCrop().into(imageView);
+            ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.mais70_v2));
         }
 
+        ((MoringaActivity) getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
+        ((MoringaActivity) getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -1,7 +1,10 @@
 package umbucaja.moringa.service;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -287,6 +290,7 @@ public class Server {
         }).execute(URL + "cities/"+idCity+"/watersources?lastMeasurements=1");
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void updateTopBarImage(List<WaterSource> waterSources){
         double totalCapacity = 0;
         double currentLevel = 0;
@@ -310,35 +314,22 @@ public class Server {
 //        fadeIn.setDuration(500);
 //        imageView.startAnimation(fadeIn);
 
-        //Glide.with(context).load(R.drawable.logo_top).centerCrop().into(imageView);
-//        imageView.setImageResource(R.drawable.logo_top);
-//        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),R.drawable.logo_top);
         if(percentage<35){
             //Glide.with(context).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
             imageView.setImageResource(R.drawable.menos_35_v2);
-//            icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.menos_35_v2);
+            ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.menos_35_v2));
         }else if(percentage>=35 && percentage <70){
             //Glide.with(context).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
             imageView.setImageResource(R.drawable.entre_35_69_v2);
-//            icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.entre_35_69_v2);
+            ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.entre_35_69_v2));
         }else{
             //Glide.with(context).load(R.drawable.mais70_v2).centerCrop().into(imageView);
             imageView.setImageResource(R.drawable.mais70_v2);
-//            icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.mais70_v2);
+            ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.mais70_v2));
         }
-//        if (Build.VERSION.SDK_INT >= 21) {
-//
-//            ((MoringaActivity)context).getWindow().setNavigationBarColor(ImageColor.getDominantColor(icon));
-//            //getWindow().setStatusBarColor(ImageColor.getDominantColor(icon));
-//            ((MoringaActivity)context).collapsingToolbar.setStatusBarScrimColor(ImageColor.getDominantColor(icon));
-//            ((MoringaActivity)context).collapsingToolbar.setContentScrimColor(ImageColor.getDominantColor(icon));
-//            ((MoringaActivity)context).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
-//            ((MoringaActivity)context).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
-//            //((MoringaActivity)context).collapsingToolbar.setC
-//
-//
-//        }
 
+            ((MoringaActivity)context).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
+            ((MoringaActivity)context).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
 
 
     }
