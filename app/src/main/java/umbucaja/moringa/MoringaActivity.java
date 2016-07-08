@@ -1,10 +1,9 @@
 package umbucaja.moringa;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,7 +34,6 @@ import umbucaja.moringa.fragments.ChuvasFragment;
 import umbucaja.moringa.fragments.DesenvolvedoresFragment;
 import umbucaja.moringa.fragments.SobreFragment;
 import umbucaja.moringa.fragments.WaterSourceFragment;
-import umbucaja.moringa.util.ImageColor;
 
 public class MoringaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener, SobreFragment.OnFragmentInteractionListener, DesenvolvedoresFragment.OnFragmentInteractionListener, WaterSourceFragment.OnFragmentInteractionListener, ChuvasEstacaoFragment.OnFragmentInteractionListener {
@@ -46,6 +44,7 @@ public class MoringaActivity extends AppCompatActivity
     public AppBarLayout appBarLayout;
     public ImageView imageViewLogoTop;
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,21 +68,8 @@ public class MoringaActivity extends AppCompatActivity
 
         imageViewLogoTop = (ImageView) findViewById(R.id.backdrop);
         Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageViewLogoTop);
+        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.menos_35_v2));
 
-        Bitmap icon = BitmapFactory.decodeResource(this.getResources(),
-                R.drawable.menos_35_v2);
-        if (Build.VERSION.SDK_INT >= 21) {
-
-            getWindow().setNavigationBarColor(ImageColor.getDominantColor(icon));
-            //getWindow().setStatusBarColor(ImageColor.getDominantColor(icon));
-            collapsingToolbar.setStatusBarScrimColor(ImageColor.getDominantColor(icon));
-            collapsingToolbar.setContentScrimColor(ImageColor.getDominantColor(icon));
-        }
-        //getSupportActionBar().setBackgroundDrawable(colorDrawable);
-       // android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-       // actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
-        //toolbar.setBackground(new ColorDrawable(Color.parseColor("#FFFFFF")));
-        //}
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
