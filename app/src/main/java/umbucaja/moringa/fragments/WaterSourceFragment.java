@@ -138,6 +138,7 @@ public class WaterSourceFragment extends Fragment {
         else{
             tvCurrentWaterSourcePercentage.setText("--");
             tvPercentage.setText("");
+            percentage = -1;
         }
         tvWaterSourceLastMeasurementDate.setText(date);
         progressBarWaterSource.setProgress((int)percentage);
@@ -169,17 +170,27 @@ public class WaterSourceFragment extends Fragment {
             }
         });
         */
-
-       if(percentage>0 && percentage<35){
+        System.out.print("PERCENTAGE: "+percentage);
+        if(percentage<35){
            Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
+           //Picasso.with(getContext())
+                //   .load(R.drawable.menos_35_v2).centerCrop()
+                //   .into(imageView);
+
            icon = BitmapFactory.decodeResource(this.getResources(),
                    R.drawable.menos_35_v2);
        }else if(percentage>=35 && percentage <70){
            Glide.with(this).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
+           //Picasso.with(getContext())
+                  // .load(R.drawable.entre_35_69_v2).centerCrop()
+                  // .into(imageView);
            icon = BitmapFactory.decodeResource(this.getResources(),
                    R.drawable.entre_35_69_v2);
        }else{
            Glide.with(this).load(R.drawable.mais70_v2).centerCrop().into(imageView);
+           //Picasso.with(getContext())
+                  // .load(R.drawable.mais70_v2).centerCrop()
+                  // .into(imageView);
            icon = BitmapFactory.decodeResource(this.getResources(),
                    R.drawable.mais70_v2);
        }

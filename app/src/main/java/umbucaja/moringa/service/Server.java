@@ -298,8 +298,12 @@ public class Server {
             totalCapacity+=ws.getCapacity();
         }
 
-        double percentage = (currentLevel/totalCapacity)*100;
-
+        double percentage = -1;
+        if(totalCapacity>0){
+            percentage = (currentLevel/totalCapacity)*100;
+        }
+        System.out.print("PERCENTAGE: "+percentage);
+        System.out.println("Total Capacity: "+totalCapacity+" Current Level: "+currentLevel);
         final ImageView imageView = ((MoringaActivity)context).imageViewLogoTop;
 //        final Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
 //        fadeIn.setDuration(500);
@@ -308,7 +312,7 @@ public class Server {
         //Glide.with(context).load(R.drawable.logo_top).centerCrop().into(imageView);
 //        imageView.setImageResource(R.drawable.logo_top);
 //        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),R.drawable.logo_top);
-        if(percentage>0 && percentage<35){
+        if(percentage<35){
             //Glide.with(context).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
             imageView.setImageResource(R.drawable.menos_35_v2);
 //            icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.menos_35_v2);
@@ -334,7 +338,7 @@ public class Server {
 //
 //        }
 
-        System.out.println("Total Capacity: "+totalCapacity+" Current Level: "+currentLevel);
+
 
     }
 
