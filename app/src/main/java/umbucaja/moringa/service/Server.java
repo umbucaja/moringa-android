@@ -302,6 +302,7 @@ public class Server {
         if(totalCapacity>0){
             percentage = (currentLevel/totalCapacity)*100;
         }
+
         System.out.print("PERCENTAGE: "+percentage);
         System.out.println("Total Capacity: "+totalCapacity+" Current Level: "+currentLevel);
         final ImageView imageView = ((MoringaActivity)context).imageViewLogoTop;
