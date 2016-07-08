@@ -1,20 +1,14 @@
 package umbucaja.moringa.service;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -52,7 +46,6 @@ import umbucaja.moringa.entity.RainFallMeasurement;
 import umbucaja.moringa.entity.WaterSource;
 import umbucaja.moringa.entity.WaterSourceMeasurement;
 import umbucaja.moringa.util.GlobalData;
-import umbucaja.moringa.util.ImageColor;
 
 /**
  * Created by jordaoesa on 17/06/2016.
