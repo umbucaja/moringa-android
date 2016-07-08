@@ -12,6 +12,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -209,8 +210,10 @@ public class Server {
         new Connector(context, new Connector.Response() {
             @Override
             public void handleResponse(JSONArray output) {
-                if(output == null)
+                if(output == null) {
+                    changeBarColorsAndImagesByRain(false);
                     return;
+                }
 
                 List<RainFallMeasurement> measurements = new ArrayList<RainFallMeasurement>();
                 for(int i=0; i < output.length(); i++){
@@ -228,7 +231,7 @@ public class Server {
                         return rfm1.getDate().compareTo(rfm2.getDate());
                     }
                 });
-                RainFallMeasurement lastMeasurement = measurements.remove(measurements.size()-1);
+                RainFallMeasurement lastMeasurement = measurements.get(measurements.size()-1);
                 ImageView iv = (ImageView) rootView.findViewById(R.id.image_view_chuvas);
                 TextView tvValue = (TextView)  rootView.findViewById(R.id.tv_chuvas_milimetragem);
                 TextView tvDate = (TextView)  rootView.findViewById(R.id.tv_chuvas_last_measurement_date);
@@ -254,13 +257,69 @@ public class Server {
                 tvDate.setVisibility(View.VISIBLE);
                 tvChuvasIn.setVisibility(View.VISIBLE);
                 tvChuvasStationName.setVisibility(View.VISIBLE);
-                if(measurements.size() > 5)
-                    measurements = measurements.subList(measurements.size()-5, measurements.size());
-
+                //if(measurements.size() > 5)
+                   // measurements = measurements.subList(measurements.size()-5, measurements.size());
+                updateTopBarImageFromMeasurements(measurements);
+                measurements.remove(lastMeasurement);
                 ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
                 gridView.setAdapter(adapter);
+
             }
         }).execute(URL + "stations/" + station.getId() + "/measurements?lastMeasurements=6");
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void updateTopBarImageStation(List<MeasurementStation> measurementStations){
+        List<RainFallMeasurement> rainFallMeasurements = new ArrayList<>();
+        for (MeasurementStation ms : measurementStations){
+            List<RainFallMeasurement> currentRainFallMeasurements = ms.getRainFallMeasurements();
+            if(currentRainFallMeasurements.size()>0){
+                rainFallMeasurements.addAll(currentRainFallMeasurements);
+            }
+        }
+        boolean wasRain = false;
+        int pos = 0;
+        System.out.println("===============> SIZE: "+rainFallMeasurements.size());
+        while(wasRain==false && pos <rainFallMeasurements.size()){
+            RainFallMeasurement rainFallMeasurement = rainFallMeasurements.get(pos);
+            if(rainFallMeasurement.getValue()>0){
+                wasRain = true;
+            }
+            pos++;
+        }
+        changeBarColorsAndImagesByRain(wasRain);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void updateTopBarImageFromMeasurements(List<RainFallMeasurement> rainFallMeasurements){
+        boolean wasRain = false;
+        int pos = 0;
+        System.out.println("===============> SIZE: "+rainFallMeasurements.size());
+        while(wasRain==false && pos <rainFallMeasurements.size()){
+            RainFallMeasurement rainFallMeasurement = rainFallMeasurements.get(pos);
+            if(rainFallMeasurement.getValue()>0){
+                wasRain = true;
+            }
+            pos++;
+        }
+        changeBarColorsAndImagesByRain(wasRain);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void changeBarColorsAndImagesByRain(boolean wasRain) {
+        final ImageView imageView = ((MoringaActivity)context).imageViewLogoTop;
+
+        if(!wasRain){
+            Glide.with(context).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
+            //imageView.setImageResource(R.drawable.menos_35_v2);
+            ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.menos_35_v2));
+        }else {
+            Glide.with(context).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
+            //imageView.setImageResource(R.drawable.entre_35_69_v2);
+            ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.entre_35_69_v2));
+        }
+        ((MoringaActivity)context).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
+        ((MoringaActivity)context).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
     }
 
 
@@ -283,7 +342,7 @@ public class Server {
                 WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(context, list);
                 waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
 
-                updateTopBarImage(list);
+                updateTopBarImageWaterSource(list);
                 ((MoringaActivity)context).collapsingToolbar.setTitle(city.getName());
 
             }
@@ -291,7 +350,7 @@ public class Server {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void updateTopBarImage(List<WaterSource> waterSources){
+    public void updateTopBarImageWaterSource(List<WaterSource> waterSources){
         double totalCapacity = 0;
         double currentLevel = 0;
         for (WaterSource ws:waterSources) {
@@ -309,29 +368,32 @@ public class Server {
 
         System.out.print("PERCENTAGE: "+percentage);
         System.out.println("Total Capacity: "+totalCapacity+" Current Level: "+currentLevel);
+        changeBarColorsAndImagesByPercentage(percentage);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void changeBarColorsAndImagesByPercentage(double percentage){
         final ImageView imageView = ((MoringaActivity)context).imageViewLogoTop;
 //        final Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
 //        fadeIn.setDuration(500);
 //        imageView.startAnimation(fadeIn);
 
         if(percentage<35){
-            //Glide.with(context).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
-            imageView.setImageResource(R.drawable.menos_35_v2);
+            Glide.with(context).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
+            //imageView.setImageResource(R.drawable.menos_35_v2);
             ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.menos_35_v2));
         }else if(percentage>=35 && percentage <70){
-            //Glide.with(context).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
-            imageView.setImageResource(R.drawable.entre_35_69_v2);
+            Glide.with(context).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
+            //imageView.setImageResource(R.drawable.entre_35_69_v2);
             ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.entre_35_69_v2));
         }else{
-            //Glide.with(context).load(R.drawable.mais70_v2).centerCrop().into(imageView);
-            imageView.setImageResource(R.drawable.mais70_v2);
+            Glide.with(context).load(R.drawable.mais70_v2).centerCrop().into(imageView);
+            //imageView.setImageResource(R.drawable.mais70_v2);
             ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.mais70_v2));
         }
 
-            ((MoringaActivity)context).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
-            ((MoringaActivity)context).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
-
-
+        ((MoringaActivity)context).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
+        ((MoringaActivity)context).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
     }
 
 
@@ -358,8 +420,10 @@ public class Server {
         new Connector(context, new Connector.Response() {
             @Override
             public void handleResponse(JSONArray output) {
-                if(output == null)
+                if(output == null) {
+                    changeBarColorsAndImagesByRain(false);
                     return;
+                }
                 List<MeasurementStation> list = new ArrayList<MeasurementStation>();
                 for(int i=0; i < output.length(); i++){
                     try {
@@ -371,6 +435,7 @@ public class Server {
                 }
                 ChuvasRecyclerAdapter chuvasRecyclerAdapter = new ChuvasRecyclerAdapter(list);
                 recyclerView.setAdapter(chuvasRecyclerAdapter);
+                updateTopBarImageStation(list);
 
             }
         }).execute(URL + "cities/" + cityId + "/stations?lastMeasurements=1");

@@ -1,7 +1,9 @@
 package umbucaja.moringa.fragments;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -75,6 +77,7 @@ public class ChuvasEstacaoFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -84,8 +87,15 @@ public class ChuvasEstacaoFragment extends Fragment {
         gridView = (GridView) rootView.findViewById(R.id.gridview_chuva_item);
 
         //TODO: criar metodo em Server para requisitar os dados de uma dada estacao por ID
-        if(station != null)
+        if(station != null) {
             Server.getInstance(getContext()).getMeasurementsFromStation(rootView, gridView, station);
+        }else{
+           // final ImageView imageView = ((MoringaActivity) getActivity()).imageViewLogoTop;
+           // Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
+           // ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.mais70_v2));
+            //((MoringaActivity) getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
+            //((MoringaActivity) getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
+        }
 
 //        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
