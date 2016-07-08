@@ -7,8 +7,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -308,9 +306,9 @@ public class Server {
         double percentage = (currentLevel/totalCapacity)*100;
 
         final ImageView imageView = ((MoringaActivity)context).imageViewLogoTop;
-        final Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
-        fadeIn.setDuration(500);
-        imageView.startAnimation(fadeIn);
+        //final Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
+        //fadeIn.setDuration(500);
+        //imageView.startAnimation(fadeIn);
 
         Glide.with(context).load(R.drawable.logo_top).centerCrop().into(imageView);
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
