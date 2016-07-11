@@ -1,8 +1,9 @@
 package umbucaja.moringa;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,8 +11,10 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,14 +34,17 @@ import umbucaja.moringa.fragments.ChuvasFragment;
 import umbucaja.moringa.fragments.DesenvolvedoresFragment;
 import umbucaja.moringa.fragments.SobreFragment;
 import umbucaja.moringa.fragments.WaterSourceFragment;
-import umbucaja.moringa.util.ImageColor;
 
 public class MoringaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener, SobreFragment.OnFragmentInteractionListener, DesenvolvedoresFragment.OnFragmentInteractionListener, WaterSourceFragment.OnFragmentInteractionListener, ChuvasEstacaoFragment.OnFragmentInteractionListener {
 
+    private final int REQUEST_LOCATION = 1;
+    private final String DEBUG_TAG = "MORINGA_ACTIVITY";
     public CollapsingToolbarLayout collapsingToolbar;
     public AppBarLayout appBarLayout;
+    public ImageView imageViewLogoTop;
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,30 +53,23 @@ public class MoringaActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        }
+//        else{
+//            GlobalData.getLocation(getApplicationContext(), null);
+//        }
 
         collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
 
-        final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-        Glide.with(this).load(R.drawable.logo_top).centerCrop().into(imageView);
+        imageViewLogoTop = (ImageView) findViewById(R.id.backdrop);
+        Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageViewLogoTop);
+        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.menos_35_v2));
 
-        Bitmap icon = BitmapFactory.decodeResource(this.getResources(),
-                R.drawable.logo_top);
-        if (Build.VERSION.SDK_INT >= 21) {
-
-            getWindow().setNavigationBarColor(ImageColor.getDominantColor(icon));
-            //getWindow().setStatusBarColor(ImageColor.getDominantColor(icon));
-            collapsingToolbar.setStatusBarScrimColor(ImageColor.getDominantColor(icon));
-            collapsingToolbar.setContentScrimColor(ImageColor.getDominantColor(icon));
-        }
-        //getSupportActionBar().setBackgroundDrawable(colorDrawable);
-       // android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-       // actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
-        //toolbar.setBackground(new ColorDrawable(Color.parseColor("#FFFFFF")));
-        //}
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -87,6 +86,22 @@ public class MoringaActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragmentView, fragment).commit();
     }
+//
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+//        if (requestCode == REQUEST_LOCATION) {
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                    return;
+//                }
+//                GlobalData.getLocation(getApplicationContext(), null);
+//            } else {
+//                Log.wtf(DEBUG_TAG, "Acesse as configurações do aplicativo para modificar as permissões!");
+//            }
+//        } else {
+//            Log.wtf(DEBUG_TAG, "Acesse as configurações do aplicativo para modificar as permissões!");
+//        }
+//    }
 
 
     @Override

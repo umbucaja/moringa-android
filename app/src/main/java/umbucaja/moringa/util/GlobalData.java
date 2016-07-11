@@ -12,14 +12,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-
-import org.json.JSONArray;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.entity.City;
 import umbucaja.moringa.service.Server;
 
@@ -30,6 +30,7 @@ public class GlobalData {
     public static City[] cities = null;
     public static City location = null;
     public static City currCity = null;
+    public static City defaultCity = new City(13, "João Pessoa", "PB");
 
     public static void setCities(City[] cities) {
         GlobalData.cities = cities;
@@ -43,13 +44,19 @@ public class GlobalData {
         GlobalData.currCity = currCity;
     }
 
-    public static void getLocation(Context context) {
-        new Localizacao(context, new Localizacao.Response() {
-            @Override
-            public void handleResponse(City output) {
-                GlobalData.setLocation(output);
-            }
-        }).execute();
+    public static void getLocation(final Context context, final RecyclerView waterSourcesRecyclerView) {
+        if(isConnected(context))
+            new Localizacao(context, new Localizacao.Response() {
+                @Override
+                public void handleResponse(City output) {
+                    GlobalData.setLocation(output);
+                    if(waterSourcesRecyclerView != null) {
+                        GlobalData.setCurrCity(output);
+                        ((MoringaActivity) context).collapsingToolbar.setTitle(location.getName());
+                        Server.getInstance(context).getWaterAllSourcesFromCity(waterSourcesRecyclerView, location);
+                    }
+                }
+            }).execute();
     }
 
     public static boolean isConnected(Context context) {
@@ -60,6 +67,7 @@ public class GlobalData {
 
     private static class Localizacao extends AsyncTask<String, Void, City> {
 
+        private final String DEBUG_TAG = "LOCALIZACAO";
         private Response response;
         private Context context;
         private ProgressDialog progressDialog;
@@ -82,24 +90,27 @@ public class GlobalData {
         @Override
         protected City doInBackground(String... strings) {
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-//            if(locationManager == null) return null;
-            City city = null;
+            City city = GlobalData.defaultCity;
+            if(locationManager == null) return city;
 
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return null;
+                return city;
             }
-            Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             Geocoder geocoder = new Geocoder(context, Locale.getDefault());
             try {
-                List<Address> locations = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
-                if (locations.size() > 0) {
-                    String cityName = locations.get(0).getLocality();
-                    city = Server.getInstance(context).getCityByName(cityName);
+                if(lastKnownLocation == null) city = GlobalData.defaultCity;
+                else {
+                    List<Address> locations = geocoder.getFromLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), 1);
+                    if (locations.size() > 0) {
+                        String cityName = locations.get(0).getLocality();
+                        city = Server.getInstance(context).getCityByName(cityName);
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            Log.d(DEBUG_TAG, city.getName());
             return city;
         }
 

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
@@ -127,10 +125,9 @@ public class ChuvasFragment extends Fragment {
         });
 
         if (GlobalData.isConnected(getContext())) {
-            //GlobalData.getLocation(getContext());
-            Server.getInstance(getContext()).populateToolbarCities(searchView);
+            Server.getInstance(getContext()).populateToolbarCities(searchView, null);
         } else {
-            Snackbar.make(rootView, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(((MoringaActivity)getContext()).appBarLayout, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -143,6 +140,8 @@ public class ChuvasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_chuvas, container, false);
+
+
         //utilizado para salvar o estado atual do fragment
         if(GlobalData.currCity != null){
             recyclerView = (RecyclerView) rootView.findViewById(R.id.chuvas_recycler_view);
@@ -151,6 +150,8 @@ public class ChuvasFragment extends Fragment {
             ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(GlobalData.currCity.getName());
             Server.getInstance(getContext()).getMeasurementStationsFromCity(recyclerView, GlobalData.currCity.getId());
         }
+       // ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
+       // ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
         return rootView;
     }
 

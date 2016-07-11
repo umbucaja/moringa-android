@@ -43,4 +43,20 @@ public class MeasurementStation {
     public void setRainFallMeasurements(List<RainFallMeasurement> rainFallMeasurements) {
         this.rainFallMeasurements = rainFallMeasurements;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
+    }
 }

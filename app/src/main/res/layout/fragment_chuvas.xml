@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="umbucaja.moringa.fragments.ChuvasFragment"
-    android:padding="@dimen/fragment_root_padding">
+    >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chuvas_recycler_view"

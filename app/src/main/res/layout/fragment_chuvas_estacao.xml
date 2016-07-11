@@ -2,12 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:context="umbucaja.moringa.fragments.ChuvasEstacaoFragment"
     android:layout_margin="10dp">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="240dp">
+        android:layout_height="240dp"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="2dp"
+        android:layout_margin="3dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,7 +35,7 @@
                         android:adjustViewBounds="true"
                         android:layout_centerInParent="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/moringa"
+                        android:src="@drawable/sertanejo_sem_chuva"
                         android:padding="7dp" />
 
                 </RelativeLayout>
@@ -44,7 +50,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_chuvas_milimetragem"
-                        android:text="40mm"
+                        android:text="--"
                         android:textSize="40dp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -56,7 +62,7 @@
                         android:textColor="@color/blue_water_source_name"
                         android:textSize="15dp"
                         android:textStyle="bold"
-                        android:text="Última Medição"
+                        android:text="Última Chuva"
                         android:maxLines="2"
                         android:gravity="center"
                         android:ellipsize="end" />
@@ -78,7 +84,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/tv_chuvas_last_measurement_date"
-                            android:text="10/06/2016"
+                            android:text="Sem Medição"
                             android:textSize="15dp"
                             android:textStyle="bold"
                             android:textColor="@color/orange_date_text"

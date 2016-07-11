@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="10dp"
     tools:context="umbucaja.moringa.fragments.WaterSourceFragment">
 
 
@@ -24,10 +25,13 @@
         android:id="@+id/card_view"
         android:layout_gravity="center"
         android:layout_width="fill_parent"
-        android:layout_height="140dp"
+        android:layout_height="130dp"
         card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="2dp"
+        android:layout_margin="3dp"
         android:paddingBottom="5dp"
-        android:paddingTop="5dp">
+        android:paddingTop="5dp"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,14 +51,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:max="100"
-                        android:progress="40"
+                        android:progress="1"
                         android:progressDrawable="@drawable/progress_drawable"
                         android:layout_alignRight="@+id/image_test"
                         android:layout_alignEnd="@+id/image_test"
                         android:layout_alignLeft="@+id/image_test"
                         android:layout_alignStart="@+id/image_test"
                         android:layout_centerHorizontal="true"
-                        android:paddingBottom="10dp"
+                        android:paddingBottom="11dp"
                         android:paddingTop="15dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"/>
@@ -123,7 +127,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_label_percentage"
-                        android:textColor="@color/green_aux_text"
+                        android:textColor="@color/blue_percentage"
                         android:textSize="15dp"
                         android:textStyle="bold"
                         android:text="Percentual de Água"
@@ -174,11 +178,14 @@
         <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view45"
-            android:layout_gravity="center"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             card_view:cardCornerRadius="4dp"
-            android:layout_marginTop="5dp"
+            card_view:cardElevation="2dp"
+            android:layout_margin="3dp"
+            android:padding="0dp"
             >
 
         <TableRow
@@ -186,7 +193,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:weightSum="10"
-            android:padding="5dp">
+            android:padding="0dp">
             <LinearLayout
                 android:layout_weight="5"
                 android:orientation="vertical"
@@ -213,29 +220,30 @@
             <LinearLayout
                 android:layout_weight="5"
                 android:orientation="horizontal"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_horizontal"
-
+                android:layout_width="fill_parent"
+                android:gravity="center"
                 >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_actual_volume_million_m3"
-                android:text="30,7"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textColor="@color/red_percentage" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_million_m3_1"
-                    android:text=" milhões de m³"
-                    android:textSize="10dp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:textColor="@color/red_percentage" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_actual_volume_million_m3"
+                        android:text="30,7"
+                        android:textSize="25dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/red_percentage" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_million_m3_1"
+                        android:text=" milhões de m³"
+                        android:textSize="10dp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="@color/red_percentage"
+                       />
+
+
 
             </LinearLayout>
 
@@ -253,24 +261,26 @@
         <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view435"
-            android:layout_gravity="center"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             card_view:cardCornerRadius="4dp"
-            android:layout_marginTop="5dp"
+            card_view:cardElevation="2dp"
+            android:layout_margin="3dp"
+            android:padding="0dp"
             >
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:weightSum="10"
-                android:padding="5dp">
+                android:padding="0dp">
                 <LinearLayout
                     android:layout_weight="5"
-
+                    android:orientation="vertical"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_horizontal"
-                    android:paddingLeft="5dp"
                    >
                     <TextView
                         android:layout_width="wrap_content"
@@ -290,8 +300,8 @@
                 <LinearLayout
                     android:layout_weight="5"
                     android:orientation="horizontal"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_horizontal">
+                    android:layout_width="fill_parent"
+                    android:gravity="center">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -326,8 +336,8 @@
         android:layout_width="fill_parent"
         android:layout_height="180dp"
         card_view:cardCornerRadius="4dp"
-
-        android:layout_marginTop="8dp"
+        card_view:cardElevation="2dp"
+        android:layout_margin="3dp"
         >
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chartWaterSource"

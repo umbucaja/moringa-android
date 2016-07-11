@@ -1,7 +1,9 @@
 package umbucaja.moringa.fragments;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,9 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
@@ -54,7 +54,7 @@ public class ChuvasEstacaoFragment extends Fragment {
         ChuvasEstacaoFragment.station = station;
         ChuvasEstacaoFragment fragment = new ChuvasEstacaoFragment();
         Bundle args = new Bundle();
-        args.putLong(ARG_PARAM, station.getId());
+        //args.putLong(ARG_PARAM, station.getId());
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,7 +63,8 @@ public class ChuvasEstacaoFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem item = menu.findItem(R.id.action_search);
         item.setVisible(false);
-        ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(station.getName());
+        if(station != null)
+            ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(station.getName());
         ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
     }
 
@@ -76,6 +77,7 @@ public class ChuvasEstacaoFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,7 +87,15 @@ public class ChuvasEstacaoFragment extends Fragment {
         gridView = (GridView) rootView.findViewById(R.id.gridview_chuva_item);
 
         //TODO: criar metodo em Server para requisitar os dados de uma dada estacao por ID
-        Server.getInstance(getContext()).getMeasurementsFromStation(rootView, gridView, station);
+        if(station != null) {
+            Server.getInstance(getContext()).getMeasurementsFromStation(rootView, gridView, station);
+        }else{
+           // final ImageView imageView = ((MoringaActivity) getActivity()).imageViewLogoTop;
+           // Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
+           // ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.mais70_v2));
+            //((MoringaActivity) getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
+            //((MoringaActivity) getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
+        }
 
 //        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
@@ -93,6 +103,9 @@ public class ChuvasEstacaoFragment extends Fragment {
 //                Toast.makeText(getContext(), "OI", Toast.LENGTH_SHORT).show();
 //            }
 //        });
+
+        if(station != null)
+            ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(station.getName());
 
         return rootView;
     }

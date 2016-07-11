@@ -5,19 +5,19 @@
         <item
             android:id="@+id/nav_cidades"
             android:checked="true"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/moringa_primeira"
             android:title="Cidades" />
         <item
             android:id="@+id/nav_chuvas"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/toro"
             android:title="Chuvas" />
         <item
             android:id="@+id/nav_desenvolvedores"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@android:drawable/ic_menu_manage"
             android:title="Desenvolvedores" />
         <item
             android:id="@+id/nav_sobre"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@android:drawable/ic_menu_info_details"
             android:title="Sobre" />
     </group>
 
@@ -25,7 +25,7 @@
         <menu>
             <item
                 android:id="@+id/nav_sair"
-                android:icon="@drawable/ic_menu_camera"
+                android:icon="@android:drawable/ic_menu_close_clear_cancel"
                 android:title="Sair" />
         </menu>
     </item>
