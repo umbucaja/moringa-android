@@ -6,7 +6,7 @@
             android:id="@+id/nav_cidades"
             android:checked="true"
             android:icon="@drawable/moringa_primeira"
-            android:title="Cidades" />
+            android:title="Açudes" />
         <item
             android:id="@+id/nav_chuvas"
             android:icon="@drawable/toro"
