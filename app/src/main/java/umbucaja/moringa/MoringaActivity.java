@@ -26,7 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import umbucaja.moringa.fragments.AcudesFragment;
 import umbucaja.moringa.fragments.ChuvasEstacaoFragment;
@@ -60,16 +60,16 @@ public class MoringaActivity extends AppCompatActivity
 //        else{
 //            GlobalData.getLocation(getApplicationContext(), null);
 //        }
-
         collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
 
         imageViewLogoTop = (ImageView) findViewById(R.id.backdrop);
-        Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageViewLogoTop);
+        //Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageViewLogoTop);
         getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.menos_35_v2));
 
+        Picasso.with(getApplicationContext()).load(R.drawable.menos_35_v2).into(imageViewLogoTop);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -1,41 +1,180 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="umbucaja.moringa.fragments.SobreFragment"
-    android:orientation="vertical">
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/linear_aviso"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:paddingTop="310dp"
+        >
 
-        <TextView
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Informações"
-            android:textSize="25sp"
-            android:textColor="@android:color/background_dark"
-            android:id="@+id/tv_info"/>
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingBottom="10dp">
 
-        <com.bluejamesbond.text.DocumentView
-            android:layout_below="@+id/tv_info"
-            android:id="@+id/textview_aviso"
-            xmlns:ext="http://schemas.android.com/apk/res-auto"
+
+            <ImageView
+                android:id="@+id/image_view_logo_sobre"
+                android:layout_width="65dp"
+                android:layout_height="75dp"
+                android:src="@mipmap/ic_launcher_2"
+                android:layout_gravity="center" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Moringa App v1.0"
+                android:textColor="@color/green_aux_text"
+                android:layout_gravity="center"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Direitos autorais 2016 Umbu Cajá"
+                android:textColor="@color/green_aux_text"
+                android:layout_gravity="center"
+                android:textSize="12dp"
+                android:gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Todos os direitos reservados"
+                android:textColor="@color/green_aux_text"
+                android:layout_gravity="center"
+                android:textSize="12dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:background="@color/orange_date_text">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Informações"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:id="@+id/tv_info"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            ext:documentView_insetPadding="10dp"
-            ext:documentView_insetPaddingBottom="10dp"
-            ext:documentView_insetPaddingLeft="10dp"
-            ext:documentView_insetPaddingRight="10dp"
-            ext:documentView_insetPaddingTop="10dp"
-            ext:documentView_text="\t\t\t\t\tO aplicativo Moringa foi desenvolvido com o intúito de alertar a população Paraibana sobre o problema da escassez de água.\n\t\t\t\t\tÉ importante frizar que no desenvolvimento deste aplicativo, nós não levamos em consideração o 'volume morto' do reservatório assim como a porcentagem de evaporação das águas."
-            ext:documentView_textAlignment="justified"
-            ext:documentView_textFormat="plain"
-            ext:documentView_textSize="20sp"/>
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:weightSum="5"
+            android:paddingRight="0dp"
+            android:paddingLeft="0dp">
 
+
+            <com.bluejamesbond.text.DocumentView
+                android:id="@+id/textview_aviso"
+                xmlns:ext="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ext:documentView_insetPadding="10dp"
+
+                ext:documentView_insetPaddingLeft="10dp"
+                ext:documentView_insetPaddingRight="10dp"
+                ext:documentView_insetPaddingTop="10dp"
+                ext:documentView_text="@string/moringa_description"
+                ext:documentView_textAlignment="justified"
+                ext:documentView_textFormat="plain"
+                ext:documentView_textSize="15sp"
+                ext:documentView_textStyle="plain"
+                android:isScrollContainer="false"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:background="@color/orange_date_text"
+            android:scrollbars="none">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Agradecimentos"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:id="@+id/tv_info2"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:weightSum="5"
+            android:paddingRight="0dp"
+            android:paddingLeft="0dp">
+
+
+            <com.bluejamesbond.text.DocumentView
+                android:id="@+id/textview_agradecimento"
+                xmlns:ext="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ext:documentView_insetPadding="10dp"
+
+                ext:documentView_insetPaddingLeft="10dp"
+                ext:documentView_insetPaddingRight="10dp"
+                ext:documentView_insetPaddingTop="10dp"
+                ext:documentView_text="@string/moringa_agradecimento"
+                ext:documentView_textAlignment="justified"
+                ext:documentView_textFormat="plain"
+                ext:documentView_textSize="15sp"
+                ext:documentView_textStyle="plain"
+                android:isScrollContainer="false"
+                />
+            <TextView
+                android:id="@+id/textViewLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txtCredits"
+                android:autoLink="web"
+                android:paddingLeft="10dp"/>
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
+
+
