@@ -10,6 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
 
@@ -69,15 +72,27 @@ public class DesenvolvedoresFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem item = menu.findItem(R.id.action_search);
         item.setVisible(false);
-        ((MoringaActivity)getActivity()).collapsingToolbar.setTitle("Desenvolvedores");
-        ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
+        ((MoringaActivity)getActivity()).collapsingToolbar.setTitle("Participantes");
+        //((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_desenvolvedores, container, false);
+        View view = inflater.inflate(R.layout.fragment_desenvolvedores, container, false);
+        CircleImageView ivAndre = (CircleImageView) view.findViewById(R.id.c_iview_andre);
+        Picasso.with(getContext()).load(R.drawable.andre).into(ivAndre);
+        CircleImageView ivJordao = (CircleImageView) view.findViewById(R.id.c_iview_jordao);
+        Picasso.with(getContext()).load(R.drawable.jordao).into(ivJordao);
+        CircleImageView ivLuiz = (CircleImageView) view.findViewById(R.id.c_iview_luiz);
+        Picasso.with(getContext()).load(R.drawable.luiz).into(ivLuiz);
+        CircleImageView ivPedro= (CircleImageView) view.findViewById(R.id.c_iview_pedro);
+        Picasso.with(getContext()).load(R.drawable.pedro).into(ivPedro);
+        CircleImageView ivRomeryto = (CircleImageView) view.findViewById(R.id.c_iview_romeryto);
+        Picasso.with(getContext()).load(R.drawable.romeryto).into(ivRomeryto);
+        CircleImageView ivThiago = (CircleImageView) view.findViewById(R.id.c_iview_thiago);
+        Picasso.with(getContext()).load(R.drawable.thiago).into(ivThiago);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

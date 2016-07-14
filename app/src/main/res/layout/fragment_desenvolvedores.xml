@@ -1,366 +1,449 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="umbucaja.moringa.fragments.DesenvolvedoresFragment">
 
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:id="@+id/linearLayout2"
-        android:layout_above="@+id/linearLayout3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:weightSum="3">
+        android:scrollbars="vertical"
+        android:isScrollContainer="true"
+        >
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/andre"
-                app:civ_border_color="#FFFFFF"
-                app:civ_border_width="1dp"
-                android:id="@+id/view"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:background="@color/orange_date_text"
+            >
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Andre"
-                android:id="@+id/textView1"
-                android:layout_below="@+id/view"
-                android:layout_centerHorizontal="true" />
+                android:layout_height="match_parent"
+                android:text="Desenvolvedores e Design"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:id="@+id/tv_info"
+                android:textStyle="bold"
+                android:gravity="center"/>
 
-            <ImageButton
-                android:layout_width="37dp"
-                android:layout_height="37dp"
-                android:src="@mipmap/ic_linkedin"
-                android:id="@+id/ib_linkedin_andre"
-                android:onClick="openNavigation"
-                android:tag="https://br.linkedin.com/in/andrefnmuniz"
-                android:layout_below="@+id/textView1"
-                android:layout_toLeftOf="@+id/space"
-                android:layout_toStartOf="@+id/space" />
-            <ImageButton
-                android:layout_width="37dp"
-                android:layout_height="37dp"
-                android:src="@mipmap/ic_github"
-                android:onClick="openNavigation"
-                android:tag="https://github.com/Netherdan"
-                android:id="@+id/imageButton2"
-                android:layout_below="@+id/textView1"
-                android:layout_toRightOf="@+id/space"
-                android:layout_toEndOf="@+id/space" />
-
-            <Space
-                android:layout_width="5dp"
-                android:layout_height="20px"
-                android:layout_below="@+id/textView1"
-                android:layout_centerHorizontal="true"
-                android:layout_alignBottom="@+id/ib_linkedin_andre"
-                android:id="@+id/space" />
-        </RelativeLayout>
+        </LinearLayout>
 
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/jordao"
-                app:civ_border_color="#FFFFFF"
-                app:civ_border_width="1dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/view2" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:id="@+id/linearLayout2"
+            android:layout_above="@+id/linearLayout3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:weightSum="9">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jordão Serafim"
-                android:id="@+id/textView2"
-                android:layout_below="@+id/view2"
-                android:layout_centerHorizontal="true" />
 
-            <ImageButton
-                android:layout_width="37dp"
-                android:layout_height="37dp"
-                android:src="@mipmap/ic_linkedin"
-                android:id="@+id/ib_linkedin_jordao"
-                android:onClick="openNavigation"
-                android:tag="https://br.linkedin.com/in/jordao-serafim-48516723"
-                android:layout_below="@+id/textView2"
-                android:layout_toLeftOf="@+id/space2"
-                android:layout_toStartOf="@+id/space2" />
-            <ImageButton
-                android:layout_width="37dp"
-                android:layout_height="37dp"
-                android:src="@mipmap/ic_github"
-                android:onClick="openNavigation"
-                android:tag="https://github.com/jordaoesa"
-                android:id="@+id/imageButton"
-                android:layout_below="@+id/textView2"
-                android:layout_toRightOf="@+id/space2"
-                android:layout_toEndOf="@+id/space2" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="3">
 
-            <Space
-                android:layout_width="5dp"
-                android:layout_height="20px"
-                android:id="@+id/space2"
-                android:layout_below="@+id/textView2"
-                android:layout_centerHorizontal="true"
-                android:layout_alignBottom="@+id/ib_linkedin_jordao" />
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/andre"
+                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_width="1dp"
+                    android:id="@+id/c_iview_andre"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/luiz"
-                app:civ_border_color="#FFFFFF"
-                app:civ_border_width="1dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/view3" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Andre Muniz"
+                    android:id="@+id/textView1"
+                    android:layout_below="@+id/view"
+                    android:layout_centerHorizontal="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Luiz Corrêa"
-                android:id="@+id/textView3"
-                android:layout_below="@+id/view3"
-                android:layout_centerHorizontal="true" />
 
-            <ImageButton
-                android:layout_width="37dp"
-                android:layout_height="37dp"
-                android:src="@mipmap/ic_linkedin"
-                android:id="@+id/ib_linkedin_luiz"
-                android:onClick="openNavigation"
-                android:tag="https://www.linkedin.com/in/luizantonioccf"
-                android:layout_below="@+id/textView3"
-                android:layout_toLeftOf="@+id/space3"
-                android:layout_toStartOf="@+id/space3" />
-            <ImageButton
-                android:layout_width="37dp"
-                android:layout_height="37dp"
-                android:src="@mipmap/ic_github"
-                android:onClick="openNavigation"
-                android:tag="https://github.com/laccf"
-                android:layout_below="@+id/textView3"
-                android:layout_toRightOf="@+id/space3"
-                android:layout_toEndOf="@+id/space3" />
 
-            <Space
-                android:layout_width="5dp"
-                android:layout_height="20px"
-                android:id="@+id/space3"
-                android:layout_alignBottom="@+id/ib_linkedin_luiz"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/textView3" />
-        </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:src="@mipmap/ic_linkedin"
+                        android:id="@+id/ib_linkedin_andre"
+                        android:onClick="openNavigation"
+                        android:tag="https://br.linkedin.com/in/andrefnmuniz"
+                        android:layout_below="@+id/textView1"
+                        android:layout_toLeftOf="@+id/space"
+                        android:layout_toStartOf="@+id/space" />
+                    <ImageButton
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:src="@mipmap/ic_github"
+                        android:onClick="openNavigation"
+                        android:tag="https://github.com/Netherdan"
+                        android:id="@+id/imageButton2"
+                        android:layout_below="@+id/textView1"
+                        android:layout_toRightOf="@+id/space"
+                        android:layout_toEndOf="@+id/space" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="3">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/jordao"
+                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_width="1dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/c_iview_jordao" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jordão Serafim"
+                    android:id="@+id/textView2"
+                    android:layout_below="@+id/view2"
+                    android:layout_centerHorizontal="true" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:src="@mipmap/ic_linkedin"
+                        android:id="@+id/ib_linkedin_jordao"
+                        android:onClick="openNavigation"
+                        android:tag="https://br.linkedin.com/in/jordao-serafim-48516723"
+                        android:layout_below="@+id/textView2"
+                        android:layout_toLeftOf="@+id/space2"
+                        android:layout_toStartOf="@+id/space2" />
+                    <ImageButton
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:src="@mipmap/ic_github"
+                        android:onClick="openNavigation"
+                        android:tag="https://github.com/jordaoesa"
+                        android:id="@+id/imageButton"
+                        android:layout_below="@+id/textView2"
+                        android:layout_toRightOf="@+id/space2"
+                        android:layout_toEndOf="@+id/space2" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="3">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/luiz"
+                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_width="1dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/c_iview_luiz" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Luiz Corrêa"
+                    android:id="@+id/textView3"
+                    android:layout_below="@+id/view3"
+                    android:layout_centerHorizontal="true" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center">
+
+
+                    <ImageButton
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:src="@mipmap/ic_linkedin"
+                        android:id="@+id/ib_linkedin_luiz"
+                        android:onClick="openNavigation"
+                        android:tag="https://www.linkedin.com/in/luizantonioccf"
+                        android:layout_below="@+id/textView3"
+                        android:layout_toLeftOf="@+id/space3"
+                        android:layout_toStartOf="@+id/space3" />
+                    <ImageButton
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:src="@mipmap/ic_github"
+                        android:onClick="openNavigation"
+                        android:tag="https://github.com/laccf"
+                        android:layout_below="@+id/textView3"
+                        android:layout_toRightOf="@+id/space3"
+                        android:layout_toEndOf="@+id/space3" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:id="@+id/linearLayout3"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:weightSum="9">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="3">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/pedro"
+                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_width="1dp"
+                    android:id="@+id/c_iview_pedro"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pedro Hyvo"
+                    android:id="@+id/textView4"
+                    android:layout_below="@+id/view4"
+                    android:layout_centerHorizontal="true" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:src="@mipmap/ic_linkedin"
+                        android:id="@+id/ib_linkedin_pedro"
+                        android:onClick="openNavigation"
+                        android:tag="https://br.linkedin.com/in/pedrohyvo/en"
+                        android:layout_below="@+id/textView4"
+                        android:layout_alignLeft="@+id/view4"
+                        android:layout_alignStart="@+id/view4"
+                        android:layout_toLeftOf="@+id/space4"
+                        android:layout_toStartOf="@+id/space4"/>
+                    <ImageButton
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:src="@mipmap/ic_github"
+                        android:onClick="openNavigation"
+                        android:tag="https://github.com/pedrohyvo"
+                        android:id="@+id/imageButton3"
+                        android:layout_below="@+id/textView4"
+                        android:layout_toRightOf="@+id/space4"
+                        android:layout_toEndOf="@+id/space4"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="3">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/romeryto"
+                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_width="1dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/c_iview_romeryto" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Romeryto Lira"
+                    android:id="@+id/textView5"
+                    android:layout_below="@+id/view5"
+                    android:layout_centerHorizontal="true" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:src="@mipmap/ic_linkedin"
+                        android:id="@+id/ib_linkedin_romeryto"
+                        android:onClick="openNavigation"
+                        android:tag="https://www.linkedin.com/in/romeryto"
+                        android:layout_below="@+id/textView5"
+                        android:layout_alignLeft="@+id/view5"
+                        android:layout_alignStart="@+id/view5"
+                        android:layout_toLeftOf="@+id/space5"
+                        android:layout_toStartOf="@+id/space5"/>
+                    <ImageButton
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:src="@mipmap/ic_github"
+                        android:onClick="openNavigation"
+                        android:tag="https://github.com/romeryto"
+                        android:layout_below="@+id/textView5"
+                        android:layout_toRightOf="@+id/space5"
+                        android:layout_toEndOf="@+id/space5" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="3">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/thiago"
+                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_width="1dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/c_iview_thiago" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thiago Medeiros"
+                    android:id="@+id/textView6"
+                    android:layout_below="@+id/view6"
+                    android:layout_centerHorizontal="true" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center">
+                    <ImageButton
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:src="@mipmap/ic_linkedin"
+                        android:id="@+id/ib_linkedin_thiago"
+                        android:onClick="openNavigation"
+                        android:tag="https://br.linkedin.com/in/thiago-almeida-144430a7"
+                        android:layout_below="@+id/textView6"
+                        android:layout_alignLeft="@+id/view6"
+                        android:layout_alignStart="@+id/view6"
+                        android:layout_toLeftOf="@+id/space6"
+                        android:layout_toStartOf="@+id/space6"/>
+                    <ImageButton
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:src="@mipmap/ic_github"
+                        android:onClick="openNavigation"
+                        android:tag="https://github.com/thiagoalmedeiros"
+                        android:layout_below="@+id/textView6"
+                        android:layout_toRightOf="@+id/space6"
+                        android:layout_toEndOf="@+id/space6" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:id="@+id/linearLayout3"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:weightSum="3">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/pedro"
-                app:civ_border_color="#FFFFFF"
-                app:civ_border_width="1dp"
-                android:id="@+id/view4"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pedro Hyvo"
-                android:id="@+id/textView4"
-                android:layout_below="@+id/view4"
-                android:layout_centerHorizontal="true" />
-
-            <ImageButton
-                android:layout_width="37dp"
-                android:layout_height="37dp"
-                android:src="@mipmap/ic_linkedin"
-                android:id="@+id/ib_linkedin_pedro"
-                android:onClick="openNavigation"
-                android:tag="https://br.linkedin.com/in/pedrohyvo/en"
-                android:layout_below="@+id/textView4"
-                android:layout_alignLeft="@+id/view4"
-                android:layout_alignStart="@+id/view4"
-                android:layout_toLeftOf="@+id/space4"
-                android:layout_toStartOf="@+id/space4"/>
-            <ImageButton
-                android:layout_width="37dp"
-                android:layout_height="37dp"
-                android:src="@mipmap/ic_github"
-                android:onClick="openNavigation"
-                android:tag="https://github.com/pedrohyvo"
-                android:id="@+id/imageButton3"
-                android:layout_below="@+id/textView4"
-                android:layout_toRightOf="@+id/space4"
-                android:layout_toEndOf="@+id/space4"/>
-
-            <Space
-                android:layout_width="5dp"
-                android:layout_height="20px"
-                android:id="@+id/space4"
-                android:layout_alignBottom="@+id/ib_linkedin_pedro"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/textView4" />
-
-        </RelativeLayout>
+</ScrollView>
 
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/romeryto"
-                app:civ_border_color="#FFFFFF"
-                app:civ_border_width="1dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/view5" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Romeryto"
-                android:id="@+id/textView5"
-                android:layout_below="@+id/view5"
-                android:layout_centerHorizontal="true" />
 
-            <ImageButton
-                android:layout_width="37dp"
-                android:layout_height="37dp"
-                android:src="@mipmap/ic_linkedin"
-                android:id="@+id/ib_linkedin_romeryto"
-                android:onClick="openNavigation"
-                android:tag="https://www.linkedin.com/in/romeryto"
-                android:layout_below="@+id/textView5"
-                android:layout_alignLeft="@+id/view5"
-                android:layout_alignStart="@+id/view5"
-                android:layout_toLeftOf="@+id/space5"
-                android:layout_toStartOf="@+id/space5"/>
-            <ImageButton
-                android:layout_width="37dp"
-                android:layout_height="37dp"
-                android:src="@mipmap/ic_github"
-                android:onClick="openNavigation"
-                android:tag="https://github.com/romeryto"
-                android:layout_below="@+id/textView5"
-                android:layout_toRightOf="@+id/space5"
-                android:layout_toEndOf="@+id/space5" />
-
-            <Space
-                android:layout_width="5dp"
-                android:layout_height="20px"
-                android:id="@+id/space5"
-                android:layout_alignBottom="@+id/ib_linkedin_romeryto"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/textView5" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/thiago"
-                app:civ_border_color="#FFFFFF"
-                app:civ_border_width="1dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/view6" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thiago Medeiros"
-                android:id="@+id/textView6"
-                android:layout_below="@+id/view6"
-                android:layout_centerHorizontal="true" />
-
-            <ImageButton
-                android:layout_width="37dp"
-                android:layout_height="37dp"
-                android:src="@mipmap/ic_linkedin"
-                android:id="@+id/ib_linkedin_thiago"
-                android:onClick="openNavigation"
-                android:tag="https://br.linkedin.com/in/thiago-almeida-144430a7"
-                android:layout_below="@+id/textView6"
-                android:layout_alignLeft="@+id/view6"
-                android:layout_alignStart="@+id/view6"
-                android:layout_toLeftOf="@+id/space6"
-                android:layout_toStartOf="@+id/space6"/>
-            <ImageButton
-                android:layout_width="37dp"
-                android:layout_height="37dp"
-                android:src="@mipmap/ic_github"
-                android:onClick="openNavigation"
-                android:tag="https://github.com/thiagoalmedeiros"
-                android:layout_below="@+id/textView6"
-                android:layout_toRightOf="@+id/space6"
-                android:layout_toEndOf="@+id/space6" />
-
-            <Space
-                android:layout_width="5dp"
-                android:layout_height="20px"
-                android:id="@+id/space6"
-                android:layout_alignBottom="@+id/ib_linkedin_thiago"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/textView6" />
-        </RelativeLayout>
-
-    </LinearLayout>
-
-</RelativeLayout>

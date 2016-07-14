@@ -56,7 +56,9 @@ import umbucaja.moringa.util.GlobalData;
  */
 public class Server {
 
-    private final String URL = "http://150.165.98.43:8080/";
+    private final String URL = "http://moringa-webservice.herokuapp.com/";
+
+    //private final String URL = "http://150.165.98.43:8080/";
     //private final String URL = "http://192.168.1.109:8080/";
     private Context context;
     private Gson gson;
@@ -210,7 +212,7 @@ public class Server {
         new Connector(context, new Connector.Response() {
             @Override
             public void handleResponse(JSONArray output) {
-                if(output == null) {
+                if(output == null || output.length()==0) {
                     changeBarColorsAndImagesByRain(false);
                     return;
                 }

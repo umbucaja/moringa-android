@@ -44,7 +44,7 @@ public class Connector extends AsyncTask<String, Void, JSONArray> {
     @Override
     protected JSONArray doInBackground(String... urls) {
         HttpURLConnection urlConnection = null;
-        JSONArray jsonArray = null;
+        JSONArray jsonArray = new JSONArray();
 
         try {
             URL url = new URL(urls[0]);
@@ -57,6 +57,9 @@ public class Connector extends AsyncTask<String, Void, JSONArray> {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
 
             String line = bufferedReader.readLine();
+            if(line==null){
+                line = "";
+            }
             jsonArray = new JSONArray(line);
 
         } catch (IOException e) {
