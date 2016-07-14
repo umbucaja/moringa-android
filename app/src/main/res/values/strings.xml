@@ -24,20 +24,12 @@ O Moringa é um projeto OpenSource e esperamos que você também possa nos ajuda
 
 
     <string name="txtCredits">flickr.com/photos/ericamaradona</string>
-    <string name="hello">
-        <![CDATA[
-        <html>
-         <head></head>
-         <body style="text-align:justify;color:gray;background-color:black;">
-          Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit. Nunc pellentesque, urna
-          nec hendrerit pellentesque, risus massa
-         </body>
-        </html>
-        ]]>
+
+
+    <string name="moringa_fontes_dados">
+        "AESA - Agência Estadual de Águas - PB\n"
+        "CAGEPA - Companhia de Águas e Esgosts - PB\n"
     </string>
-
-
 
     <string name="large_text">
         "Material is the metaphor.\n\n"

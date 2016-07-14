@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 
 import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
@@ -84,11 +85,30 @@ public class AcudesFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+
+
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         final MenuItem searchItem = menu.findItem(R.id.action_search);
+
+
+
         searchView = (SearchViewAdapter) MenuItemCompat.getActionView(searchItem);
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MoringaActivity)getActivity()).appBarLayout.setExpanded(false);
+            }
+        });
+
+        //SearchView mSearchView = (SearchView) MenuItemCompat.getActionView(searchViewMenuItem);
+        int searchImgId = android.support.v7.appcompat.R.id.search_button; // I used the explicit layout ID of searchview's ImageView
+        final ImageView v = (ImageView) searchView.findViewById(searchImgId);
+        v.setImageResource(R.drawable.ic_search_moringa);
+
         searchView.setQueryHint("Buscar Cidade...");
+
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -107,7 +127,7 @@ public class AcudesFragment extends Fragment {
                 waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
                 Server.getInstance(getContext()).getWaterAllSourcesFromCity(waterSourcesRecyclerView, city);
-
+                ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
             }
         });
 
@@ -132,6 +152,13 @@ public class AcudesFragment extends Fragment {
         }
         ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
         ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
+        ((MoringaActivity)getContext()).appBarLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MoringaActivity)getActivity()).appBarLayout.setExpanded(false);
+                //searchView.onActionViewExpanded();
+            }
+        });
         return rootView;
     }
 

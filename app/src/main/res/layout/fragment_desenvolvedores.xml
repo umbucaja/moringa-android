@@ -85,18 +85,19 @@
                     android:gravity="center">
 
                     <ImageButton
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@mipmap/ic_linkedin"
                         android:id="@+id/ib_linkedin_andre"
                         android:onClick="openNavigation"
                         android:tag="https://br.linkedin.com/in/andrefnmuniz"
                         android:layout_below="@+id/textView1"
                         android:layout_toLeftOf="@+id/space"
-                        android:layout_toStartOf="@+id/space" />
+                        android:layout_toStartOf="@+id/space"
+                       />
                     <ImageButton
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@mipmap/ic_github"
                         android:onClick="openNavigation"
                         android:tag="https://github.com/Netherdan"
@@ -147,8 +148,8 @@
                     android:gravity="center">
 
                     <ImageButton
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@mipmap/ic_linkedin"
                         android:id="@+id/ib_linkedin_jordao"
                         android:onClick="openNavigation"
@@ -157,8 +158,8 @@
                         android:layout_toLeftOf="@+id/space2"
                         android:layout_toStartOf="@+id/space2" />
                     <ImageButton
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@mipmap/ic_github"
                         android:onClick="openNavigation"
                         android:tag="https://github.com/jordaoesa"
@@ -212,8 +213,8 @@
 
 
                     <ImageButton
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@mipmap/ic_linkedin"
                         android:id="@+id/ib_linkedin_luiz"
                         android:onClick="openNavigation"
@@ -222,8 +223,8 @@
                         android:layout_toLeftOf="@+id/space3"
                         android:layout_toStartOf="@+id/space3" />
                     <ImageButton
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@mipmap/ic_github"
                         android:onClick="openNavigation"
                         android:tag="https://github.com/laccf"
@@ -288,8 +289,8 @@
                     android:gravity="center">
 
                     <ImageButton
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@mipmap/ic_linkedin"
                         android:id="@+id/ib_linkedin_pedro"
                         android:onClick="openNavigation"
@@ -300,8 +301,8 @@
                         android:layout_toLeftOf="@+id/space4"
                         android:layout_toStartOf="@+id/space4"/>
                     <ImageButton
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@mipmap/ic_github"
                         android:onClick="openNavigation"
                         android:tag="https://github.com/pedrohyvo"
@@ -347,8 +348,8 @@
                     android:gravity="center">
 
                     <ImageButton
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@mipmap/ic_linkedin"
                         android:id="@+id/ib_linkedin_romeryto"
                         android:onClick="openNavigation"
@@ -359,8 +360,8 @@
                         android:layout_toLeftOf="@+id/space5"
                         android:layout_toStartOf="@+id/space5"/>
                     <ImageButton
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@mipmap/ic_github"
                         android:onClick="openNavigation"
                         android:tag="https://github.com/romeryto"
@@ -406,8 +407,8 @@
                     android:layout_gravity="center_horizontal"
                     android:gravity="center">
                     <ImageButton
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@mipmap/ic_linkedin"
                         android:id="@+id/ib_linkedin_thiago"
                         android:onClick="openNavigation"
@@ -418,8 +419,8 @@
                         android:layout_toLeftOf="@+id/space6"
                         android:layout_toStartOf="@+id/space6"/>
                     <ImageButton
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@mipmap/ic_github"
                         android:onClick="openNavigation"
                         android:tag="https://github.com/thiagoalmedeiros"

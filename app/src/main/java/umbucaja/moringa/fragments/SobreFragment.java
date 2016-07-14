@@ -85,8 +85,6 @@ public class SobreFragment extends Fragment {
         ImageView imageView = (ImageView) view.findViewById(R.id.image_view_logo_sobre);
         Picasso.with(getContext()).load(R.drawable.moringa_sobre).into(imageView);
 
-        //Glide.with(getContext()).load(R.drawable.moringa_sobre).centerCrop().into(imageView);
-
         return view;
     }
 

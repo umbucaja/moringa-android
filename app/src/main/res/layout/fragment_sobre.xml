@@ -11,7 +11,7 @@
         android:id="@+id/linear_aviso"
         android:orientation="vertical"
         android:layout_gravity="center_vertical"
-        android:paddingTop="310dp"
+        android:paddingTop="450dp"
         >
 
         <LinearLayout
@@ -172,7 +172,64 @@
                 android:autoLink="web"
                 android:paddingLeft="10dp"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:background="@color/orange_date_text"
+            android:scrollbars="none"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Fontes dos Dados"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:id="@+id/tv_fonte_dados"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:weightSum="5"
+            android:paddingTop="10dp"
+            android:paddingLeft="0dp">
+            <ImageButton
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:id="@+id/imageButtonAesa"
+                android:onClick="openNavigation"
+                android:background="@drawable/aesa_logo"
+                android:tag="http://aesa.pb.gov.br"
+                android:layout_below="@+id/textView6"
+                android:layout_toRightOf="@+id/space6"
+                android:layout_toEndOf="@+id/space6" />
+            <ImageButton
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:id="@+id/imageButtonCagepa"
+                android:background="@drawable/cagepa_logo"
+                android:onClick="openNavigation"
+                android:tag="http://cagepa.pb.gov.br"
+                android:layout_below="@+id/textView6"
+                android:layout_toRightOf="@+id/space6"
+                android:layout_toEndOf="@+id/space6" />
+
+
+        </LinearLayout>
     </LinearLayout>
+
+
+
+
 
 </ScrollView>
 
