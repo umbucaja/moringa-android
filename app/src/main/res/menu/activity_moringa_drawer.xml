@@ -5,11 +5,11 @@
         <item
             android:id="@+id/nav_cidades"
             android:checked="true"
-            android:icon="@drawable/moringa_primeira"
+            android:icon="@drawable/moringa_primeira_icon"
             android:title="Açudes" />
         <item
             android:id="@+id/nav_chuvas"
-            android:icon="@drawable/toro"
+            android:icon="@drawable/toro_icon"
             android:title="Chuvas" />
         <item
             android:id="@+id/nav_desenvolvedores"
@@ -19,10 +19,15 @@
             android:id="@+id/nav_sobre"
             android:icon="@android:drawable/ic_menu_info_details"
             android:title="Sobre" />
+
     </group>
 
     <item android:title="Outros">
         <menu>
+            <item
+                android:id="@+id/nav_email"
+                android:icon="@mipmap/ic_email_icon_small"
+                android:title="Feedback/Sugestões" />
             <item
                 android:id="@+id/nav_sair"
                 android:icon="@android:drawable/ic_menu_close_clear_cancel"

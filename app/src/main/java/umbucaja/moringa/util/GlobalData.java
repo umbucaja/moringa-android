@@ -53,7 +53,7 @@ public class GlobalData {
                     if(waterSourcesRecyclerView != null) {
                         GlobalData.setCurrCity(output);
                         ((MoringaActivity) context).collapsingToolbar.setTitle(location.getName());
-                        Server.getInstance(context).getWaterAllSourcesFromCity(waterSourcesRecyclerView, location);
+                        Server.getInstance(context).getWaterAllSourcesFromCity(null, waterSourcesRecyclerView, location);
                     }
                 }
             }).execute();

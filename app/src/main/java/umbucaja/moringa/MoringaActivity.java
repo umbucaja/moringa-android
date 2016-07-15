@@ -28,6 +28,9 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import umbucaja.moringa.fragments.AcudesFragment;
 import umbucaja.moringa.fragments.ChuvasEstacaoFragment;
 import umbucaja.moringa.fragments.ChuvasFragment;
@@ -122,8 +125,6 @@ public class MoringaActivity extends AppCompatActivity
         return true;
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -161,6 +162,16 @@ public class MoringaActivity extends AppCompatActivity
             fragmentClass = SobreFragment.class;
             collapsingToolbar.setTitle(item.getTitle());
             closeOptionsMenu();
+        } else if(id == R.id.nav_email){
+            Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+            sendIntent.setType("plain/text");
+            sendIntent.setData(Uri.parse("moringaapp@gmail.com"));
+            sendIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+            //sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "moringaapp@gmail.com" });
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss a");
+            sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Moringa - Feedback / Sugestão Anônima - "+ dt1.format(new Date(System.currentTimeMillis())));
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Escreva aqui sua sugestão");
+            startActivity(sendIntent);
         } else if (id == R.id.nav_sair) {
             finish();
         }

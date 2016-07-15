@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import umbucaja.moringa.MoringaActivity;
@@ -43,6 +44,7 @@ public class AcudesFragment extends Fragment {
     private final String DEBUG_TAG = "ACUDES_DEBUG";
     private View rootView;
     private SearchViewAdapter searchView;
+    private ImageView imageViewSearch;
 
 
     // TODO: Rename and change types of parameters
@@ -52,6 +54,9 @@ public class AcudesFragment extends Fragment {
     private RecyclerView waterSourcesRecyclerView;
 
     private OnFragmentInteractionListener mListener;
+    private MenuItem searchItem;
+
+
 
     public AcudesFragment() {
         // Required empty public constructor
@@ -87,11 +92,11 @@ public class AcudesFragment extends Fragment {
 
 
 
+
+
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        final MenuItem searchItem = menu.findItem(R.id.action_search);
-
-
+        searchItem = menu.findItem(R.id.action_search);
 
         searchView = (SearchViewAdapter) MenuItemCompat.getActionView(searchItem);
 
@@ -104,8 +109,47 @@ public class AcudesFragment extends Fragment {
 
         //SearchView mSearchView = (SearchView) MenuItemCompat.getActionView(searchViewMenuItem);
         int searchImgId = android.support.v7.appcompat.R.id.search_button; // I used the explicit layout ID of searchview's ImageView
-        final ImageView v = (ImageView) searchView.findViewById(searchImgId);
-        v.setImageResource(R.drawable.ic_search_moringa);
+        imageViewSearch = (ImageView) searchView.findViewById(searchImgId);
+        imageViewSearch.setImageResource(R.drawable.ic_search_moringa);
+
+        ImageView closeButton = (ImageView)searchView.findViewById(R.id.search_close_btn);
+
+        // Set on click listener
+        closeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                System.out.println("Clicou fechar");
+                //Find EditText view
+                EditText et = (EditText) searchView.findViewById(R.id.search_src_text);
+
+                //Clear the text from EditText view
+                et.setText("");
+
+                //Clear query
+                //searchView.setQuery("", false);
+                //Collapse the action view
+                searchView.onActionViewCollapsed();
+               // searchView.onActionViewExpanded();
+
+                //Collapse the search widget
+                searchItem.collapseActionView();
+                ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
+               // searchItem.expandActionView();
+            }
+        });
+
+
+
+//  ESSE É O EVENTO QUE É CHAMADO QUANDO CLICA NA LUPA
+//        v.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+//        v.set
 
         searchView.setQueryHint("Buscar Cidade...");
 
@@ -121,12 +165,10 @@ public class AcudesFragment extends Fragment {
                 searchView.setIconified(true);
                // ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(city.getName());
 
-
-
                 waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
                 waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-                Server.getInstance(getContext()).getWaterAllSourcesFromCity(waterSourcesRecyclerView, city);
+                Server.getInstance(getContext()).getWaterAllSourcesFromCity(getView(), waterSourcesRecyclerView, city);
                 ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
             }
         });
@@ -141,6 +183,9 @@ public class AcudesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_acudes, container, false);
         //utilizado para salvar o estado atual do fragment
@@ -148,7 +193,7 @@ public class AcudesFragment extends Fragment {
         waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(GlobalData.currCity != null){
             ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(GlobalData.currCity.getName());
-            Server.getInstance(getContext()).getWaterAllSourcesFromCity(waterSourcesRecyclerView, GlobalData.currCity);
+            Server.getInstance(getContext()).getWaterAllSourcesFromCity(getView(),waterSourcesRecyclerView, GlobalData.currCity);
         }
         ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
         ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
@@ -156,7 +201,7 @@ public class AcudesFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ((MoringaActivity)getActivity()).appBarLayout.setExpanded(false);
-                //searchView.onActionViewExpanded();
+                imageViewSearch.callOnClick();
             }
         });
         return rootView;

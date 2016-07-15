@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -325,13 +326,15 @@ public class Server {
     }
 
 
-    public void getWaterAllSourcesFromCity(final RecyclerView waterSourcesRecyclerView, final City city) {
+    public void getWaterAllSourcesFromCity(final View fragment, final RecyclerView waterSourcesRecyclerView, final City city) {
         long idCity = city.getId();
         new Connector(context, new Connector.Response() {
             @Override
             public void handleResponse(JSONArray output) {
-                if(output == null)
+                if(output == null) {
+                    System.out.println("===> Sem Açude");
                     return;
+                }
                 List<WaterSource> list = new ArrayList<WaterSource>();
                 for(int i=0; i < output.length(); i++){
                     try {
@@ -341,11 +344,26 @@ public class Server {
                         e.printStackTrace();
                     }
                 }
+                System.out.println("FRAGMENT : "+fragment);
+                if(fragment!=null){
+                    if(list.size()==0){
+                            CardView cardViewEmpty = (CardView) fragment.findViewById(R.id.card_view_no_data);
+                            cardViewEmpty.setVisibility(View.VISIBLE);
+
+                    }else{
+                            CardView cardViewEmpty = (CardView) fragment.findViewById(R.id.card_view_no_data);
+                            cardViewEmpty.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+                System.out.println("Saida Açudes: " + list);
                 WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(context, list);
                 waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
 
                 updateTopBarImageWaterSource(list);
-                ((MoringaActivity)context).collapsingToolbar.setTitle(city.getName());
+                ((MoringaActivity) context).collapsingToolbar.setTitle(city.getName());
+
 
             }
         }).execute(URL + "cities/"+idCity+"/watersources?lastMeasurements=1");

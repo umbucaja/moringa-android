@@ -1,0 +1,70 @@
+<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="2dp"
+    android:layout_margin="8dp"
+    android:id="@+id/card_view_no_data"
+    android:visibility="invisible">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="10">
+
+        <RelativeLayout
+            android:layout_weight="5">
+            <ImageView
+                android:id="@+id/image_view_chuvas"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:adjustViewBounds="true"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sertanejo_sem_chuva"
+                android:padding="7dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_weight="5"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_chuvas_station_name"
+                android:textColor="@color/blue_water_source_name"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:text="Sem Registro de Açude"
+                android:maxLines="2"
+                android:gravity="center"
+                android:ellipsize="end" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/tv_chuvas_last_measurement_date"
+                    android:gravity="center"
+                    android:text="Você tem informação da fonte de água desta cidade? Envie-nos no menu Feedback/Sugestões"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/orange_date_text"
+                    android:ellipsize="end"
+                    android:maxLines="4"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </TableRow>
+
+</android.support.v7.widget.CardView>

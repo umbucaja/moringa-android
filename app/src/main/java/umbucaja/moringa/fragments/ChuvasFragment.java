@@ -1,6 +1,7 @@
 package umbucaja.moringa.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
@@ -42,6 +45,7 @@ public class ChuvasFragment extends Fragment {
     private SearchViewAdapter searchView;
 
     private OnFragmentInteractionListener mListener;
+    private ImageView imageViewSearch;
 
     public ChuvasFragment() {
         // Required empty public constructor
@@ -102,6 +106,36 @@ public class ChuvasFragment extends Fragment {
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchViewAdapter) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint("Buscar Cidade...");
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MoringaActivity)getActivity()).appBarLayout.setExpanded(false);
+            }
+        });
+
+        //SearchView mSearchView = (SearchView) MenuItemCompat.getActionView(searchViewMenuItem);
+        int searchImgId = android.support.v7.appcompat.R.id.search_button; // I used the explicit layout ID of searchview's ImageView
+        imageViewSearch = (ImageView) searchView.findViewById(searchImgId);
+        imageViewSearch.setImageResource(R.drawable.ic_search_moringa);
+
+        ImageView closeButton = (ImageView)searchView.findViewById(R.id.search_close_btn);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                System.out.println("Clicou fechar");
+                EditText et = (EditText) searchView.findViewById(R.id.search_src_text);
+                et.setText("");
+                searchView.onActionViewCollapsed();
+                searchItem.collapseActionView();
+                ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
+            }
+        });
+
+
+
+
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -120,6 +154,7 @@ public class ChuvasFragment extends Fragment {
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
                 Server.getInstance(getContext()).getMeasurementStationsFromCity(recyclerView, city.getId());
+                ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
 
             }
         });
@@ -149,9 +184,17 @@ public class ChuvasFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(GlobalData.currCity.getName());
             Server.getInstance(getContext()).getMeasurementStationsFromCity(recyclerView, GlobalData.currCity.getId());
+            ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
         }
-       // ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
-       // ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
+        ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
+        ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
+        ((MoringaActivity)getContext()).appBarLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MoringaActivity)getActivity()).appBarLayout.setExpanded(false);
+                imageViewSearch.callOnClick();
+            }
+        });
         return rootView;
     }
 
