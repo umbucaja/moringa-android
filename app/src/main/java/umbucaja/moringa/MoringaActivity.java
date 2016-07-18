@@ -169,7 +169,7 @@ public class MoringaActivity extends AppCompatActivity
             sendIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
             //sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "moringaapp@gmail.com" });
             SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss a");
-            sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Moringa - Feedback / Sugestão Anônima - "+ dt1.format(new Date(System.currentTimeMillis())));
+            sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Moringa - Feedback / Sugestão - "+ dt1.format(new Date(System.currentTimeMillis())));
             sendIntent.putExtra(Intent.EXTRA_TEXT, "Escreva aqui sua sugestão");
             startActivity(sendIntent);
         } else if (id == R.id.nav_sair) {

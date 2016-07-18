@@ -345,21 +345,24 @@ public class Server {
                     }
                 }
                 System.out.println("FRAGMENT : "+fragment);
+
+                System.out.println("=============================> Saida Açudes 1 : " + list);
                 if(fragment!=null){
                     if(list.size()==0){
-                            CardView cardViewEmpty = (CardView) fragment.findViewById(R.id.card_view_no_data);
-                            cardViewEmpty.setVisibility(View.VISIBLE);
+                        CardView cardViewEmpty = (CardView) fragment.findViewById(R.id.card_view_no_data);
+                        cardViewEmpty.setVisibility(View.VISIBLE);
 
                     }else{
-                            CardView cardViewEmpty = (CardView) fragment.findViewById(R.id.card_view_no_data);
-                            cardViewEmpty.setVisibility(View.INVISIBLE);
+                        CardView cardViewEmpty = (CardView) fragment.findViewById(R.id.card_view_no_data);
+                        cardViewEmpty.setVisibility(View.INVISIBLE);
 
                     }
                 }
+                System.out.println("===================> Saida Açudes 2: " + list);
 
-                System.out.println("Saida Açudes: " + list);
                 WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(context, list);
                 waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
+
 
                 updateTopBarImageWaterSource(list);
                 ((MoringaActivity) context).collapsingToolbar.setTitle(city.getName());
@@ -494,7 +497,7 @@ public class Server {
                     mX.add(formatter.format(wsms.get(i).getDate()));
                 }
 
-                LineDataSet d1 = new LineDataSet(e1, "Volume "+waterSource.getType()+" "+waterSource.getName() + cnt + ", (1)");
+                LineDataSet d1 = new LineDataSet(e1, "Volume "+waterSource.getType()+" "+waterSource.getName());
                 d1.setLineWidth(4.0f);
                 d1.setCircleRadius(4.5f);
                 d1.setHighLightColor(Color.rgb(244, 117, 117));
