@@ -402,19 +402,19 @@ public class Server {
 //        imageView.startAnimation(fadeIn);
 
         if(percentage<35){
-            Glide.with(context).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
+            //Glide.with(context).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
             //Picasso.with(context).load(R.drawable.menos_35_v2).into(imageView);
-            //imageView.setImageResource(R.drawable.menos_35_v2);
+            imageView.setImageResource(R.drawable.menos_35_v2);
             ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.menos_35_v2));
         }else if(percentage>=35 && percentage <70){
-            Glide.with(context).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
+            //Glide.with(context).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
            // Picasso.with(context).load(R.drawable.entre_35_69_v2).into(imageView);
-            //imageView.setImageResource(R.drawable.entre_35_69_v2);
+            imageView.setImageResource(R.drawable.entre_35_69_v2);
             ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.entre_35_69_v2));
         }else{
-            Glide.with(context).load(R.drawable.mais70_v2).centerCrop().into(imageView);
+            //Glide.with(context).load(R.drawable.mais70_v2).centerCrop().into(imageView);
             //Picasso.with(context).load(R.drawable.mais70_v2).into(imageView);
-            //imageView.setImageResource(R.drawable.mais70_v2);
+            imageView.setImageResource(R.drawable.mais70_v2);
             ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.mais70_v2));
         }
 

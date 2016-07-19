@@ -26,8 +26,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -72,8 +70,8 @@ public class MoringaActivity extends AppCompatActivity
         //Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageViewLogoTop);
         getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.menos_35_v2));
 
-        Picasso.with(getApplicationContext()).load(R.drawable.menos_35_v2).into(imageViewLogoTop);
-
+        //Picasso.with(getApplicationContext()).load(R.drawable.menos_35_v2).into(imageViewLogoTop);
+        imageViewLogoTop.setImageResource(R.color.menos_35_v2);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

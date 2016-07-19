@@ -30,7 +30,7 @@
                     android:adjustViewBounds="true"
                     android:layout_centerInParent="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/sertanejo_sem_chuva"
+                    android:src="@drawable/duvida_chuva"
                     android:padding="7dp" />
             </RelativeLayout>
 
