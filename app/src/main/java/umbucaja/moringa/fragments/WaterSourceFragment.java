@@ -1,6 +1,5 @@
 package umbucaja.moringa.fragments;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -98,7 +97,7 @@ public class WaterSourceFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     public void setUp(View view) {
         tvCurrentWaterSourcePercentage = (TextView) view.findViewById(R.id.tv_current_water_source_percentage);
         tvPercentage = (TextView) view.findViewById(R.id.tv_percentage);
@@ -153,13 +152,19 @@ public class WaterSourceFragment extends Fragment {
         System.out.print("PERCENTAGE: " + percentage);
         if (percentage < 35) {
             Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
-            ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.menos_35_v2));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.menos_35_v2));
+            }
         } else if (percentage >= 35 && percentage < 70) {
             Glide.with(this).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
-            ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.entre_35_69_v2));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.entre_35_69_v2));
+            }
         } else {
             Glide.with(this).load(R.drawable.mais70_v2).centerCrop().into(imageView);
-            ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.mais70_v2));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.mais70_v2));
+            }
         }
 
         ((MoringaActivity) getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));

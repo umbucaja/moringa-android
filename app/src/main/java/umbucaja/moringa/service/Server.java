@@ -1,6 +1,5 @@
 package umbucaja.moringa.service;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
@@ -187,7 +186,7 @@ public class Server {
         }).execute(URL + "stations/" + station.getId() + "/measurements?lastMeasurements=6");
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     public void updateTopBarImageStation(List<MeasurementStation> measurementStations){
         List<RainFallMeasurement> rainFallMeasurements = new ArrayList<>();
         for (MeasurementStation ms : measurementStations){
@@ -208,7 +207,7 @@ public class Server {
         changeBarColorsAndImagesByRain(wasRain);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     public void updateTopBarImageFromMeasurements(List<RainFallMeasurement> rainFallMeasurements){
         boolean wasRain = false;
         int pos = 0;
@@ -222,18 +221,22 @@ public class Server {
         changeBarColorsAndImagesByRain(wasRain);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     private void changeBarColorsAndImagesByRain(boolean wasRain) {
         final ImageView imageView = ((MoringaActivity)context).imageViewLogoTop;
 
         if(!wasRain){
             Glide.with(context).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
-            //imageView.setImageResource(R.drawable.menos_35_v2);
-            ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.menos_35_v2));
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.menos_35_v2));
+            }
         }else {
             Glide.with(context).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
-            //imageView.setImageResource(R.drawable.entre_35_69_v2);
-            ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.entre_35_69_v2));
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.entre_35_69_v2));
+            }
         }
         ((MoringaActivity)context).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
         ((MoringaActivity)context).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
@@ -283,7 +286,7 @@ public class Server {
         }).execute(URL + "cities/"+idCity+"/watersources?lastMeasurements=1");
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     public void updateTopBarImageWaterSource(List<WaterSource> waterSources){
         double totalCapacity = 0;
         double currentLevel = 0;
@@ -305,19 +308,26 @@ public class Server {
         changeBarColorsAndImagesByPercentage(percentage);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
+
     public void changeBarColorsAndImagesByPercentage(double percentage){
         final ImageView imageView = ((MoringaActivity)context).imageViewLogoTop;
 
         if(percentage<35){
             imageView.setImageResource(R.drawable.menos_35_v2);
-            ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.menos_35_v2));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.menos_35_v2));
+            }
         }else if(percentage>=35 && percentage <70){
             imageView.setImageResource(R.drawable.entre_35_69_v2);
-            ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.entre_35_69_v2));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.entre_35_69_v2));
+            }
         }else{
             imageView.setImageResource(R.drawable.mais70_v2);
-            ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.mais70_v2));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ((MoringaActivity) context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.mais70_v2));
+            }
         }
 
         ((MoringaActivity)context).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));

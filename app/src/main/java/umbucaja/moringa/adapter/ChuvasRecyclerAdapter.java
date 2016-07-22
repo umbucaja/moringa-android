@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -69,19 +71,17 @@ public class ChuvasRecyclerAdapter extends RecyclerView.Adapter<ChuvasRecyclerAd
 
     //TODO: precisamos das imagens e dos intervalos para terminar a implementacao!
     private void checkValuesAndSetImage(Float value, ChuvasHolder holder) {
-        if(value == 0f)
-
-
-
-            holder.ivSituacao.setImageResource(R.drawable.sol);
-        else if(value <= 10)
-            holder.ivSituacao.setImageResource(R.drawable.pouquissima_chuva);
-        else if(value <= 25)
-            holder.ivSituacao.setImageResource(R.drawable.pouca_chuva);
-        else if(value <= 50)
-            holder.ivSituacao.setImageResource(R.drawable.muita_chuva);
-        else if(value > 50)
-            holder.ivSituacao.setImageResource(R.drawable.toro);
+        if(value == 0f) {
+            Picasso.with(holder.ivSituacao.getContext()).load(R.drawable.sol).into(holder.ivSituacao);
+        }else if(value <= 10){
+            Picasso.with(holder.ivSituacao.getContext()).load(R.drawable.pouquissima_chuva).into(holder.ivSituacao);
+        }else if(value <= 25) {
+            Picasso.with(holder.ivSituacao.getContext()).load(R.drawable.pouca_chuva).into(holder.ivSituacao);
+        }else if(value <= 50){
+            Picasso.with(holder.ivSituacao.getContext()).load(R.drawable.muita_chuva).into(holder.ivSituacao);
+        }else if(value > 50) {
+            Picasso.with(holder.ivSituacao.getContext()).load(R.drawable.toro).into(holder.ivSituacao);
+        }
     }
 
     @Override

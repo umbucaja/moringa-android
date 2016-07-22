@@ -32,8 +32,7 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
     @Override
     public WaterSourceViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
-        View view = LayoutInflater.from(context)
-                .inflate(R.layout.item_water_source, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_water_source, parent, false);
 
         WaterSourceViewHolder viewHolder = new WaterSourceViewHolder(context, view);
 
