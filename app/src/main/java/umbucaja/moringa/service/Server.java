@@ -58,9 +58,8 @@ import umbucaja.moringa.util.GlobalData;
 public class Server {
 
     private final String URL = "http://moringa-webservice.herokuapp.com/";
-
     //private final String URL = "http://150.165.98.43:8080/";
-    //private final String URL = "http://192.168.1.109:8080/";
+
     private Context context;
     private Gson gson;
 
@@ -83,7 +82,6 @@ public class Server {
             }
         });
 
-        //Gson gson = builder.create();
         this.gson = builder.create();
     }
 
@@ -129,86 +127,6 @@ public class Server {
     }
 
     public void getMeasurementsFromStation(final View rootView, final GridView gridView, MeasurementStation station){
-        /*List<RainFallMeasurement> measurements = new ArrayList<RainFallMeasurement>();
-        measurements.add(new RainFallMeasurement(0, new Date(), 10f, "mm"));
-        measurements.add(new RainFallMeasurement(1, new Date(), 20f, "mm"));
-        measurements.add(new RainFallMeasurement(2, new Date(), 30f, "mm"));
-        measurements.add(new RainFallMeasurement(3, new Date(), 0f, "mm"));
-        measurements.add(new RainFallMeasurement(4, new Date(), 5f, "mm"));
-        measurements.add(new RainFallMeasurement(5, new Date(), 20f, "mm"));
-        measurements.add(new RainFallMeasurement(6, new Date(), 40f, "mm"));
-        measurements.add(new RainFallMeasurement(7, new Date(), 100f, "mm"));
-        measurements.add(new RainFallMeasurement(8, new Date(), 0f, "mm"));
-
-        Collections.sort(measurements, new Comparator<RainFallMeasurement>() {
-            @Override
-            public int compare(RainFallMeasurement rfm1, RainFallMeasurement rfm2) {
-                return rfm1.getDate().compareTo(rfm2.getDate());
-            }
-        });
-        RainFallMeasurement lastMeasurement = measurements.remove(measurements.size()-1);
-        ImageView iv = (ImageView) rootView.findViewById(R.id.image_view_chuvas);
-        TextView tvValue = (TextView)  rootView.findViewById(R.id.tv_chuvas_milimetragem);
-        TextView tvDate = (TextView)  rootView.findViewById(R.id.tv_chuvas_last_measurement_date);
-        if(lastMeasurement.getValue() == 0f)
-            iv.setImageResource(R.drawable.sol);
-        else if(lastMeasurement.getValue() <= 10)
-            iv.setImageResource(R.drawable.pouquissima_chuva);
-        else if(lastMeasurement.getValue() <= 25)
-            iv.setImageResource(R.drawable.pouca_chuva);
-        else if(lastMeasurement.getValue() <= 50)
-            iv.setImageResource(R.drawable.muita_chuva);
-        else if(lastMeasurement.getValue() > 50)
-            iv.setImageResource(R.drawable.toro);
-        tvValue.setText(lastMeasurement.getValue()+"mm");
-        String date = new SimpleDateFormat("dd/MM/yyyy").format(lastMeasurement.getDate());
-        tvDate.setText(date);
-
-        if(measurements.size() > 5)
-            measurements = measurements.subList(measurements.size()-5, measurements.size());
-
-        ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
-        gridView.setAdapter(adapter);*/
-
-        /*//TODO: parte correta. Nao eh necessario requisitar novamente os dados de rainFallMeasurement
-        List<RainFallMeasurement> measurements = station.getRainFallMeasurements();
-        Collections.sort(measurements, new Comparator<RainFallMeasurement>() {
-            @Override
-            public int compare(RainFallMeasurement rfm1, RainFallMeasurement rfm2) {
-                return rfm1.getDate().compareTo(rfm2.getDate());
-            }
-        });
-        RainFallMeasurement lastMeasurement = measurements.remove(measurements.size()-1);
-        ImageView iv = (ImageView) rootView.findViewById(R.id.image_view_chuvas);
-        TextView tvValue = (TextView)  rootView.findViewById(R.id.tv_chuvas_milimetragem);
-        TextView tvDate = (TextView)  rootView.findViewById(R.id.tv_chuvas_last_measurement_date);
-        TextView tvChuvasIn = (TextView)  rootView.findViewById(R.id.tv_chuvas_in);
-        TextView tvChuvasStationName = (TextView)  rootView.findViewById(R.id.tv_chuvas_station_name);
-
-        if(lastMeasurement.getValue() == 0f)
-            iv.setImageResource(R.drawable.sol);
-        else if(lastMeasurement.getValue() <= 10)
-            iv.setImageResource(R.drawable.pouquissima_chuva);
-        else if(lastMeasurement.getValue() <= 25)
-            iv.setImageResource(R.drawable.pouca_chuva);
-        else if(lastMeasurement.getValue() <= 50)
-            iv.setImageResource(R.drawable.muita_chuva);
-        else if(lastMeasurement.getValue() > 50)
-            iv.setImageResource(R.drawable.toro);
-        tvValue.setTextSize(40);
-        tvValue.setTextColor(rootView.getResources().getColor(R.color.red_percentage));
-        tvValue.setText(lastMeasurement.getValue()+"mm");
-
-        String date = new SimpleDateFormat("dd/MM/yyyy").format(lastMeasurement.getDate());
-        tvDate.setText(date);
-        tvDate.setVisibility(View.VISIBLE);
-        tvChuvasIn.setVisibility(View.VISIBLE);
-        tvChuvasStationName.setVisibility(View.VISIBLE);
-        if(measurements.size() > 5)
-            measurements = measurements.subList(measurements.size()-5, measurements.size());
-
-        ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
-        gridView.setAdapter(adapter);*/
 
         new Connector(context, new Connector.Response() {
             @Override
@@ -260,8 +178,6 @@ public class Server {
                 tvDate.setVisibility(View.VISIBLE);
                 tvChuvasIn.setVisibility(View.VISIBLE);
                 tvChuvasStationName.setVisibility(View.VISIBLE);
-                //if(measurements.size() > 5)
-                   // measurements = measurements.subList(measurements.size()-5, measurements.size());
                 updateTopBarImageFromMeasurements(measurements);
                 measurements.remove(lastMeasurement);
                 ChuvasMedicaoArrayAdapter adapter = new ChuvasMedicaoArrayAdapter(context, R.layout.grid_view_chuvas_item, measurements);
@@ -282,7 +198,6 @@ public class Server {
         }
         boolean wasRain = false;
         int pos = 0;
-        System.out.println("===============> SIZE: "+rainFallMeasurements.size());
         while(wasRain==false && pos <rainFallMeasurements.size()){
             RainFallMeasurement rainFallMeasurement = rainFallMeasurements.get(pos);
             if(rainFallMeasurement.getValue()>0){
@@ -297,7 +212,6 @@ public class Server {
     public void updateTopBarImageFromMeasurements(List<RainFallMeasurement> rainFallMeasurements){
         boolean wasRain = false;
         int pos = 0;
-        System.out.println("===============> SIZE: "+rainFallMeasurements.size());
         while(wasRain==false && pos <rainFallMeasurements.size()){
             RainFallMeasurement rainFallMeasurement = rainFallMeasurements.get(pos);
             if(rainFallMeasurement.getValue()>0){
@@ -332,7 +246,6 @@ public class Server {
             @Override
             public void handleResponse(JSONArray output) {
                 if(output == null) {
-                    System.out.println("===> Sem Açude");
                     return;
                 }
                 List<WaterSource> list = new ArrayList<WaterSource>();
@@ -346,7 +259,6 @@ public class Server {
                 }
                 System.out.println("FRAGMENT : "+fragment);
 
-                System.out.println("=============================> Saida Açudes 1 : " + list);
                 if(fragment!=null){
                     if(list.size()==0){
                         CardView cardViewEmpty = (CardView) fragment.findViewById(R.id.card_view_no_data);
@@ -358,7 +270,6 @@ public class Server {
 
                     }
                 }
-                System.out.println("===================> Saida Açudes 2: " + list);
 
                 WaterSourceRecyclerAdapter waterSourceRecyclerAdapter = new WaterSourceRecyclerAdapter(context, list);
                 waterSourcesRecyclerView.setAdapter(waterSourceRecyclerAdapter);
@@ -397,23 +308,14 @@ public class Server {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void changeBarColorsAndImagesByPercentage(double percentage){
         final ImageView imageView = ((MoringaActivity)context).imageViewLogoTop;
-//        final Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
-//        fadeIn.setDuration(500);
-//        imageView.startAnimation(fadeIn);
 
         if(percentage<35){
-            //Glide.with(context).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
-            //Picasso.with(context).load(R.drawable.menos_35_v2).into(imageView);
             imageView.setImageResource(R.drawable.menos_35_v2);
             ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.menos_35_v2));
         }else if(percentage>=35 && percentage <70){
-            //Glide.with(context).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
-           // Picasso.with(context).load(R.drawable.entre_35_69_v2).into(imageView);
             imageView.setImageResource(R.drawable.entre_35_69_v2);
             ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.entre_35_69_v2));
         }else{
-            //Glide.with(context).load(R.drawable.mais70_v2).centerCrop().into(imageView);
-            //Picasso.with(context).load(R.drawable.mais70_v2).into(imageView);
             imageView.setImageResource(R.drawable.mais70_v2);
             ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.mais70_v2));
         }
@@ -435,14 +337,6 @@ public class Server {
     }
 
     public void getMeasurementStationsFromCity(final RecyclerView recyclerView, long cityId) {
-        /*List<MeasurementStation> list = new ArrayList<MeasurementStation>();
-        List<RainFallMeasurement> list2 = new ArrayList<RainFallMeasurement>();
-        list2.add(new RainFallMeasurement(5, new Date(), 0f, "mm"));
-        MeasurementStation ms = new MeasurementStation(0, "Estação Cidade", 1f, 1f);
-        ms.setRainFallMeasurements(list2);
-        list.add(ms);
-        ChuvasRecyclerAdapter chuvasRecyclerAdapter = new ChuvasRecyclerAdapter(list);
-        recyclerView.setAdapter(chuvasRecyclerAdapter);*/
         new Connector(context, new Connector.Response() {
             @Override
             public void handleResponse(JSONArray output) {
@@ -489,8 +383,6 @@ public class Server {
                 int cnt = 1;
                 ArrayList<String> mX = new ArrayList<String>();
                 ArrayList<Entry> e1 = new ArrayList<Entry>();
-                //e1.add(new Entry(0, 0));
-                //mX.add("Inicio");
                 for (int i = 0; i < wsms.size(); i++) {
                     e1.add(new Entry(Float.parseFloat(String.format("%.1f",wsms.get(i).getValue()/1000000).replace(",",".")), i));
                     DateFormat formatter = new SimpleDateFormat("dd/MM");
@@ -519,23 +411,13 @@ public class Server {
 
                 ArrayList<ILineDataSet> sets = new ArrayList<ILineDataSet>();
                 sets.add(d1);
-                //sets.add(d2);
 
                 LineData data = new LineData(mX, sets);
 
                 chartWaterSource.setDescription("Últimos Volumes");  // set the description
                 chartWaterSource.setData(data); // set the data and list of lables into chart
                 chartWaterSource.invalidate();
-//                chartWaterSource.refreshDrawableState();
-//                view.requestFocus();
-//                view.refreshDrawableState();
-//                chartWaterSource.refreshDrawableState();
 
-                //chartWaterSource.setData(data);
-
-
-               // ChuvasRecyclerAdapter chuvasRecyclerAdapter = new ChuvasRecyclerAdapter(list);
-               // recyclerView.setAdapter(chuvasRecyclerAdapter);
             }
         }).execute(URL + "watersources/" + waterSource.getId() + "/measurements?lastMeasurements=15");
 

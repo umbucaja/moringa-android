@@ -40,7 +40,6 @@ public class MoringaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AcudesFragment.OnFragmentInteractionListener, ChuvasFragment.OnFragmentInteractionListener, SobreFragment.OnFragmentInteractionListener, DesenvolvedoresFragment.OnFragmentInteractionListener, WaterSourceFragment.OnFragmentInteractionListener, ChuvasEstacaoFragment.OnFragmentInteractionListener {
 
     private final int REQUEST_LOCATION = 1;
-    private final String DEBUG_TAG = "MORINGA_ACTIVITY";
     public CollapsingToolbarLayout collapsingToolbar;
     public AppBarLayout appBarLayout;
     public ImageView imageViewLogoTop;
@@ -58,19 +57,14 @@ public class MoringaActivity extends AppCompatActivity
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         }
-//        else{
-//            GlobalData.getLocation(getApplicationContext(), null);
-//        }
         collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
 
         imageViewLogoTop = (ImageView) findViewById(R.id.backdrop);
-        //Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageViewLogoTop);
         getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.menos_35_v2));
 
-        //Picasso.with(getApplicationContext()).load(R.drawable.menos_35_v2).into(imageViewLogoTop);
         imageViewLogoTop.setImageResource(R.color.menos_35_v2);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -87,22 +81,6 @@ public class MoringaActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragmentView, fragment).commit();
     }
-//
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-//        if (requestCode == REQUEST_LOCATION) {
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                    return;
-//                }
-//                GlobalData.getLocation(getApplicationContext(), null);
-//            } else {
-//                Log.wtf(DEBUG_TAG, "Acesse as configurações do aplicativo para modificar as permissões!");
-//            }
-//        } else {
-//            Log.wtf(DEBUG_TAG, "Acesse as configurações do aplicativo para modificar as permissões!");
-//        }
-//    }
 
 
     @Override
@@ -130,7 +108,6 @@ public class MoringaActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         System.out.println("ITEM ID: "+id);
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             Snackbar.make(findViewById(R.id.content_moringa), "search", Snackbar.LENGTH_LONG).show();
             return true;
@@ -165,7 +142,6 @@ public class MoringaActivity extends AppCompatActivity
             sendIntent.setType("plain/text");
             sendIntent.setData(Uri.parse("moringaapp@gmail.com"));
             sendIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
-            //sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "moringaapp@gmail.com" });
             SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss a");
             sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Moringa - Feedback / Sugestão - "+ dt1.format(new Date(System.currentTimeMillis())));
             sendIntent.putExtra(Intent.EXTRA_TEXT, "Escreva aqui sua sugestão");
@@ -182,9 +158,6 @@ public class MoringaActivity extends AppCompatActivity
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-//        for(int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
-//            fragmentManager.popBackStack();
-//        }
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentManager.beginTransaction().replace(R.id.fragmentView, fragment).commit();
 

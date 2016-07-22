@@ -90,10 +90,6 @@ public class AcudesFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-
-
-
-
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         searchItem = menu.findItem(R.id.action_search);
@@ -107,7 +103,6 @@ public class AcudesFragment extends Fragment {
             }
         });
 
-        //SearchView mSearchView = (SearchView) MenuItemCompat.getActionView(searchViewMenuItem);
         int searchImgId = android.support.v7.appcompat.R.id.search_button; // I used the explicit layout ID of searchview's ImageView
         imageViewSearch = (ImageView) searchView.findViewById(searchImgId);
         imageViewSearch.setImageResource(R.drawable.ic_search_moringa);
@@ -127,29 +122,15 @@ public class AcudesFragment extends Fragment {
                 //Clear the text from EditText view
                 et.setText("");
 
-                //Clear query
-                //searchView.setQuery("", false);
                 //Collapse the action view
                 searchView.onActionViewCollapsed();
-               // searchView.onActionViewExpanded();
 
                 //Collapse the search widget
                 searchItem.collapseActionView();
                 ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
-               // searchItem.expandActionView();
             }
         });
 
-
-
-//  ESSE É O EVENTO QUE É CHAMADO QUANDO CLICA NA LUPA
-//        v.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-//        v.set
 
         searchView.setQueryHint("Buscar Cidade...");
 
@@ -163,7 +144,6 @@ public class AcudesFragment extends Fragment {
                 searchView.clearFocus();
                 searchView.setQuery("", false);
                 searchView.setIconified(true);
-               // ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(city.getName());
 
                 waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
                 waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -184,8 +164,6 @@ public class AcudesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_acudes, container, false);
         //utilizado para salvar o estado atual do fragment
@@ -200,28 +178,15 @@ public class AcudesFragment extends Fragment {
         ((MoringaActivity)getContext()).appBarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MoringaActivity)getActivity()).appBarLayout.setExpanded(false);
+
+                ((MoringaActivity) getActivity()).appBarLayout.setExpanded(false);
                 imageViewSearch.callOnClick();
+
             }
         });
         return rootView;
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-//        if (requestCode == REQUEST_LOCATION) {
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                    return;
-//                }
-//                Server.getInstance(getContext()).populateToolbarCities(searchView, waterSourcesRecyclerView);
-//            } else {
-//                Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
-//            }
-//        } else {
-//            Log.wtf(DEBUG_TAG, "Go to app settings to change its permissions related to GPS usage!");
-//        }
-//    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

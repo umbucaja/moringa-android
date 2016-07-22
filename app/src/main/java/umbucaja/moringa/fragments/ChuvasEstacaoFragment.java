@@ -54,7 +54,6 @@ public class ChuvasEstacaoFragment extends Fragment {
         ChuvasEstacaoFragment.station = station;
         ChuvasEstacaoFragment fragment = new ChuvasEstacaoFragment();
         Bundle args = new Bundle();
-        //args.putLong(ARG_PARAM, station.getId());
         fragment.setArguments(args);
         return fragment;
     }
@@ -89,24 +88,11 @@ public class ChuvasEstacaoFragment extends Fragment {
         //TODO: criar metodo em Server para requisitar os dados de uma dada estacao por ID
         if(station != null) {
             Server.getInstance(getContext()).getMeasurementsFromStation(rootView, gridView, station);
-        }else{
-           // final ImageView imageView = ((MoringaActivity) getActivity()).imageViewLogoTop;
-           // Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
-           // ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.mais70_v2));
-            //((MoringaActivity) getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
-            //((MoringaActivity) getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
         }
-
-//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(getContext(), "OI", Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         if(station != null)
             ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(station.getName());
-
+        ((MoringaActivity)getContext()).appBarLayout.setOnClickListener(null);
         return rootView;
     }
 

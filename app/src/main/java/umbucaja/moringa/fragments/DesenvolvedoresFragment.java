@@ -73,7 +73,6 @@ public class DesenvolvedoresFragment extends Fragment {
         MenuItem item = menu.findItem(R.id.action_search);
         item.setVisible(false);
         ((MoringaActivity)getActivity()).collapsingToolbar.setTitle("Participantes");
-        //((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
     }
 
     @Override
@@ -92,6 +91,7 @@ public class DesenvolvedoresFragment extends Fragment {
         Picasso.with(getContext()).load(R.drawable.romeryto).into(ivRomeryto);
         CircleImageView ivThiago = (CircleImageView) view.findViewById(R.id.c_iview_thiago);
         Picasso.with(getContext()).load(R.drawable.thiago).into(ivThiago);
+        ((MoringaActivity)getContext()).appBarLayout.setOnClickListener(null);
         return view;
     }
 

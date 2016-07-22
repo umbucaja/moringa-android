@@ -76,8 +76,6 @@ public class WaterSourceFragment extends Fragment {
         Bundle args = new Bundle();
         waterSource = waterSource1;
 
-       // args.putLong(WATER_SOURCE_ID, waterSourceId);
-        //args.putString(WATER_SOURCE_NAME, waterSourceName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -118,7 +116,6 @@ public class WaterSourceFragment extends Fragment {
 
         String date = "Sem Medição";
         this.tvCurrentCapacity.setText(String.format("%.1f", capacity / (1000000)).replace(".", ","));
-        // holder.currentWaterSource = waterSource;
         if (wsms != null) {
             if (wsms.size() > 0) {
                 actualVolume = wsms.get(wsms.size() - 1).getValue();
@@ -153,26 +150,6 @@ public class WaterSourceFragment extends Fragment {
                 R.drawable.logo_top);
 
 
-        //final Animation fadeIn = AnimationUtils.loadAnimation((MoringaActivity)getActivity(), R.anim.fade_in);
-        // fadeIn.setDuration(500);
-        //imageView.startAnimation(fadeIn);
-
-
-/*
-        fadeIn.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-            @Override
-            public void onAnimationEnd(Animation animation) {
-               // Animation fadeOut = AnimationUtils.loadAnimation((MoringaActivity)getActivity(), R.anim.fade_out);
-                //imageView.startAnimation(fadeOut);
-            }
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-        */
         System.out.print("PERCENTAGE: " + percentage);
         if (percentage < 35) {
             Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
@@ -194,24 +171,14 @@ public class WaterSourceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_water_source, container, false);
-       // mainView = view;
-        //LineChart lineChart = (LineChart) view.findViewById(R.id.chartWaterSource);
         this.setUp(view);
         System.out.println("WSID: "+waterSourceId);
-      //  Server.getInstance(getContext()).getWaterAllSourcesFromCity2(this, (int)waterSourceId);
-
-
-
-        //WaterSource waterSource = waterSources.get(0);
-       // view.findViewById(R.id.)
-
-
 
 
         ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
         ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
         ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(waterSource.getName());
-
+        ((MoringaActivity)getContext()).appBarLayout.setOnClickListener(null);
 
         return view;
     }

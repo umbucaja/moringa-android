@@ -107,7 +107,6 @@ public class ChuvasRecyclerAdapter extends RecyclerView.Adapter<ChuvasRecyclerAd
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Toast.makeText(itemView.getContext(), station.getName(), Toast.LENGTH_LONG).show();
 
                     System.out.println("STATION _ ID : "+station.getId());
                     ChuvasEstacaoFragment fragment = ChuvasEstacaoFragment.newInstance(station);

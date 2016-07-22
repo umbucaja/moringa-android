@@ -73,8 +73,6 @@ public class SobreFragment extends Fragment {
         MenuItem item = menu.findItem(R.id.action_search);
         item.setVisible(false);
         ((MoringaActivity)getActivity()).collapsingToolbar.setTitle("Sobre");
-
-        //((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
     }
 
     @Override
@@ -84,7 +82,7 @@ public class SobreFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sobre, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.image_view_logo_sobre);
         Picasso.with(getContext()).load(R.drawable.moringa_sobre).into(imageView);
-
+        ((MoringaActivity)getContext()).appBarLayout.setOnClickListener(null);
         return view;
     }
 

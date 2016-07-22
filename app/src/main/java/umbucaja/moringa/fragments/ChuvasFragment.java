@@ -88,8 +88,6 @@ public class ChuvasFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
-
     /*
     Android Lifecycle
      */
@@ -114,7 +112,6 @@ public class ChuvasFragment extends Fragment {
             }
         });
 
-        //SearchView mSearchView = (SearchView) MenuItemCompat.getActionView(searchViewMenuItem);
         int searchImgId = android.support.v7.appcompat.R.id.search_button; // I used the explicit layout ID of searchview's ImageView
         imageViewSearch = (ImageView) searchView.findViewById(searchImgId);
         imageViewSearch.setImageResource(R.drawable.ic_search_moringa);
