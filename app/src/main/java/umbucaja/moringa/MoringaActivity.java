@@ -24,10 +24,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import umbucaja.moringa.fragments.AcudesFragment;
 import umbucaja.moringa.fragments.ChuvasEstacaoFragment;
@@ -142,31 +138,13 @@ public class MoringaActivity extends AppCompatActivity
             closeOptionsMenu();
         } else if(id == R.id.nav_email){
 
-            Intent i = new Intent(Intent.ACTION_SEND);
-            SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss a");
 
-            i.setType("message/rfc822");
-            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"moringaapp@gmail.com"});
-            //i.setData(Uri.parse("moringaapp@gmail.com"));
-//            i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
-//            i.putExtra(Intent.EXTRA_TEXT   , "body of email");
-            i.putExtra(Intent.EXTRA_SUBJECT, "Moringa - Feedback / Sugestão - "+ dt1.format(new Date(System.currentTimeMillis())));
-            i.putExtra(Intent.EXTRA_TEXT, "Escreva aqui sua sugestão");
-            try {
-                startActivity(Intent.createChooser(i, "Send mail..."));
-            } catch (android.content.ActivityNotFoundException ex) {
-                Toast.makeText(MoringaActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-            }
-            startActivity(i);
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                    "mailto", "moringaapp@gmail.com", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Contato");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new Intent(Intent.ACTION_SENDTO));
+            startActivity(Intent.createChooser(emailIntent, "Enviar email..."));
 
-//            Intent sendIntent = getPackageManager().getLaunchIntentForPackage("com.android.email");
-//            sendIntent.setType("plain/text");
-//            sendIntent.setData(Uri.parse("moringaapp@gmail.com"));
-//           // sendIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
-//            SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss a");
-//            sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Moringa - Feedback / Sugestão - "+ dt1.format(new Date(System.currentTimeMillis())));
-//            sendIntent.putExtra(Intent.EXTRA_TEXT, "Escreva aqui sua sugestão");
-//            startActivity(sendIntent);
         } else if (id == R.id.nav_sair) {
             finish();
         }

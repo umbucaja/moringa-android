@@ -146,9 +146,9 @@ public class AcudesFragment extends Fragment {
                 searchView.setIconified(true);
 
                 waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
-                waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager((MoringaActivity)getActivity()));
 
-                Server.getInstance(getContext()).getWaterAllSourcesFromCity(getView(), waterSourcesRecyclerView, city);
+                Server.getInstance((MoringaActivity)getActivity()).getWaterAllSourcesFromCity(getView(), waterSourcesRecyclerView, city);
                 ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
             }
         });
@@ -168,7 +168,7 @@ public class AcudesFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_acudes, container, false);
         //utilizado para salvar o estado atual do fragment
         waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
-        waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager((MoringaActivity)getActivity()));
         if(GlobalData.currCity != null){
             ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(GlobalData.currCity.getName());
             Server.getInstance(getContext()).getWaterAllSourcesFromCity(getView(),waterSourcesRecyclerView, GlobalData.currCity);
