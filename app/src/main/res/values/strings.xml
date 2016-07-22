@@ -10,11 +10,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_list_water_source">ListWaterSourceActivity</string>
     <string name="moringa_description">
-    "\t\t\t\t\tPensando em melhorar a experiência da população sobre os níveis alarmantes dos reservatórios paraibanos surgiu o Projeto Moringa.
+    "\t\t\t\t\tDiante da evidente crise hídrica ficar atento sobre como estão os níveis dos reservatórios que abastecem nossa cidade é algo que desperta o interesse de toda a população. Pensando em melhorar a experiência do usuário quanto aos dados disponibilizados, surgiu o Projeto Moringa.
 Idealizado por um dos desenvolvedores do projeto, logo foi abraçado pelos demais.
-O Moringa foi desenvolvido em duas plataformas:
-Na aplicação WEB, tentamos responder perguntas como: Quais os açudes que abastecem a minha cidade? Quantas pessoas compartilham os recursos hídricos? Onde está localizada uma cidade? Qual o cenário histórico? Se dividirmos os recursos hídricos, quanto cada pessoa ainda tem?
-No aplicativo Android, esperamos que o seu monitoramento possa ser constante, dessa forma utilizamos georeferenciamento para procurar o reservatório que abastece a cidade que você se encontra e disponibilizamos de forma rápida informações sobre níveis, histórico e precipitações.
+
+No aplicativo Android, esperamos que a população possa fazer o monitoramento constantemente. Utilizando georeferenciamento,  você pode procurar informações sobre o reservatório que abastece a cidade que você mora. Disponibilizamos de forma rápida informações sobre níveis de açude, histórico de medições e precipitações em toda a Paraíba.
+
 O Moringa é um projeto OpenSource e esperamos que você também possa nos ajudar."
     </string>
 

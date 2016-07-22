@@ -94,6 +94,7 @@
                         android:layout_below="@+id/textView1"
                         android:layout_toLeftOf="@+id/space"
                         android:layout_toStartOf="@+id/space"
+                        android:layout_marginRight="3dp"
                        />
                     <ImageButton
                         android:layout_width="30dp"
@@ -104,7 +105,8 @@
                         android:id="@+id/imageButton2"
                         android:layout_below="@+id/textView1"
                         android:layout_toRightOf="@+id/space"
-                        android:layout_toEndOf="@+id/space" />
+                        android:layout_toEndOf="@+id/space"
+                        android:layout_marginLeft="3dp"/>
 
                 </LinearLayout>
 
@@ -156,7 +158,8 @@
                         android:tag="https://br.linkedin.com/in/jordao-serafim-48516723"
                         android:layout_below="@+id/textView2"
                         android:layout_toLeftOf="@+id/space2"
-                        android:layout_toStartOf="@+id/space2" />
+                        android:layout_toStartOf="@+id/space2"
+                        android:layout_marginRight="3dp"/>
                     <ImageButton
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -166,7 +169,8 @@
                         android:id="@+id/imageButton"
                         android:layout_below="@+id/textView2"
                         android:layout_toRightOf="@+id/space2"
-                        android:layout_toEndOf="@+id/space2" />
+                        android:layout_toEndOf="@+id/space2"
+                        android:layout_marginLeft="3dp"/>
 
                 </LinearLayout>
 
@@ -221,7 +225,8 @@
                         android:tag="https://www.linkedin.com/in/luizantonioccf"
                         android:layout_below="@+id/textView3"
                         android:layout_toLeftOf="@+id/space3"
-                        android:layout_toStartOf="@+id/space3" />
+                        android:layout_toStartOf="@+id/space3"
+                        android:layout_marginRight="3dp"/>
                     <ImageButton
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -230,7 +235,8 @@
                         android:tag="https://github.com/laccf"
                         android:layout_below="@+id/textView3"
                         android:layout_toRightOf="@+id/space3"
-                        android:layout_toEndOf="@+id/space3" />
+                        android:layout_toEndOf="@+id/space3"
+                        android:layout_marginLeft="3dp"/>
 
                 </LinearLayout>
 
@@ -299,7 +305,8 @@
                         android:layout_alignLeft="@+id/view4"
                         android:layout_alignStart="@+id/view4"
                         android:layout_toLeftOf="@+id/space4"
-                        android:layout_toStartOf="@+id/space4"/>
+                        android:layout_toStartOf="@+id/space4"
+                        android:layout_marginRight="3dp"/>
                     <ImageButton
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -309,7 +316,8 @@
                         android:id="@+id/imageButton3"
                         android:layout_below="@+id/textView4"
                         android:layout_toRightOf="@+id/space4"
-                        android:layout_toEndOf="@+id/space4"/>
+                        android:layout_toEndOf="@+id/space4"
+                        android:layout_marginLeft="3dp"/>
 
                 </LinearLayout>
 
@@ -358,7 +366,8 @@
                         android:layout_alignLeft="@+id/view5"
                         android:layout_alignStart="@+id/view5"
                         android:layout_toLeftOf="@+id/space5"
-                        android:layout_toStartOf="@+id/space5"/>
+                        android:layout_toStartOf="@+id/space5"
+                        android:layout_marginRight="3dp"/>
                     <ImageButton
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -367,7 +376,8 @@
                         android:tag="https://github.com/romeryto"
                         android:layout_below="@+id/textView5"
                         android:layout_toRightOf="@+id/space5"
-                        android:layout_toEndOf="@+id/space5" />
+                        android:layout_toEndOf="@+id/space5"
+                        android:layout_marginLeft="3dp"/>
 
                 </LinearLayout>
 
@@ -417,7 +427,8 @@
                         android:layout_alignLeft="@+id/view6"
                         android:layout_alignStart="@+id/view6"
                         android:layout_toLeftOf="@+id/space6"
-                        android:layout_toStartOf="@+id/space6"/>
+                        android:layout_toStartOf="@+id/space6"
+                        android:layout_marginRight="3dp"/>
                     <ImageButton
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -426,7 +437,8 @@
                         android:tag="https://github.com/thiagoalmedeiros"
                         android:layout_below="@+id/textView6"
                         android:layout_toRightOf="@+id/space6"
-                        android:layout_toEndOf="@+id/space6" />
+                        android:layout_toEndOf="@+id/space6"
+                        android:layout_marginLeft="3dp"/>
 
                 </LinearLayout>
 

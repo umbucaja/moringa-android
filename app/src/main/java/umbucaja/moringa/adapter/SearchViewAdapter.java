@@ -24,7 +24,6 @@ public class SearchViewAdapter extends SearchView {
         mSearchAutoComplete = (SearchAutoComplete) findViewById(android.support.v7.appcompat.R.id.search_src_text);
         mSearchAutoComplete.setThreshold(1);
         mSearchAutoComplete.setHintTextColor(getResources().getColor(R.color.background_color));
-        //mSearchAutoComplete.setBackground(getResources().getDrawable(R.color.background_color));
 
         mSearchAutoComplete.setDropDownBackgroundDrawable(getResources().getDrawable(android.support.v7.appcompat.R.drawable.abc_popup_background_mtrl_mult));
         this.setAdapter(null);

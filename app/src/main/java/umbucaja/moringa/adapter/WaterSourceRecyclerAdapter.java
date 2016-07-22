@@ -32,8 +32,7 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
     @Override
     public WaterSourceViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
-        View view = LayoutInflater.from(context)
-                .inflate(R.layout.item_water_source, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_water_source, parent, false);
 
         WaterSourceViewHolder viewHolder = new WaterSourceViewHolder(context, view);
 
@@ -43,7 +42,6 @@ public class WaterSourceRecyclerAdapter extends RecyclerView.Adapter<WaterSource
     @Override
     public void onBindViewHolder(WaterSourceViewHolder holder, int position) {
         WaterSource waterSource = waterSources.get(position);
-       // Toast.makeText(holder.context, waterSource.getName(), Toast.LENGTH_LONG).show();
         holder.tvName.setText(waterSource.getType()+" "+waterSource.getName());
         float capacity = waterSource.getCapacity();
         List<WaterSourceMeasurement> wsms = waterSource.getReservoirMeasurements();
