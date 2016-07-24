@@ -24,6 +24,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import umbucaja.moringa.fragments.AcudesFragment;
 import umbucaja.moringa.fragments.ChuvasEstacaoFragment;
@@ -138,15 +142,16 @@ public class MoringaActivity extends AppCompatActivity
             closeOptionsMenu();
         } else if(id == R.id.nav_email){
 
-
-            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                    "mailto", "moringaapp@gmail.com", null));
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Contato");
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss a");
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "moringaapp@gmail.com", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Moringa - Feedback / Sugestão - "+ dt1.format(new Date(System.currentTimeMillis())));
             emailIntent.putExtra(Intent.EXTRA_EMAIL, new Intent(Intent.ACTION_SENDTO));
             startActivity(Intent.createChooser(emailIntent, "Enviar email..."));
 
         } else if (id == R.id.nav_sair) {
             finish();
+            //This return solves the problem in exiting button
+            return true;
         }
 
         Fragment fragment = null;
