@@ -115,12 +115,12 @@ public class Server {
                     if(waterSourcesRecyclerView != null)
                         GlobalData.getLocation(context, waterSourcesRecyclerView);
 
-                    ArrayAdapter<City> adapter = new ArrayAdapter<City>(context, android.R.layout.simple_dropdown_item_1line, arrayCities);
+                    ArrayAdapter<City> adapter = new ArrayAdapter<City>(context, R.layout.drop_down_search_item, arrayCities);
                     searchView.setAdapter(adapter);
                 }
             }).execute(URL + "cities");
         else{
-            ArrayAdapter<City> adapter = new ArrayAdapter<City>(context, android.R.layout.simple_dropdown_item_1line, GlobalData.cities);
+            ArrayAdapter<City> adapter = new ArrayAdapter<City>(context, R.layout.drop_down_search_item, GlobalData.cities);
             searchView.setAdapter(adapter);
         }
     }
