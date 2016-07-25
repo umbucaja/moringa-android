@@ -7,7 +7,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -228,16 +227,16 @@ public class Server {
         final ImageView imageView = ((MoringaActivity)context).imageViewLogoTop;
 
         if(!wasRain){
-            Glide.with(context).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
+            Glide.with(context).load(R.drawable.menos_35).centerCrop().into(imageView);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.menos_35_v2));
+                ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.menos_35));
             }
         }else {
-            Glide.with(context).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
+            Glide.with(context).load(R.drawable.entre_35_69).centerCrop().into(imageView);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.entre_35_69_v2));
+                ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.entre_35_69));
             }
         }
         ((MoringaActivity)context).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
@@ -316,19 +315,19 @@ public class Server {
         final ImageView imageView = ((MoringaActivity)context).imageViewLogoTop;
 
         if(percentage<35){
-            imageView.setImageResource(R.drawable.menos_35_v2);
+            imageView.setImageResource(R.drawable.menos_35);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.menos_35_v2));
+                ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.menos_35));
             }
         }else if(percentage>=35 && percentage <70){
-            imageView.setImageResource(R.drawable.entre_35_69_v2);
+            imageView.setImageResource(R.drawable.entre_35_69);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.entre_35_69_v2));
+                ((MoringaActivity)context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.entre_35_69));
             }
         }else{
-            imageView.setImageResource(R.drawable.mais70_v2);
+            imageView.setImageResource(R.drawable.mais70);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ((MoringaActivity) context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.mais70_v2));
+                ((MoringaActivity) context).getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.mais70));
             }
         }
 

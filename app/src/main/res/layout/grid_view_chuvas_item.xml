@@ -16,7 +16,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/iv_grid_view_chuvas_item"
-            android:src="@drawable/moringa"
+            android:src="@drawable/toro"
             android:layout_alignParentTop="true"
             android:gravity="center"
             android:layout_alignRight="@+id/tv_grid_view_chuvas_item_unit"

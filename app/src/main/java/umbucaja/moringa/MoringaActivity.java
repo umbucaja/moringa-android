@@ -70,10 +70,10 @@ public class MoringaActivity extends AppCompatActivity
         imageViewLogoTop = (ImageView) findViewById(R.id.backdrop);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.menos_35_v2));
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.menos_35));
         }
 
-        imageViewLogoTop.setImageResource(R.color.menos_35_v2);
+        imageViewLogoTop.setImageResource(R.color.menos_35);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

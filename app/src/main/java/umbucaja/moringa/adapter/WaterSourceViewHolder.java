@@ -3,6 +3,7 @@ package umbucaja.moringa.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class WaterSourceViewHolder extends RecyclerView.ViewHolder implements Wa
     public TextView tvDate;
     public ProgressBar progressBarPercentage;
     public WaterSource currentWaterSource;
+    public ImageView imageViewMoringa;
 
 
     public WaterSourceViewHolder(Context context, View itemView) {
@@ -31,7 +33,12 @@ public class WaterSourceViewHolder extends RecyclerView.ViewHolder implements Wa
         tvPercentage = (TextView) itemView.findViewById(R.id.tv_water_source_percentage);
         tvDate = (TextView) itemView.findViewById(R.id.tv_water_source_last_measurement_date);
         progressBarPercentage = (ProgressBar) itemView.findViewById(R.id.progress_bar_id);
+        imageViewMoringa = (ImageView)  itemView.findViewById(R.id.image_test);
+       // imageViewMoringa.setImageResource(R.drawable.moringa_terceira);
 
+
+        imageViewMoringa.setImageDrawable(itemView.getContext().getResources().getDrawable(R.drawable.moringa_terceira));
+        //Glide.with(context).load(R.drawable.moringa_terceira).into(imageViewMoringa);
         itemView.setOnClickListener(this);
     }
 

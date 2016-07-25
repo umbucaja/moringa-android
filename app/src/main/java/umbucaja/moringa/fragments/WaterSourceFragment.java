@@ -151,19 +151,19 @@ public class WaterSourceFragment extends Fragment {
 
         System.out.print("PERCENTAGE: " + percentage);
         if (percentage < 35) {
-            Glide.with(this).load(R.drawable.menos_35_v2).centerCrop().into(imageView);
+            Glide.with(this).load(R.drawable.menos_35).centerCrop().into(imageView);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.menos_35_v2));
+                ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.menos_35));
             }
         } else if (percentage >= 35 && percentage < 70) {
-            Glide.with(this).load(R.drawable.entre_35_69_v2).centerCrop().into(imageView);
+            Glide.with(this).load(R.drawable.entre_35_69).centerCrop().into(imageView);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.entre_35_69_v2));
+                ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.entre_35_69));
             }
         } else {
-            Glide.with(this).load(R.drawable.mais70_v2).centerCrop().into(imageView);
+            Glide.with(this).load(R.drawable.mais70).centerCrop().into(imageView);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.mais70_v2));
+                ((MoringaActivity) getActivity()).getWindow().setNavigationBarColor(ContextCompat.getColor(getContext(), R.color.mais70));
             }
         }
 
