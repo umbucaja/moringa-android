@@ -3,6 +3,7 @@ package umbucaja.moringa.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -91,6 +92,15 @@ public class ChuvasEstacaoFragment extends Fragment {
         if(station != null)
             ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(station.getName());
         ((MoringaActivity)getContext()).appBarLayout.setOnClickListener(null);
+
+        ((MoringaActivity)getContext()).actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+        ((MoringaActivity)getContext()).toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
         return rootView;
     }
 

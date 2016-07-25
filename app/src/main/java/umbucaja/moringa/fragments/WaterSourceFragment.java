@@ -185,6 +185,14 @@ public class WaterSourceFragment extends Fragment {
         ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(waterSource.getName());
         ((MoringaActivity)getContext()).appBarLayout.setOnClickListener(null);
 
+        ((MoringaActivity)getContext()).actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+        ((MoringaActivity)getContext()).toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
         return view;
     }
     private ArrayList<String> getMonths() {

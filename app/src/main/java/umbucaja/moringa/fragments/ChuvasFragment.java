@@ -220,6 +220,7 @@ public class ChuvasFragment extends Fragment {
                 imageViewSearch.callOnClick();
             }
         });
+        ((MoringaActivity)getContext()).actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         return rootView;
     }
 

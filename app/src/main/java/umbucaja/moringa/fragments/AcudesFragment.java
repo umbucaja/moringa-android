@@ -214,6 +214,7 @@ public class AcudesFragment extends Fragment {
 
             }
         });
+        ((MoringaActivity)getContext()).actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         return rootView;
     }
 

@@ -43,13 +43,14 @@ public class MoringaActivity extends AppCompatActivity
     public CollapsingToolbarLayout collapsingToolbar;
     public AppBarLayout appBarLayout;
     public ImageView imageViewLogoTop;
-
+    public Toolbar toolbar;
+    public ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moringa);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -60,6 +61,10 @@ public class MoringaActivity extends AppCompatActivity
         collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
 
         imageViewLogoTop = (ImageView) findViewById(R.id.backdrop);
