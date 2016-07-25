@@ -138,20 +138,24 @@ public class AcudesFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                City city = GlobalData.getCityByName(query);
-                //City city = (City) parent.getAdapter().getItem(position);
-                searchView.setText(city.getName());
-                GlobalData.setCurrCity(city);
+                if (GlobalData.isConnected(getContext())) {
+                    City city = GlobalData.getCityByName(query);
+                    //City city = (City) parent.getAdapter().getItem(position);
+                    searchView.setText(city.getName());
+                    GlobalData.setCurrCity(city);
 
-                searchView.clearFocus();
-                searchView.setQuery("", false);
-                searchView.setIconified(true);
+                    searchView.clearFocus();
+                    searchView.setQuery("", false);
+                    searchView.setIconified(true);
 
-                waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
-                waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
+                    waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-                Server.getInstance(getContext()).getWaterAllSourcesFromCity(getView(), waterSourcesRecyclerView, city);
-                ((MoringaActivity) getActivity()).appBarLayout.setExpanded(true);
+                    Server.getInstance(getContext()).getWaterAllSourcesFromCity(getView(), waterSourcesRecyclerView, city);
+                    ((MoringaActivity) getActivity()).appBarLayout.setExpanded(true);
+                } else {
+                    Snackbar.make(((MoringaActivity)getContext()).appBarLayout, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
+                }
                 return true;
             }
 

@@ -26,6 +26,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.rollbar.android.Rollbar;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -50,8 +52,14 @@ public class MoringaActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moringa);
+
+        //ROLLBAR CATCHING EXCEPTIONS
+        Rollbar.init(this, "4b8bed86dc44451c8572ad5d719f2b75", "production");
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
@@ -63,7 +71,6 @@ public class MoringaActivity extends AppCompatActivity
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
 
@@ -75,11 +82,8 @@ public class MoringaActivity extends AppCompatActivity
 
         imageViewLogoTop.setImageResource(R.color.menos_35);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -114,6 +118,7 @@ public class MoringaActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        System.out.println("ACTIVITY ALALALA " + item.getItemId());
         int id = item.getItemId();
         System.out.println("ITEM ID: "+id);
         if (id == R.id.action_search) {
