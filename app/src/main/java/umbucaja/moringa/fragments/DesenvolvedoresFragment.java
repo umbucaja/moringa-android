@@ -92,6 +92,7 @@ public class DesenvolvedoresFragment extends Fragment {
         CircleImageView ivThiago = (CircleImageView) view.findViewById(R.id.c_iview_thiago);
         Picasso.with(getContext()).load(R.drawable.thiago).into(ivThiago);
         ((MoringaActivity)getContext()).appBarLayout.setOnClickListener(null);
+        ((MoringaActivity)getContext()).appBarLayout.setExpanded(true);
         return view;
     }
 

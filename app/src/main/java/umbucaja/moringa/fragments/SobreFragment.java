@@ -83,6 +83,7 @@ public class SobreFragment extends Fragment {
         ImageView imageView = (ImageView) view.findViewById(R.id.image_view_logo_sobre);
         Picasso.with(getContext()).load(R.drawable.moringa_sobre).into(imageView);
         ((MoringaActivity)getContext()).appBarLayout.setOnClickListener(null);
+        ((MoringaActivity)getContext()).appBarLayout.setExpanded(true);
         return view;
     }
 
