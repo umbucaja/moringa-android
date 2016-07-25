@@ -11,7 +11,8 @@
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:isScrollContainer="true">
+        android:isScrollContainer="true"
+        android:fillViewport="false">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,7 +49,8 @@
                     <ProgressBar
                         android:id="@+id/progress_bar_watersource"
                         style="@android:style/Widget.ProgressBar.Horizontal"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
+                        android:minWidth="150dp"
                         android:layout_height="match_parent"
                         android:max="100"
                         android:progress="1"
@@ -190,7 +192,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:weightSum="10"
             android:padding="0dp">
@@ -226,7 +228,7 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/tv_actual_volume_million_m3"
                         android:text="30,7"
                         android:textSize="25dp"
@@ -234,7 +236,7 @@
                         android:textColor="@color/red_percentage" />
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/tv_million_m3_1"
                         android:text=" milhões de m³"
                         android:textSize="10dp"
@@ -272,7 +274,7 @@
             >
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:weightSum="10"
                 android:padding="0dp">
@@ -284,7 +286,7 @@
                    >
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/tv_label_current_capacity"
                         android:textColor="@color/green_aux_text"
                         android:textSize="12dp"
@@ -305,7 +307,7 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/tv_current_capacity"
                         android:text="300,5"
                         android:textSize="25dp"
@@ -314,7 +316,7 @@
                         android:textColor="@color/blue_percentage" />
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/tv_million_m3_2"
                         android:text=" milhões de m³"
                         android:textSize="10dp"

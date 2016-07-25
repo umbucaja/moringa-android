@@ -1,8 +1,6 @@
 package umbucaja.moringa.fragments;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -144,9 +142,8 @@ public class WaterSourceFragment extends Fragment {
 
 
         final ImageView imageView = ((MoringaActivity) getActivity()).imageViewLogoTop;
-        Glide.with(this).load(R.drawable.logo_top).centerCrop().into(imageView);
-        Bitmap icon = BitmapFactory.decodeResource(this.getResources(),
-                R.drawable.logo_top);
+        Glide.with(this).load(R.drawable.menos_35).centerCrop().into(imageView);
+
 
 
         System.out.print("PERCENTAGE: " + percentage);
