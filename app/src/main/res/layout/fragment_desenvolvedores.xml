@@ -74,7 +74,8 @@
                     android:text="Andre Muniz"
                     android:id="@+id/textView1"
                     android:layout_below="@+id/view"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="center"/>
 
 
 
@@ -141,7 +142,8 @@
                     android:text="Jordão Serafim"
                     android:id="@+id/textView2"
                     android:layout_below="@+id/view2"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="center"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -207,7 +209,8 @@
                     android:text="Luiz Corrêa"
                     android:id="@+id/textView3"
                     android:layout_below="@+id/view3"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="center"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -287,7 +290,9 @@
                     android:text="Pedro Hyvo"
                     android:id="@+id/textView4"
                     android:layout_below="@+id/view4"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="center"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -347,7 +352,8 @@
                     android:text="Romeryto Lira"
                     android:id="@+id/textView5"
                     android:layout_below="@+id/view5"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="center"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -410,7 +416,9 @@
                     android:text="Thiago Medeiros"
                     android:id="@+id/textView6"
                     android:layout_below="@+id/view6"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="center" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
