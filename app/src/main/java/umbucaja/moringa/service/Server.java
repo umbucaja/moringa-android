@@ -42,6 +42,7 @@ import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
 import umbucaja.moringa.adapter.ChuvasMedicaoArrayAdapter;
 import umbucaja.moringa.adapter.ChuvasRecyclerAdapter;
+import umbucaja.moringa.adapter.DropDownNoAccentsArrayAdapter;
 import umbucaja.moringa.adapter.SearchViewAdapter;
 import umbucaja.moringa.adapter.WaterSourceRecyclerAdapter;
 import umbucaja.moringa.entity.City;
@@ -105,6 +106,7 @@ public class Server {
                             e.printStackTrace();
                         }
                     }
+                    GlobalData.setCitiesList(cities);
 
                     City[] arrayCities = new City[cities.size()];
                     for(int i = 0; i < cities.size(); i++){
@@ -115,12 +117,12 @@ public class Server {
                     if(waterSourcesRecyclerView != null)
                         GlobalData.getLocation(context, waterSourcesRecyclerView);
 
-                    ArrayAdapter<City> adapter = new ArrayAdapter<City>(context, R.layout.drop_down_search_item, arrayCities);
+                    DropDownNoAccentsArrayAdapter adapter = new DropDownNoAccentsArrayAdapter(context, R.layout.drop_down_search_item, cities);
                     searchView.setAdapter(adapter);
                 }
             }).execute(URL + "cities");
         else{
-            ArrayAdapter<City> adapter = new ArrayAdapter<City>(context, R.layout.drop_down_search_item, GlobalData.cities);
+            DropDownNoAccentsArrayAdapter adapter = new DropDownNoAccentsArrayAdapter(context, R.layout.drop_down_search_item, GlobalData.citiesList);
             searchView.setAdapter(adapter);
         }
     }

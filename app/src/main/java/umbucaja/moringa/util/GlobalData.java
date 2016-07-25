@@ -28,12 +28,17 @@ import umbucaja.moringa.service.Server;
  */
 public class GlobalData {
     public static City[] cities = null;
+    public static List<City> citiesList = null;
     public static City location = null;
     public static City currCity = null;
     public static City defaultCity = new City(13, "João Pessoa", "PB");
 
     public static void setCities(City[] cities) {
         GlobalData.cities = cities;
+    }
+
+    public static void setCitiesList(List<City> citiesList) {
+        GlobalData.citiesList = citiesList;
     }
 
     public static void setLocation(City location) {
