@@ -18,6 +18,8 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.entity.City;
@@ -68,6 +70,16 @@ public class GlobalData {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    public static City getCityByName(String cityName) {
+
+        for(City c : citiesList){
+            if(removeAcentos(c.getName()).equals(removeAcentos(cityName))){
+                return c;
+            }
+        }
+        return currCity != null ? currCity : defaultCity;
     }
 
     private static class Localizacao extends AsyncTask<String, Void, City> {
@@ -129,6 +141,32 @@ public class GlobalData {
         public interface Response{
             void handleResponse(City output);
         }
+    }
+
+    public static String[] REPLACES = { "a", "e", "i", "o", "u", "c" };
+    public static Pattern[] PATTERNS = null;
+
+    public static void compilePatterns() {
+        PATTERNS = new Pattern[REPLACES.length];
+        PATTERNS[0] = Pattern.compile("[âãáàä]", Pattern.CASE_INSENSITIVE);
+        PATTERNS[1] = Pattern.compile("[éèêë]", Pattern.CASE_INSENSITIVE);
+        PATTERNS[2] = Pattern.compile("[íìîï]", Pattern.CASE_INSENSITIVE);
+        PATTERNS[3] = Pattern.compile("[óòôõö]", Pattern.CASE_INSENSITIVE);
+        PATTERNS[4] = Pattern.compile("[úùûü]", Pattern.CASE_INSENSITIVE);
+        PATTERNS[5] = Pattern.compile("[ç]", Pattern.CASE_INSENSITIVE);
+    }
+
+    public static String removeAcentos(String text) {
+        if (PATTERNS == null) {
+            compilePatterns();
+        }
+
+        String result = text;
+        for (int i = 0; i < PATTERNS.length; i++) {
+            Matcher matcher = PATTERNS[i].matcher(result);
+            result = matcher.replaceAll(REPLACES[i]);
+        }
+        return result.toUpperCase();
     }
 
 }

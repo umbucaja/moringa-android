@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -130,7 +131,34 @@ public class ChuvasFragment extends Fragment {
             }
         });
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                City city = GlobalData.getCityByName(query);
+                searchView.setText(city.getName());
+                GlobalData.setCurrCity(city);
 
+                searchView.clearFocus();
+                searchView.setQuery("", false);
+                searchView.setIconified(true);
+                ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(city.getName());
+
+
+                recyclerView = (RecyclerView) rootView.findViewById(R.id.chuvas_recycler_view);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                Server.getInstance(getContext()).getMeasurementStationsFromCity(recyclerView, city.getId());
+                ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //does nothing
+                return false;
+            }
+        });
 
 
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

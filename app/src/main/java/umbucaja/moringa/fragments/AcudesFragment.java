@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -133,6 +134,33 @@ public class AcudesFragment extends Fragment {
 
 
         searchView.setQueryHint("Buscar Cidade...");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                City city = GlobalData.getCityByName(query);
+                //City city = (City) parent.getAdapter().getItem(position);
+                searchView.setText(city.getName());
+                GlobalData.setCurrCity(city);
+
+                searchView.clearFocus();
+                searchView.setQuery("", false);
+                searchView.setIconified(true);
+
+                waterSourcesRecyclerView = (RecyclerView) rootView.findViewById(R.id.water_source_recycler_view);
+                waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                Server.getInstance(getContext()).getWaterAllSourcesFromCity(getView(), waterSourcesRecyclerView, city);
+                ((MoringaActivity) getActivity()).appBarLayout.setExpanded(true);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //does nothing
+                return false;
+            }
+        });
 
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

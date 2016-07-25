@@ -7,10 +7,9 @@ import android.widget.Filterable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import umbucaja.moringa.entity.City;
+import umbucaja.moringa.util.GlobalData;
 
 /**
  * Created by jordaoesa on 7/24/16.
@@ -56,11 +55,11 @@ public class DropDownNoAccentsArrayAdapter extends ArrayAdapter<City> implements
             ArrayList<City> temp = new ArrayList<City>();
 
             if (constraint != null) {
-                String term = removeAcentos(constraint.toString().trim().toLowerCase());
+                String term = GlobalData.removeAcentos(constraint.toString().trim().toLowerCase());
 
                 String placeStr;
                 for (City c : cities) {
-                    placeStr = removeAcentos(c.getName().toLowerCase());
+                    placeStr = GlobalData.removeAcentos(c.getName().toLowerCase());
                     if (placeStr.indexOf(term) > -1){
                         temp.add(c);
                     }
@@ -78,30 +77,4 @@ public class DropDownNoAccentsArrayAdapter extends ArrayAdapter<City> implements
         }
     }
 
-    public static String[] REPLACES = { "a", "e", "i", "o", "u", "c" };
-
-    public static Pattern[] PATTERNS = null;
-
-    public static void compilePatterns() {
-        PATTERNS = new Pattern[REPLACES.length];
-        PATTERNS[0] = Pattern.compile("[âãáàä]", Pattern.CASE_INSENSITIVE);
-        PATTERNS[1] = Pattern.compile("[éèêë]", Pattern.CASE_INSENSITIVE);
-        PATTERNS[2] = Pattern.compile("[íìîï]", Pattern.CASE_INSENSITIVE);
-        PATTERNS[3] = Pattern.compile("[óòôõö]", Pattern.CASE_INSENSITIVE);
-        PATTERNS[4] = Pattern.compile("[úùûü]", Pattern.CASE_INSENSITIVE);
-        PATTERNS[5] = Pattern.compile("[ç]", Pattern.CASE_INSENSITIVE);
-    }
-
-    public static String removeAcentos(String text) {
-        if (PATTERNS == null) {
-            compilePatterns();
-        }
-
-        String result = text;
-        for (int i = 0; i < PATTERNS.length; i++) {
-            Matcher matcher = PATTERNS[i].matcher(result);
-            result = matcher.replaceAll(REPLACES[i]);
-        }
-        return result.toUpperCase();
-    }
 }
