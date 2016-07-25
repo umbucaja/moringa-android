@@ -134,22 +134,26 @@ public class ChuvasFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                City city = GlobalData.getCityByName(query);
-                searchView.setText(city.getName());
-                GlobalData.setCurrCity(city);
+                if (GlobalData.isConnected(getContext())) {
+                    City city = GlobalData.getCityByName(query);
+                    searchView.setText(city.getName());
+                    GlobalData.setCurrCity(city);
 
-                searchView.clearFocus();
-                searchView.setQuery("", false);
-                searchView.setIconified(true);
-                ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(city.getName());
+                    searchView.clearFocus();
+                    searchView.setQuery("", false);
+                    searchView.setIconified(true);
+                    ((MoringaActivity) getActivity()).collapsingToolbar.setTitle(city.getName());
 
 
-                recyclerView = (RecyclerView) rootView.findViewById(R.id.chuvas_recycler_view);
-                recyclerView.setHasFixedSize(true);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    recyclerView = (RecyclerView) rootView.findViewById(R.id.chuvas_recycler_view);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-                Server.getInstance(getContext()).getMeasurementStationsFromCity(recyclerView, city.getId());
-                ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
+                    Server.getInstance(getContext()).getMeasurementStationsFromCity(recyclerView, city.getId());
+                    ((MoringaActivity) getActivity()).appBarLayout.setExpanded(true);
+                } else {
+                    Snackbar.make(((MoringaActivity)getContext()).appBarLayout, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
+                }
                 return true;
             }
 

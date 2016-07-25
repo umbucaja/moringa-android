@@ -73,12 +73,12 @@ public class GlobalData {
     }
 
     public static City getCityByName(String cityName) {
-
-        for(City c : citiesList){
-            if(removeAcentos(c.getName()).equals(removeAcentos(cityName))){
-                return c;
+        if(citiesList != null)
+            for(City c : citiesList){
+                if(removeAcentos(c.getName()).equals(removeAcentos(cityName))){
+                    return c;
+                }
             }
-        }
         return currCity != null ? currCity : defaultCity;
     }
 
