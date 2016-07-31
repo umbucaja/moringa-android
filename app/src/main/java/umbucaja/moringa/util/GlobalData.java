@@ -122,6 +122,10 @@ public class GlobalData {
                     if (locations.size() > 0) {
                         String cityName = locations.get(0).getLocality();
                         city = Server.getInstance(context).getCityByName(cityName);
+                        if(city == null){
+                            Log.d(DEBUG_TAG + "-NULLPOINTER", cityName);
+                            city = GlobalData.defaultCity;
+                        }
                     }
                 }
             } catch (IOException e) {

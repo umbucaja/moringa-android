@@ -1,6 +1,8 @@
 package umbucaja.moringa.fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -16,6 +18,12 @@ import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
 import umbucaja.moringa.entity.MeasurementStation;
 import umbucaja.moringa.service.Server;
+
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -98,6 +106,20 @@ public class ChuvasEstacaoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().onBackPressed();
+            }
+        });
+
+        ((MoringaActivity)getContext()).fabFacebookShare.setVisibility(View.VISIBLE);
+        ((MoringaActivity)getContext()).fabFacebookShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MoringaActivity)getContext()).fabFacebookShare.setVisibility(View.GONE);
+                rootView.getRootView().setDrawingCacheEnabled(true);
+                Bitmap image = rootView.getRootView().getDrawingCache();
+                ((MoringaActivity)getContext()).fabFacebookShare.setVisibility(View.VISIBLE);
+                SharePhoto photo = new SharePhoto.Builder().setBitmap(image).build();
+                SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
+                ShareDialog.show(getActivity(), content);
             }
         });
 

@@ -1,6 +1,7 @@
 package umbucaja.moringa.fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -17,6 +18,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareDialog;
 import com.github.mikephil.charting.charts.LineChart;
 
 import java.text.DateFormat;
@@ -44,6 +48,8 @@ public class WaterSourceFragment extends Fragment {
     private static final String WATER_SOURCE_ID = "water_source_id";
     private static final String WATER_SOURCE_NAME = "water_source_name";
     private static final String ARG_PARAM2 = "param2";
+
+    private View rootView;
 
     // TODO: Rename and change types of parameters
     private long waterSourceId;
@@ -172,8 +178,8 @@ public class WaterSourceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_water_source, container, false);
-        this.setUp(view);
+        rootView = inflater.inflate(R.layout.fragment_water_source, container, false);
+        this.setUp(rootView);
         System.out.println("WSID: "+waterSourceId);
 
 
@@ -190,7 +196,21 @@ public class WaterSourceFragment extends Fragment {
             }
         });
 
-        return view;
+        ((MoringaActivity)getContext()).fabFacebookShare.setVisibility(View.VISIBLE);
+        ((MoringaActivity)getContext()).fabFacebookShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MoringaActivity)getContext()).fabFacebookShare.setVisibility(View.GONE);
+                rootView.getRootView().setDrawingCacheEnabled(true);
+                Bitmap image = rootView.getRootView().getDrawingCache();
+                ((MoringaActivity)getContext()).fabFacebookShare.setVisibility(View.VISIBLE);
+                SharePhoto photo = new SharePhoto.Builder().setBitmap(image).build();
+                SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
+                ShareDialog.show(getActivity(), content);
+            }
+        });
+
+        return rootView;
     }
     private ArrayList<String> getMonths() {
 

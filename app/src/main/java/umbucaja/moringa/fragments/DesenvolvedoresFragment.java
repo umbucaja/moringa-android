@@ -93,6 +93,7 @@ public class DesenvolvedoresFragment extends Fragment {
         Picasso.with(getContext()).load(R.drawable.thiago).into(ivThiago);
         ((MoringaActivity)getContext()).appBarLayout.setOnClickListener(null);
         ((MoringaActivity)getContext()).appBarLayout.setExpanded(true);
+        ((MoringaActivity)getContext()).fabFacebookShare.setVisibility(View.GONE);
         return view;
     }
 

@@ -84,6 +84,7 @@ public class SobreFragment extends Fragment {
         Picasso.with(getContext()).load(R.drawable.moringa_sobre).into(imageView);
         ((MoringaActivity)getContext()).appBarLayout.setOnClickListener(null);
         ((MoringaActivity)getContext()).appBarLayout.setExpanded(true);
+        ((MoringaActivity)getContext()).fabFacebookShare.setVisibility(View.GONE);
         return view;
     }
 
