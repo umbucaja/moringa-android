@@ -247,6 +247,7 @@ public class AcudesFragment extends Fragment {
             }
         });
         ((MoringaActivity)getContext()).actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+        ((MoringaActivity)getContext()).fabFacebookShare.setVisibility(View.GONE);
         return rootView;
     }
 

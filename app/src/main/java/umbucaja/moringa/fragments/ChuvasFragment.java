@@ -250,6 +250,7 @@ public class ChuvasFragment extends Fragment {
             }
         });
         ((MoringaActivity)getContext()).actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+        ((MoringaActivity)getContext()).fabFacebookShare.setVisibility(View.GONE);
         return rootView;
     }
 

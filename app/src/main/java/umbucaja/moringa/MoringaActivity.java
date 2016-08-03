@@ -6,8 +6,10 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -24,9 +26,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.rollbar.android.Rollbar;
 
 import java.text.SimpleDateFormat;
@@ -49,6 +54,7 @@ public class MoringaActivity extends AppCompatActivity
     public ImageView imageViewLogoTop;
     public Toolbar toolbar;
     public ActionBarDrawerToggle actionBarDrawerToggle;
+    public FloatingActionButton fabFacebookShare;
     private Tracker mTracker;
 
     @Override
@@ -58,6 +64,10 @@ public class MoringaActivity extends AppCompatActivity
 
         //ROLLBAR CATCHING EXCEPTIONS
         Rollbar.init(this, "4b8bed86dc44451c8572ad5d719f2b75", "production");
+
+        // Initialize the SDK before executing any other operations,
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -76,6 +86,7 @@ public class MoringaActivity extends AppCompatActivity
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
+        fabFacebookShare = (FloatingActionButton) findViewById(R.id.fab_fb_share);
 
         imageViewLogoTop = (ImageView) findViewById(R.id.backdrop);
 
