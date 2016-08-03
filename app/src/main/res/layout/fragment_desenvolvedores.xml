@@ -59,8 +59,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:src="@drawable/andre"
                     app:civ_border_color="#FFFFFF"
                     app:civ_border_width="1dp"
@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Andre Muniz"
-                    android:id="@+id/textView1"
+                    android:textSize="12sp"
                     android:layout_below="@+id/view"
                     android:layout_centerHorizontal="true"
                     android:textAlignment="center"/>
@@ -127,8 +127,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:src="@drawable/jordao"
                     app:civ_border_color="#FFFFFF"
                     app:civ_border_width="1dp"
@@ -141,6 +141,7 @@
                     android:layout_height="wrap_content"
                     android:text="Jordão Serafim"
                     android:id="@+id/textView2"
+                    android:textSize="12sp"
                     android:layout_below="@+id/view2"
                     android:layout_centerHorizontal="true"
                     android:textAlignment="center"/>
@@ -194,8 +195,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:src="@drawable/luiz"
                     app:civ_border_color="#FFFFFF"
                     app:civ_border_width="1dp"
@@ -209,6 +210,7 @@
                     android:text="Luiz Corrêa"
                     android:id="@+id/textView3"
                     android:layout_below="@+id/view3"
+                    android:textSize="12sp"
                     android:layout_centerHorizontal="true"
                     android:textAlignment="center"/>
 
@@ -275,8 +277,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:src="@drawable/pedro"
                     app:civ_border_color="#FFFFFF"
                     app:civ_border_width="1dp"
@@ -289,6 +291,7 @@
                     android:layout_height="wrap_content"
                     android:text="Pedro Hyvo"
                     android:id="@+id/textView4"
+                    android:textSize="12sp"
                     android:layout_below="@+id/view4"
                     android:layout_centerHorizontal="true"
                     android:textAlignment="center"/>
@@ -337,8 +340,8 @@
                 android:layout_weight="3">
                 <de.hdodenhof.circleimageview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:src="@drawable/romeryto"
                     app:civ_border_color="#FFFFFF"
                     app:civ_border_width="1dp"
@@ -351,6 +354,7 @@
                     android:layout_height="wrap_content"
                     android:text="Romeryto Lira"
                     android:id="@+id/textView5"
+                    android:textSize="12sp"
                     android:layout_below="@+id/view5"
                     android:layout_centerHorizontal="true"
                     android:textAlignment="center"/>
@@ -401,8 +405,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:src="@drawable/thiago"
                     app:civ_border_color="#FFFFFF"
                     app:civ_border_width="1dp"
@@ -415,6 +419,7 @@
                     android:layout_height="wrap_content"
                     android:text="Thiago Medeiros"
                     android:id="@+id/textView6"
+                    android:textSize="12sp"
                     android:layout_below="@+id/view6"
                     android:layout_centerHorizontal="true"
                     android:textAlignment="center" />

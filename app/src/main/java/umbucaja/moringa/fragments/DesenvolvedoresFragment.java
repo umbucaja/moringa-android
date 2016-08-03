@@ -10,11 +10,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
+import umbucaja.moringa.analytics.MoringaApplication;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +32,7 @@ public class DesenvolvedoresFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private Tracker mTracker;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -65,6 +69,8 @@ public class DesenvolvedoresFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        MoringaApplication application = (MoringaApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
         setHasOptionsMenu(true);
     }
 
@@ -101,6 +107,13 @@ public class DesenvolvedoresFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mTracker.setScreenName("DesenvolvedoresFragment");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

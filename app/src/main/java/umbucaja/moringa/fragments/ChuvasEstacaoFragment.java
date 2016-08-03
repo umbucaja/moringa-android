@@ -3,7 +3,6 @@ package umbucaja.moringa.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,8 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
+import umbucaja.moringa.analytics.MoringaApplication;
 import umbucaja.moringa.entity.MeasurementStation;
 import umbucaja.moringa.service.Server;
 
@@ -35,6 +38,7 @@ public class ChuvasEstacaoFragment extends Fragment {
     private Long stationId;
     private View rootView;
     private GridView gridView;
+    private Tracker mTracker;
 
     private OnFragmentInteractionListener mListener;
 
@@ -72,6 +76,8 @@ public class ChuvasEstacaoFragment extends Fragment {
         if (getArguments() != null) {
             stationId = getArguments().getLong(ARG_PARAM);
         }
+        MoringaApplication application = (MoringaApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
         setHasOptionsMenu(true);
     }
 
@@ -87,6 +93,12 @@ public class ChuvasEstacaoFragment extends Fragment {
         //TODO: criar metodo em Server para requisitar os dados de uma dada estacao por ID
         if(station != null) {
             Server.getInstance(getContext()).getMeasurementsFromStation(rootView, gridView, station);
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("Chuvas-Estacao")
+                    .setAction("Visualizar")
+                    .setLabel(station.getName())
+                    .setValue(1)
+                    .build());
         }
 
         if(station != null)
@@ -109,6 +121,13 @@ public class ChuvasEstacaoFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mTracker.setScreenName("ChuvasEstacaoFragment");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

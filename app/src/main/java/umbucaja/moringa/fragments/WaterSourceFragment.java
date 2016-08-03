@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.mikephil.charting.charts.LineChart;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,6 +28,7 @@ import java.util.List;
 
 import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
+import umbucaja.moringa.analytics.MoringaApplication;
 import umbucaja.moringa.entity.WaterSource;
 import umbucaja.moringa.entity.WaterSourceMeasurement;
 import umbucaja.moringa.service.Server;
@@ -59,6 +62,7 @@ public class WaterSourceFragment extends Fragment {
     private LineChart chartWaterSource;
     private View mainView;
     private static WaterSource waterSource;
+    private Tracker mTracker;
 
 
     private OnFragmentInteractionListener mListener;
@@ -92,6 +96,8 @@ public class WaterSourceFragment extends Fragment {
             waterSourceId = getArguments().getLong(WATER_SOURCE_ID);
             waterSourceName =  getArguments().getString(WATER_SOURCE_NAME);
         }
+        MoringaApplication application = (MoringaApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
         setHasOptionsMenu(true);
     }
 
@@ -122,8 +128,15 @@ public class WaterSourceFragment extends Fragment {
             }
         }
 
-        if (waterSource != null)
+        if (waterSource != null) {
             Server.getInstance(getContext()).getMeasurementsFromWaterSource(view, waterSource);
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("Acude")
+                    .setAction("Visualizar")
+                    .setLabel(waterSource.getName())
+                    .setValue(1)
+                    .build());
+        }
 
         LineChart chartWaterSource = (LineChart) view.findViewById(R.id.chartWaterSource);
         chartWaterSource.setNoDataText("Não há registros!");
@@ -216,6 +229,14 @@ public class WaterSourceFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mTracker.setScreenName("WaterSourceFragment");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
 
     @Override
     public void onAttach(Context context) {

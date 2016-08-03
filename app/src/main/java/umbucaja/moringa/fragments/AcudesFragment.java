@@ -20,9 +20,13 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
 import umbucaja.moringa.adapter.SearchViewAdapter;
+import umbucaja.moringa.analytics.MoringaApplication;
 import umbucaja.moringa.entity.City;
 import umbucaja.moringa.service.Server;
 import umbucaja.moringa.util.GlobalData;
@@ -46,6 +50,7 @@ public class AcudesFragment extends Fragment {
     private View rootView;
     private SearchViewAdapter searchView;
     private ImageView imageViewSearch;
+    private Tracker mTracker;
 
 
     // TODO: Rename and change types of parameters
@@ -88,6 +93,8 @@ public class AcudesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        MoringaApplication application = (MoringaApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
         setHasOptionsMenu(true);
     }
 
@@ -152,7 +159,14 @@ public class AcudesFragment extends Fragment {
                     waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
                     Server.getInstance(getContext()).getWaterAllSourcesFromCity(getView(), waterSourcesRecyclerView, city);
+
                     ((MoringaActivity) getActivity()).appBarLayout.setExpanded(true);
+                    mTracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("Acudes")
+                            .setAction("Busca")
+                            .setLabel(city.getName())
+                            .setValue(1)
+                            .build());
                 } else {
                     Snackbar.make(((MoringaActivity)getContext()).appBarLayout, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
                 }
@@ -181,7 +195,14 @@ public class AcudesFragment extends Fragment {
                 waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
                 Server.getInstance(getContext()).getWaterAllSourcesFromCity(getView(), waterSourcesRecyclerView, city);
+
                 ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Acudes")
+                        .setAction("Busca")
+                        .setLabel(city.getName())
+                        .setValue(1)
+                        .build());
             }
         });
 
@@ -205,7 +226,14 @@ public class AcudesFragment extends Fragment {
         waterSourcesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if(GlobalData.currCity != null){
             ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(GlobalData.currCity.getName());
+
             Server.getInstance(getContext()).getWaterAllSourcesFromCity(getView(),waterSourcesRecyclerView, GlobalData.currCity);
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("Acudes")
+                    .setAction("BuscaGPS")
+                    .setLabel(GlobalData.currCity.getName())
+                    .setValue(1)
+                    .build());
         }
         ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
         ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
@@ -228,6 +256,13 @@ public class AcudesFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mTracker.setScreenName("AcudesFragment");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

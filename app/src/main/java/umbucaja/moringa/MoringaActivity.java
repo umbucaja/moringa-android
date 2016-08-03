@@ -24,13 +24,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.rollbar.android.Rollbar;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import umbucaja.moringa.analytics.MoringaApplication;
 import umbucaja.moringa.fragments.AcudesFragment;
 import umbucaja.moringa.fragments.ChuvasEstacaoFragment;
 import umbucaja.moringa.fragments.ChuvasFragment;
@@ -47,6 +49,7 @@ public class MoringaActivity extends AppCompatActivity
     public ImageView imageViewLogoTop;
     public Toolbar toolbar;
     public ActionBarDrawerToggle actionBarDrawerToggle;
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +93,18 @@ public class MoringaActivity extends AppCompatActivity
 
         Fragment fragment = AcudesFragment.newInstance("","");
         setTitle("Cidades");
+        MoringaApplication application = (MoringaApplication) getApplication();
+        mTracker = application.getDefaultTracker();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragmentView, fragment).commit();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        //Log.i(TAG, "Setting screen name: " + name);
+        mTracker.setScreenName("MoringaActivity");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
 

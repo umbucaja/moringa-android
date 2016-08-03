@@ -20,10 +20,14 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import umbucaja.moringa.MoringaActivity;
 import umbucaja.moringa.R;
 import umbucaja.moringa.adapter.ChuvasRecyclerAdapter;
 import umbucaja.moringa.adapter.SearchViewAdapter;
+import umbucaja.moringa.analytics.MoringaApplication;
 import umbucaja.moringa.entity.City;
 import umbucaja.moringa.service.Server;
 import umbucaja.moringa.util.GlobalData;
@@ -47,6 +51,7 @@ public class ChuvasFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private ImageView imageViewSearch;
+    private Tracker mTracker;
 
     public ChuvasFragment() {
         // Required empty public constructor
@@ -96,7 +101,8 @@ public class ChuvasFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        MoringaApplication application = (MoringaApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
         setHasOptionsMenu(true);
     }
 
@@ -151,6 +157,12 @@ public class ChuvasFragment extends Fragment {
 
                     Server.getInstance(getContext()).getMeasurementStationsFromCity(recyclerView, city.getId());
                     ((MoringaActivity) getActivity()).appBarLayout.setExpanded(true);
+                    mTracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("Chuvas")
+                            .setAction("Busca")
+                            .setLabel(city.getName())
+                            .setValue(1)
+                            .build());
                 } else {
                     Snackbar.make(((MoringaActivity)getContext()).appBarLayout, "Verifique sua conexão com a internet!", Snackbar.LENGTH_LONG).show();
                 }
@@ -184,6 +196,13 @@ public class ChuvasFragment extends Fragment {
 
                 Server.getInstance(getContext()).getMeasurementStationsFromCity(recyclerView, city.getId());
                 ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
+                System.out.print("Vai buscar chuva"+city.getName());
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Chuvas")
+                        .setAction("Busca")
+                        .setLabel(city.getName())
+                        .setValue(1)
+                        .build());
 
             }
         });
@@ -214,6 +233,12 @@ public class ChuvasFragment extends Fragment {
             ((MoringaActivity)getActivity()).collapsingToolbar.setTitle(GlobalData.currCity.getName());
             Server.getInstance(getContext()).getMeasurementStationsFromCity(recyclerView, GlobalData.currCity.getId());
             ((MoringaActivity)getActivity()).appBarLayout.setExpanded(true);
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("Chuvas")
+                    .setAction("Busca")
+                    .setLabel(GlobalData.currCity.getName())
+                    .setValue(1)
+                    .build());
         }
         ((MoringaActivity)getActivity()).collapsingToolbar.setStatusBarScrimColor(Color.parseColor("#00000000"));
         ((MoringaActivity)getActivity()).collapsingToolbar.setContentScrimColor(Color.parseColor("#66000000"));
@@ -226,6 +251,13 @@ public class ChuvasFragment extends Fragment {
         });
         ((MoringaActivity)getContext()).actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         return rootView;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mTracker.setScreenName("ChuvasFragment");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

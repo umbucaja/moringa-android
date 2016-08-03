@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Moringa App v1.0"
+                android:text="Moringa App v1.2"
                 android:textColor="@color/green_aux_text"
                 android:layout_gravity="center"
                 android:textSize="17dp"
